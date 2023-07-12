@@ -1,7 +1,6 @@
 /*
- root color랑 font는 그냥 임시로 넣어놨어요!!
- 이 파일은 절대 혼자 수정하지 말기~!~!
- 무조건 회의나 공지 후 수정하기로 해요!
+ root color랑 font size는 아직 확정은 아니지만 그냥 임시로 넣어놨어요!!
+ 이 파일은 수정 전/후에 꼭 함께 의논하기~!~!
  */
 
 import { createGlobalStyle } from "styled-components";
@@ -10,14 +9,23 @@ const GlobalStyle = createGlobalStyle`
 :root{ /*임시로 넣어둠*/
     --primary-color: #4277ff;  /*계속 주문하기 버튼 색*/
     --cold-color: #d3e5ff;  /*차갑게 버튼 색*/
-    --hot-color: #ffd3d3    /*뜨겁게 버튼 색*/
+    --hot-color: #ffd3d3    /* background-color: var(--hot-color); 이런식으로 사용*/
 
     --font-regular: 1rem;
     --font-big: 1.3rem;
     --font-small: 0.8rem;
 }
-/* 이 밑은 CSS reset 관련 코드 */
-html, body, div, span, applet, object, iframe,
+html {
+  background-color: darkgreen;
+  @media (orientation: landscape) {
+    margin: 0 20vw;
+  }
+  @media (orientation: portrait) {
+    margin: 1px;
+  }
+}
+/* 이 밑은 CSS reset 관련 코드 */ 
+body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -48,6 +56,7 @@ footer, header, hgroup, main, menu, nav, section {
 }
 body {
   line-height: 1;
+  background-color: white;
 }
 menu, ol, ul {
   list-style: none;
