@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
-import Price from "./cart-items/Price";
-import PayButton from "./cart-items/PayButton";
+import Price from "./footerItems/Price";
+import PayButton from "./footerItems/PayButton";
 
 const FooterBox = styled.div`
   display: flex;

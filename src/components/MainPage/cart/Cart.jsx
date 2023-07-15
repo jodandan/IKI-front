@@ -1,14 +1,7 @@
-import { useState } from "react";
-import CartIndex from "./cart-items/CartIndex";
-import CartDetail from "./cart-items/CartDetail";
+import CartIndex from "./cartItems/CartIndex";
+import CartDetail from "./cartItems/CartDetail";
 
-export default function Cart() {
-  const [toggle, setToggle] = useState(false);
-
-  const handleClick = () => {
-    setToggle(!toggle);
-  };
-
+export default function Cart({ toggle, handleClick }) {
   return (
     <>
       <CartIndex toggle={toggle} handleClick={handleClick} />

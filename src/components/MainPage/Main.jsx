@@ -15,8 +15,9 @@ export default function Main() {
       <MainBox>
         <Header title="주문하기" subtitle="메뉴를 눌러주세요." />
         <MasonryMenuContainer />
+        <FooterCart /*MainBox 패딩 수정 필요. overflow-y도 MasonryMenuContainer 안에 들어가는게 어떨까 싶어요..!*/
+        />
       </MainBox>
-      <FooterCart /*MainBox 패딩때문에 빼둠*/ />
     </>
   );
 }
