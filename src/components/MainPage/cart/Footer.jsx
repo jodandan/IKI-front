@@ -3,8 +3,6 @@ import Price from "./cart-items/Price";
 import PayButton from "./cart-items/PayButton";
 
 const FooterBox = styled.div`
-  position: sticky;
-  bottom: 0;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -17,6 +15,7 @@ const FooterBox = styled.div`
 
 export default function Footer() {
   var price = 8000;
+
   return (
     <FooterBox>
       <Price price={price} />

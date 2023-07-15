@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import Header from "../header/Header";
 import { MasonryMenuContainer } from "./MasonryMenuContainer";
-import Footer from "./cart/Footer";
+import FooterCart from "./cart/FooterCart";
 
 const MainBox = styled.div`
   padding: 0 1.2vw; /* 위아래 패딩 0으로 수정 */
@@ -16,7 +16,7 @@ export default function Main() {
         <Header title="주문하기" subtitle="메뉴를 눌러주세요." />
         <MasonryMenuContainer />
       </MainBox>
-      <Footer /*MainBox 패딩때문에 빼둠*/ />
+      <FooterCart /*MainBox 패딩때문에 빼둠*/ />
     </>
   );
 }
