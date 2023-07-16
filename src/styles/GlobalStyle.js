@@ -21,7 +21,7 @@ html {
     margin: 0 20vw;
   }
   @media (orientation: portrait) {
-    margin: 1px;
+    margin: 0 1px;
   }
 }
 /* 이 밑은 CSS reset 관련 코드 */ 

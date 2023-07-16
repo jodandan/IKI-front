@@ -18,31 +18,38 @@ import { styled } from "styled-components";
 //     margin-bottom: 10px;
 // `
 
+const ListBox = styled.div`
+  padding: 0 1.2vw; /* 위아래 패딩 0으로 수정 */
+  overflow-y: scroll; /* 마지막에 스크롤 없애기 */
+`;
+
 //column을 이용한 구현
-const List=styled.div `
-    column-count: 2;
-    column-gap: 10px;
-`
+const List = styled.div`
+  column-count: 2;
+  column-gap: 10px;
+`;
 
-const Item= styled.div`
-    width: 100%;
-    height: ${(props )=> props.height || '100px'};
-    background-color: lightgray;
-    display: inline-block;
-    break-inside: avoid;
-    margin-bottom: 10px;
-`
+const Item = styled.div`
+  width: 100%;
+  height: ${(props) => props.height || "100px"};
+  background-color: lightgray;
+  display: inline-block;
+  break-inside: avoid;
+  margin-bottom: 10px;
+`;
 
-export function MasonryMenuContainer(){
-    return(
-        <List>
-            <Item height="200px"/>
-            <Item height="130px"/>
-            <Item height="150px"/>
-            <Item height="200px"/>
-            <Item height="150px"/>
-            <Item height="150px"/>
-            <Item height="180px"/>
-        </List>
-    );
+export function MasonryMenuContainer() {
+  return (
+    <ListBox>
+      <List>
+        <Item height="200px" />
+        <Item height="130px" />
+        <Item height="150px" />
+        <Item height="200px" />
+        <Item height="150px" />
+        <Item height="150px" />
+        <Item height="180px" />
+      </List>
+    </ListBox>
+  );
 }
