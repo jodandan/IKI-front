@@ -9,10 +9,8 @@ const CartDetailBox = styled.div`
 export default function CartDetail() {
   return (
     <CartDetailBox>
-      (부드럽게 올라/내려오도록 할 예정)
-      <div style={{ marginBottom: "30px" }}>
-        sticky 속성 때문에 부모 컴포넌트 하단에 필요없는 공간 생기는 문제 있음 -
-        추후 수정
+      <div style={{ paddingBottom: "20px" }}>
+        부드럽게 올라/내려오도록 할 예정
       </div>
       <EachItem />
     </CartDetailBox>
