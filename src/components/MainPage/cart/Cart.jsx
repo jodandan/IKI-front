@@ -11,7 +11,8 @@ export default function Cart({ toggle, handleClick }) {
         handleClick={handleClick}
         height={cart_detail_height}
       />
-      {toggle && <CartDetail height={cart_detail_height} />}
+      {/* {toggle && <CartDetail height={cart_detail_height} />} */}
+      <CartDetail toggle={toggle} height={cart_detail_height} />
     </>
   );
 }

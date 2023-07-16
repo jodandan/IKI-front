@@ -1,16 +1,56 @@
-import { styled } from "styled-components";
+import { styled, keyframes } from "styled-components";
 import EachItem from "./EachItem";
 
-const CartDetailBox = styled.div`
-  background-color: #9a9a9a;
-  height: ${(props) => props.height}vh;
+const goUp = (height) => keyframes`
+  0% {
+    height: 0;
+    //transform: scaleY(0);
+  }
+  100% {
+    height: ${height}vh;
+    //transform: scaleY(1);
+  }
 `;
 
-export default function CartDetail({ height }) {
+const goDown = (height) => keyframes`
+  0% {
+    height: ${height}vh;
+    //transform: scaleY(1);
+  }
+  100% {
+    height: 0;
+    //transform: scaleY(0);
+  }
+`;
+
+const CartDetailBox = styled.div`
+  position: absolute;
+  bottom: 88px; // 88px은 footer 고려한 값
+  right: 0;
+  width: 100%;
+
+  background-color: #9a9a9a;
+  background-color: pink;
+
+  height: ${(props) => (props.toggle === "true" ? `${props.height}vh` : "0")};
+  transform: scaleY(${(props) => (props.toggle === "true" ? 1 : 0)});
+  transform-origin: ${(props) => (props.toggle === "true" ? "bottom" : "none")};
+  transition: transform 0.5s ease-in-out;
+
+  /* animation: ${(props) =>
+    props.toggle === "true" ? goUp(props.height) : goDown(props.height)}
+    0.5s ease-in-out; */
+`;
+
+export default function CartDetail({ toggle, height }) {
   return (
-    <CartDetailBox height={height}>
-      <div style={{ padding: "20px" }}>부드럽게 올라/내려오도록 할 예정</div>
-      <EachItem />
+    <CartDetailBox toggle={toggle.toString()} height={height}>
+      {toggle && (
+        <>
+          <div style={{ padding: "20px" }}>부드럽게 내려가도록 할 예정</div>
+          <EachItem />
+        </>
+      )}
     </CartDetailBox>
   );
 }

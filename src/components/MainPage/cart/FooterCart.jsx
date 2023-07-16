@@ -18,7 +18,7 @@ export default function FooterCart() {
 
   return (
     <>
-      {/* <CartBackground toggle={toggle} handleClick={handleClick} /> */}
+      <CartBackground toggle={toggle} handleClick={handleClick} />
       <FooterCartBox>
         <Cart toggle={toggle} handleClick={handleClick} />
         <Footer />
