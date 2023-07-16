@@ -20,7 +20,6 @@ import { styled } from "styled-components";
 
 const ListBox = styled.div`
   padding: 0 1.2vw; /* 위아래 패딩 0으로 수정 */
-  height: 100vh; /* 추후 메뉴판 길이에 맞게 수정 */
   overflow-y: scroll; /* 마지막에 스크롤 없애기 */
 `;
 
