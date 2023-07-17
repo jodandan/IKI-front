@@ -44,10 +44,10 @@ export default function Crediting() {
 
   return (
     <MainBox>
-      <div>
+      {/* <div>
       <PopUpButton onClick={openPopUp}>결제중 팝업 열기</PopUpButton>
       <Completed/>
-      </div>  
+      </div>   */}
       {showPopUp && (
         <div
           style={{
@@ -63,7 +63,7 @@ export default function Crediting() {
         >
            <PopUpContent>
             <span>결제중</span>
-            <PopUpButton onClick={closePopUp}>결제 중 팝업 닫기</PopUpButton>
+            {/* <PopUpButton onClick={closePopUp}>결제 중 팝업 닫기</PopUpButton> */}
           </PopUpContent>
           
         </div>

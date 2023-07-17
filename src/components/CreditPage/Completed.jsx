@@ -103,8 +103,9 @@ export default function Completed() {
 
   const openReceiptPopup = () => {
     setShowReceiptPopup(true);
-    setShowSmallPopUp(false); // Hide the small popup when receipt popup is opened
+    setShowPopUp(false); // 영수증 팝업을 열면 결제 완료 팝업을 닫습니다.
   };
+  
 
   const closeReceiptPopup = () => {
     setShowReceiptPopup(false);
@@ -124,6 +125,7 @@ export default function Completed() {
 
   const closeSmallPopUp = () => {
     setShowSmallPopUp(false);
+    setShowPopUp(false); // 영수증 팝업을 열면 결제 완료 팝업을 닫습니다.
   };
 
   const handleNumericKeyClick = (number) => {
@@ -155,7 +157,7 @@ export default function Completed() {
             width: "100%",
             height: "100%",
             backgroundColor: "rgba(0, 82, 212, 0.70)",
-            zIndex: 9999,
+            zIndex: 9000,
             color: "white",
           }}
         >

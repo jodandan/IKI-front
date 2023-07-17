@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
+import { useEffect } from "react";
 
 const SmallPopUpContent = styled.div`
   display: flex;
@@ -67,34 +68,45 @@ const NumericKey = styled.button`
   font-size: 20px;
 `;
 
+const PopUpContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  font-size: 30px;
+`;
+
 export default function Pointpopup({ onClose, onRegister }) {
   const [enteredNumber, setEnteredNumber] = useState("");
-  const [showSmallPopUp, setShowSmallPopUp] = useState(false);
+  const [completedPoint, setcompletedPoint] = useState(false);
 
   const handleNumericKeyClick = (number) => {
     setEnteredNumber((prevNumber) => prevNumber + number);
   };
 
-  const handleClearButtonClick = () => {
-    setEnteredNumber("");
-  };
 
   const handleOneStepClearButtonClick = () => {
     setEnteredNumber((prevNumber) => prevNumber.slice(0, -1));
   };
 
   const handleRegisterButtonClick = () => {
-    onRegister(enteredNumber);
+    setcompletedPoint(true);
+    
   };
 
-  const openSmallPopUp = () => {
-    setShowSmallPopUp(true);
-  };
+  useEffect(() => {
+    if (completedPoint) {
+      const timeout = setTimeout(() => {
+        setcompletedPoint(false);
+        // 페이지 이동
+        window.location.href = "http://localhost:3000/main"; // 메인 페이지의 URL로 변경해야 합니다.
+      }, 3000);
 
-  const closeSmallPopUp = () => {
-    setShowSmallPopUp(false);
-    onClose();
-  };
+      return () => clearTimeout(timeout);
+    }
+  }, [completedPoint]);
 
   return (
     <SmallPopUpContent>
@@ -105,8 +117,6 @@ export default function Pointpopup({ onClose, onRegister }) {
           등록
         </RegisterButton>
       </InputContainer>
-
-
           <NumericKeypad>
             <NumericKey onClick={() => handleNumericKeyClick("1")}>1</NumericKey>
             <NumericKey onClick={() => handleNumericKeyClick("2")}>2</NumericKey>
@@ -117,14 +127,28 @@ export default function Pointpopup({ onClose, onRegister }) {
             <NumericKey onClick={() => handleNumericKeyClick("7")}>7</NumericKey>
             <NumericKey onClick={() => handleNumericKeyClick("8")}>8</NumericKey>
             <NumericKey onClick={() => handleNumericKeyClick("9")}>9</NumericKey>
-            <NumericKey onClick={handleClearButtonClick}>모두 지움</NumericKey>
+            <NumericKey onClick={() => handleNumericKeyClick("010")}>010</NumericKey>
             <NumericKey onClick={() => handleNumericKeyClick("0")}>0</NumericKey>
             <NumericKey onClick={handleOneStepClearButtonClick}> 지우기</NumericKey>
           </NumericKeypad>
-
-      <RegisterButton onClick={closeSmallPopUp}>
-              뒤로 가기
-      </RegisterButton>
+          {completedPoint && (
+            <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              backgroundColor: "rgba(0, 82, 212, 0.70)",
+              zIndex: 9999,
+              color: "white",
+            }}
+          >
+              <PopUpContent>
+                <span>포인트 적립 완료</span>
+              </PopUpContent>
+            </div>
+          )}
     </SmallPopUpContent>
   );
 }
