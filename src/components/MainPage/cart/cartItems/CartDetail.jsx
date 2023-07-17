@@ -1,56 +1,59 @@
-import { styled, keyframes } from "styled-components";
+import { styled } from "styled-components";
 import EachItem from "./EachItem";
+import { DUMMY_DATA } from "./EachItem";
 
-const goUp = (height) => keyframes`
-  0% {
-    height: 0;
-    //transform: scaleY(0);
-  }
-  100% {
-    height: ${height}vh;
-    //transform: scaleY(1);
-  }
-`;
+// 추후 grid로 수정할수도...
 
-const goDown = (height) => keyframes`
-  0% {
-    height: ${height}vh;
-    //transform: scaleY(1);
-  }
-  100% {
-    height: 0;
-    //transform: scaleY(0);
-  }
+const Temp = styled.div`
+  display: flex;
+  justify-content: center;
+  overflow-y: auto;
+  width: 100%;
 `;
 
 const CartDetailBox = styled.div`
-  position: absolute;
-  bottom: 88px; // 88px은 footer 고려한 값
-  right: 0;
-  width: 100%;
-
   background-color: #9a9a9a;
-  background-color: pink;
+  padding: 20px 10px;
+  display: table;
+  width: 90%;
+  height: fit-content;
 
-  height: ${(props) => (props.toggle === "true" ? `${props.height}vh` : "0")};
-  transform: scaleY(${(props) => (props.toggle === "true" ? 1 : 0)});
-  transform-origin: ${(props) => (props.toggle === "true" ? "bottom" : "none")};
-  transition: transform 0.5s ease-in-out;
+  .row {
+    display: table-row;
+    width: 100%;
+    table-layout: fixed;
+    text-align: center;
+  }
 
-  /* animation: ${(props) =>
-    props.toggle === "true" ? goUp(props.height) : goDown(props.height)}
-    0.5s ease-in-out; */
+  .item {
+    width: 20%;
+    display: table-cell;
+    padding: 10px 0;
+  }
 `;
 
-export default function CartDetail({ toggle, height }) {
+export default function CartDetail() {
   return (
-    <CartDetailBox toggle={toggle.toString()} height={height}>
-      {toggle && (
-        <>
-          <div style={{ padding: "20px" }}>부드럽게 내려가도록 할 예정</div>
-          <EachItem />
-        </>
-      )}
-    </CartDetailBox>
+    <Temp>
+      <CartDetailBox>
+        <EachItem />
+        <div className="row">
+          <div className="item">삭제</div>
+          <div className="item">이름</div>
+          <div className="item">옵션</div>
+          <div className="item">수량</div>
+          <div className="item">가격</div>
+        </div>
+        {DUMMY_DATA.orders.map((order) => (
+          <div className="row" key={order.id}>
+            <div className="item">X</div>
+            <div className="item">{order.name}</div>
+            <div className="item">{order.option}</div>
+            <div className="item">{order.amount}</div>
+            <div className="item">{order.price}</div>
+          </div>
+        ))}
+      </CartDetailBox>
+    </Temp>
   );
 }
