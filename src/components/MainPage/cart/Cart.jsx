@@ -1,5 +1,5 @@
 import CartIndex from "./cartItems/CartIndex";
-import CartDetail from "./cartItems/CartDetail";
+import CartToggle from "./cartItems/CartToggle";
 
 export default function Cart({ toggle, handleClick }) {
   const cart_detail_height = 40; //vh
@@ -11,7 +11,8 @@ export default function Cart({ toggle, handleClick }) {
         handleClick={handleClick}
         height={cart_detail_height}
       />
-      {toggle && <CartDetail height={cart_detail_height} />}
+      {/* {toggle && <CartToggle height={cart_detail_height} />} */}
+      <CartToggle toggle={toggle} height={cart_detail_height} />
     </>
   );
 }
