@@ -1,32 +1,22 @@
 import { styled } from "styled-components";
-import EachItem from "./EachItem";
 import { DUMMY_DATA } from "./EachItem";
-
-// 추후 grid로 수정할수도...
+import { VscChromeClose } from "react-icons/vsc";
 
 const Temp = styled.div`
   display: flex;
-  // justify-content: center;
+  flex-direction: column;
   overflow-y: auto;
   width: 100%;
-  padding: 10px;
+  padding: 20px;
 `;
 
-const CartDetailBox = styled.div`
-  padding: 20px 10px;
-  display: table;
-  width: 100%;
+const CartItem = styled.div`
+  display: grid;
+  grid-template-columns: 1.5fr 4fr 3fr 2fr 2fr;
+  text-align: center;
 
-  .row {
-    display: table-row;
-    width: 100%;
-    table-layout: fixed;
-    text-align: center;
-  }
-
-  .item {
-    width: 20%;
-    display: table-cell;
+  div {
+    // border: solid 1px red;
     padding: 10px 0;
   }
 `;
@@ -34,25 +24,24 @@ const CartDetailBox = styled.div`
 export default function CartDetail({ height }) {
   return (
     <Temp height={height}>
-      <CartDetailBox>
-        <EachItem />
-        <div className="row">
-          <div className="item">삭제</div>
-          <div className="item">이름</div>
-          <div className="item">옵션</div>
-          <div className="item">수량</div>
-          <div className="item">가격</div>
-        </div>
-        {DUMMY_DATA.orders.map((order) => (
-          <div className="row" key={order.id}>
-            <div className="item">X</div>
-            <div className="item">{order.name}</div>
-            <div className="item">{order.option}</div>
-            <div className="item">{order.amount}</div>
-            <div className="item">{order.price}</div>
+      <CartItem>
+        <div>삭제</div>
+        <div>이름</div>
+        <div>옵션</div>
+        <div>수량</div>
+        <div>가격</div>
+      </CartItem>
+      {DUMMY_DATA.orders.map((order) => (
+        <CartItem key={order.id}>
+          <div>
+            <VscChromeClose />
           </div>
-        ))}
-      </CartDetailBox>
+          <div>{order.name}</div>
+          <div>{order.option}</div>
+          <div>{order.amount}</div>
+          <div>{order.price}</div>
+        </CartItem>
+      ))}
     </Temp>
   );
 }
