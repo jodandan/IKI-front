@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { styled } from "styled-components";
-// import CartBackground from "./cartItems/CartBackground";
+import CartBackground from "./cartItems/CartBackground";
 import Cart from "./Cart";
 import Footer from "./Footer";
 

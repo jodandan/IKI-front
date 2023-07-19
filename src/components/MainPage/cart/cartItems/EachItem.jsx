@@ -1,5 +1,3 @@
-import { styled } from "styled-components";
-
 export const DUMMY_DATA = {
   data: "장바구니 더미데이터",
   orders: [
@@ -27,7 +25,7 @@ export const DUMMY_DATA = {
       amount: 3,
       price: 9600,
     },
-    /*{
+    {
       id: 3,
       delete: false,
       name: "플레인스콘",
@@ -35,7 +33,7 @@ export const DUMMY_DATA = {
       amount: 3,
       price: 9600,
     },
-     {
+    {
       id: 4,
       delete: false,
       name: "플레인스콘",
@@ -83,7 +81,6 @@ export const DUMMY_DATA = {
       amount: 1,
       price: 7000,
     },
-    */
   ],
 };
 

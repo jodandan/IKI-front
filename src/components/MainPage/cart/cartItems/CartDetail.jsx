@@ -6,17 +6,16 @@ import { DUMMY_DATA } from "./EachItem";
 
 const Temp = styled.div`
   display: flex;
-  justify-content: center;
+  // justify-content: center;
   overflow-y: auto;
   width: 100%;
+  padding: 10px;
 `;
 
 const CartDetailBox = styled.div`
-  background-color: #9a9a9a;
   padding: 20px 10px;
   display: table;
-  width: 90%;
-  height: fit-content;
+  width: 100%;
 
   .row {
     display: table-row;
@@ -32,9 +31,9 @@ const CartDetailBox = styled.div`
   }
 `;
 
-export default function CartDetail() {
+export default function CartDetail({ height }) {
   return (
-    <Temp>
+    <Temp height={height}>
       <CartDetailBox>
         <EachItem />
         <div className="row">
