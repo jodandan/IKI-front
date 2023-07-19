@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import convertPrice from "../../../../utils/convertPrice";
-import { VscChromeClose } from "react-icons/vsc";
-import { FaMinus, FaPlus, FaXmark } from "react-icons/fa6";
+import { FaXmark } from "react-icons/fa6";
+import ItemAmount from "./ItemAmount";
 import { DUMMY_DATA } from "./EachItem";
 
 const Temp = styled.div`
@@ -19,11 +19,7 @@ const CartItem = styled.div`
 
   div {
     // border: solid 1px red;
-    padding: 10px 0;
-  }
-
-  .amount {
-    padding: 5px;
+    padding: 12px 0;
   }
 `;
 
@@ -44,15 +40,7 @@ export default function CartDetail({ height }) {
           </div>
           <div>{order.name}</div>
           <div>{order.option}</div>
-          <div>
-            <span>
-              <FaMinus style={{ cursor: "pointer" }} />
-            </span>
-            <span className="amount">{order.amount}</span>
-            <span>
-              <FaPlus style={{ cursor: "pointer" }} />
-            </span>
-          </div>
+          <ItemAmount amount={order.amount} />
           <div>{convertPrice(order.price)}</div>
         </CartItem>
       ))}
