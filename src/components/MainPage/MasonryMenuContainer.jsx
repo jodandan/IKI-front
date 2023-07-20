@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
+import { DUMMY_DATA } from "./MenuItemData";
 
-// flex를 이용한 구현
+// flex를 이용한 구현 (나중에 라이브러리 필요할 수도 있어요.)
 // const List=styled.div `
 //     display: flex; // 1
 //     flex-direction: column; // 2
