@@ -52,10 +52,13 @@ const Upper = styled.div`
 
 const IndentedContainer = styled.div`
   margin-top: 2rem;
+  white-space: pre-wrap;
 `;
 
 export default function PayButton() {
   const [isPaymentComplete, setPaymentComplete] = useState(false);
+  const [showTakeoutPopUp, setShowTakeoutPopUp] = useState(false);
+  const [showFirstPopUp, setFirstShowPopUp] = useState(false);
   const [showPopUp, setShowPopUp] = useState(false);
   const [showNextPopUp, setShowNextPopUp] = useState(false);
   const [showSmallPopUp, setShowSmallPopUp] = useState(false);
@@ -63,6 +66,7 @@ export default function PayButton() {
 
   const handlePayButtonClick = () => {
     setPaymentComplete(true);
+    setShowTakeoutPopUp(true);
   };
   
   const openReceiptPopup = () => {
@@ -70,7 +74,10 @@ export default function PayButton() {
     setShowNextPopUp(false); // 영수증 팝업을 열면 결제 완료 팝업을 닫습니다.
   };
   
-
+  const openShowFirstPopUp = () => { 
+    setFirstShowPopUp(true);
+    setShowTakeoutPopUp(false);
+  };
 
   const openSmallPopUp = () => {
     setShowSmallPopUp(true);
@@ -84,12 +91,20 @@ export default function PayButton() {
   setShowReceiptPopup(false);
 };
 
+  useEffect(() => {
+    if (showFirstPopUp) {
+      const timeout = setTimeout(() => {
+        setFirstShowPopUp(false);
+        setShowPopUp(true);
+      }, 3000);
+
+      // Clean up the timeout on component unmount or if payment status changes
+      return () => clearTimeout(timeout);
+    }
+  }, [showFirstPopUp]);
 
   useEffect(() => {
-    if (isPaymentComplete) {
-      setShowPopUp(true);
-
-      // Close the current popup after 3 seconds and show the next popup
+    if (showPopUp) {
       const timeout = setTimeout(() => {
         setShowPopUp(false);
         setShowNextPopUp(true);
@@ -98,7 +113,7 @@ export default function PayButton() {
       // Clean up the timeout on component unmount or if payment status changes
       return () => clearTimeout(timeout);
     }
-  }, [isPaymentComplete]);
+  }, [showPopUp]);
 
   useEffect(() => {
     if (showReceiptPopup) {
@@ -118,6 +133,51 @@ export default function PayButton() {
         <PayButtonBox onClick={handlePayButtonClick}>결제하기</PayButtonBox>
       ) : (
         <MainBox>
+          {showTakeoutPopUp && ( //결제완료 팝업
+              <div
+                style={{
+                  position: "fixed",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: "rgba(0, 82, 212, 0.70)",
+                  zIndex: 9999,
+                  color: "white",
+                }}
+              >
+                <PopUpContent>
+                  <IndentedContainer>
+                    <span>
+                      포장여부를 선택하면
+                      <br/>
+                      <br/>
+                      결제가 진행됩니다.
+                    </span>
+                  </IndentedContainer>
+                  <PopUpButton onClick={openShowFirstPopUp}>포장하기</PopUpButton>
+                  <PopUpButton onClick={openShowFirstPopUp}>먹고가기</PopUpButton>
+                </PopUpContent>
+              </div>
+          )}
+          {showFirstPopUp && ( //카드를 넣어주세요 팝업
+            <div
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                backgroundColor: "rgba(0, 82, 212, 0.70)",
+                zIndex: 9999,
+                color: "white",
+              }}
+            >
+              <PopUpContent>
+                <span>카드를 넣어주세요</span>
+              </PopUpContent>
+            </div>
+          )}
           {showPopUp && ( //결제중 팝업
             <div
               style={{
