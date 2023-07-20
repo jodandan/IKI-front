@@ -1,8 +1,14 @@
 import { styled } from "styled-components";
 import { useState } from "react";
 import { useEffect } from "react";
-import Receiptoutput from './../../../CreditPage/Receiptoutput';
+
 import Pointpopup from './../../../CreditPage/Pointpopup';
+import ShowTakeoutPopUp from "../../../CreditPage/ShowTakeoutPopUp";
+import ShowFirstPopUp from "../../../CreditPage/ShowFirstPopUp";
+import ShowPopUp from "../../../CreditPage/ShowPopUp";
+import ShowNextPopUp from "../../../CreditPage/ShowNextPopUp";
+import ShowReceiptPopup from "../../../CreditPage/ShowReceiptPopup";
+
 
 const MainBox = styled.div`
   padding: 1vw 1.2vw;
@@ -46,14 +52,6 @@ const PayButtonBox = styled.button`
   }
 `;
 
-const Upper = styled.div`
- margin-bottom: 5rem;
-`;
-
-const IndentedContainer = styled.div`
-  margin-top: 2rem;
-  white-space: pre-wrap;
-`;
 
 export default function PayButton() {
   const [isPaymentComplete, setPaymentComplete] = useState(false);
@@ -74,9 +72,12 @@ export default function PayButton() {
     setShowNextPopUp(false); // 영수증 팝업을 열면 결제 완료 팝업을 닫습니다.
   };
   
-  const openShowFirstPopUp = () => { 
-    setFirstShowPopUp(true);
+  const openShowFirstPopUp = (shouldTakeout) => { 
     setShowTakeoutPopUp(false);
+    // 필요한 경우 "shouldTakeout" 변수를 기반으로 다른 작업을 수행할 수 있습니다.
+    // 예를 들어 사용자의 선택에 따라 다른 상태 변수를 업데이트하거나 다른 작업을 수행할 수 있습니다.
+    // 이 예시에서는 항상 ShowTakeoutPopUp 이후에 다음 팝업을 표시합니다.
+    setFirstShowPopUp(shouldTakeout);
   };
 
   const openSmallPopUp = () => {
@@ -133,114 +134,27 @@ export default function PayButton() {
         <PayButtonBox onClick={handlePayButtonClick}>결제하기</PayButtonBox>
       ) : (
         <MainBox>
-          {showTakeoutPopUp && ( //결제완료 팝업
-              <div
-                style={{
-                  position: "fixed",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: "rgba(0, 82, 212, 0.70)",
-                  zIndex: 9999,
-                  color: "white",
-                }}
-              >
-                <PopUpContent>
-                  <IndentedContainer>
-                    <span>
-                      포장여부를 선택하면
-                      <br/>
-                      <br/>
-                      결제가 진행됩니다.
-                    </span>
-                  </IndentedContainer>
-                  <PopUpButton onClick={openShowFirstPopUp}>포장하기</PopUpButton>
-                  <PopUpButton onClick={openShowFirstPopUp}>먹고가기</PopUpButton>
-                </PopUpContent>
-              </div>
+          {showTakeoutPopUp && ( //포장/매장 여부 선택 팝업
+            <ShowTakeoutPopUp onShowFirstPopUp={openShowFirstPopUp} />
           )}
-          {showFirstPopUp && ( //카드를 넣어주세요 팝업
-            <div
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                backgroundColor: "rgba(0, 82, 212, 0.70)",
-                zIndex: 9999,
-                color: "white",
-              }}
-            >
-              <PopUpContent>
-                <span>카드를 넣어주세요</span>
-              </PopUpContent>
-            </div>
+
+          {showFirstPopUp && ( // 카드를 넣어주세요 선택 팝업
+            <ShowFirstPopUp onClose={() => setFirstShowPopUp(false)} />
           )}
-          {showPopUp && ( //결제중 팝업
-            <div
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                backgroundColor: "rgba(0, 82, 212, 0.70)",
-                zIndex: 9999,
-                color: "white",
-              }}
-            >
-              <PopUpContent>
-                <span>결제중</span>
-              </PopUpContent>
-            </div>
-          )}
+
+          {showPopUp && //결제중 팝업창
+            <ShowPopUp onClose={() => setShowNextPopUp(true)} 
+          />}
+
           {showNextPopUp && ( //결제완료 팝업
-              <div
-                style={{
-                  position: "fixed",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: "rgba(0, 82, 212, 0.70)",
-                  zIndex: 9999,
-                  color: "white",
-                }}
-              >
-                <PopUpContent>
-                  <Upper>
-                    <IndentedContainer>
-                      <span>00000원</span>
-                    </IndentedContainer>
-                    <IndentedContainer>
-                      <span>결제 완료</span>
-                    </IndentedContainer>
-                  </Upper>
-                  <IndentedContainer>
-                    <span>주문 번호: 00번</span>
-                  </IndentedContainer>
-                  <PopUpButton onClick={openReceiptPopup}>영수증 받기</PopUpButton>
-                  <PopUpButton onClick={openSmallPopUp}>포인트 적립하기</PopUpButton>
-                </PopUpContent>
-              </div>
+            <ShowNextPopUp
+              onReceiptButtonClick={openReceiptPopup}
+              onPointButtonClick={openSmallPopUp}
+            />
           )}
-          {showReceiptPopup && ( //영수증 발급 완료 팝업
-            <div
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              backgroundColor: "rgba(0, 82, 212, 0.70)",
-              zIndex: 9999,
-              color: "white",
-            }}
-          >
-                <Receiptoutput onClose={closeReceiptPopup} />
-              </div>
+
+          {showReceiptPopup && ( // 영수증 발급 완료 팝업
+            <ShowReceiptPopup onClose={closeReceiptPopup} />
           )}    
 
           {showSmallPopUp && ( //포인트적립 팝업
