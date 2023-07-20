@@ -1,10 +1,8 @@
 import { styled } from "styled-components";
 
 const CartIndexBox = styled.span`
-  position: fixed;
-  bottom: ${(props) =>
-    // 88px은 Footer 고려한 값
-    props.toggle === "true" ? `calc(88px + ${props.height}vh)` : "88px"};
+  position: absolute;
+  bottom: ${(props) => (props.toggle === "true" ? `${props.height}vh` : 0)};
 
   display: inline-block;
   transition: bottom 0.5s ease-in-out;

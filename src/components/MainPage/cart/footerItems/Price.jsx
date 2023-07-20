@@ -1,14 +1,11 @@
 import { styled } from "styled-components";
+import convertPrice from "../../../../utils/convertPrice";
 
 const PriceBox = styled.div`
   display: flex;
   align-items: center;
   padding: 2px;
 `;
-
-const convertPrice = (price) => {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-};
 
 export default function Price({ price }) {
   return (

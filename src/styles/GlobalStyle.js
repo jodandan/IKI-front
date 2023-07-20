@@ -23,7 +23,11 @@ html {
   @media (orientation: portrait) {
     margin: 0 1px;
   }
+  overflow: hidden;
 }
+
+
+
 /* 이 밑은 CSS reset 관련 코드 */ 
 body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
