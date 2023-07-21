@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { DUMMY_DATA } from "./MenuItemData";
-
+import { useState } from "react";
 // flex를 이용한 구현 (나중에 라이브러리 필요할 수도 있어요.)
 // const List=styled.div `
 //     display: flex; // 1
@@ -38,6 +38,7 @@ const Item = styled.div`
   display: inline-block;
   break-inside: avoid;
   margin-bottom: 10px;
+  border-radius: 10px;
 `;
 
 const CategoryTltleStyle=styled.h2`
@@ -49,10 +50,29 @@ const CategoryTltleStyle=styled.h2`
 const MenuStyle=styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 5px;
+  padding: 4px;
+  margin:2px;
+  border-radius: 10px;
+  /* 선택된 메뉴 블록의 스타일 */
+  ${({ selected }) =>
+    selected &&
+    `
+    background-color: #b2b2b2;
+  `}
 `
 
 export function MasonryMenuContainer() {
+  const [selected, setSelected] = useState([]);
+
+  const handleMenuItemClick = (category, itemName) => {
+    const selectedMenu = `${category}-${itemName}`;
+    setSelected((prevSelected) =>
+      prevSelected.includes(selectedMenu)
+        ? prevSelected.filter((item) => item !== selectedMenu)
+        : [...prevSelected, selectedMenu]
+    );
+  console.log(selected);
+  }
   return (
     <ListBox id="listBox">
       <List id="list">
@@ -63,7 +83,9 @@ export function MasonryMenuContainer() {
             <ul>
               {items.map((item, index) => (
                 <li key={index}>
-                  <MenuStyle id="menuStyle"><div>{item.name}</div><div>{item.price}원</div></MenuStyle>
+                  <MenuStyle id="menuStyle" selected={selected.includes(`${category}-${item.name}`)} onClick={() => handleMenuItemClick(category, item.name)}>
+                    <div>{item.name}</div><div>{item.price}원</div>
+                  </MenuStyle>
                 </li>
               ))}
             </ul>
@@ -74,19 +96,3 @@ export function MasonryMenuContainer() {
     </ListBox>
   );
 }
-
-// export function MasonryMenuContainer() {
-//   return (
-//     <ListBox>
-//       <List>
-//         <Item height="200px" />
-//         <Item height="130px" />
-//         <Item height="150px" />
-//         <Item height="200px" />
-//         <Item height="150px" />
-//         <Item height="150px" />
-//         <Item height="180px" />
-//       </List>
-//     </ListBox>
-//   );
-// }
