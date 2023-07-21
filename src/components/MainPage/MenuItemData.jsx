@@ -1,80 +1,49 @@
 export const DUMMY_DATA = {
-    data: "메뉴 더미데이터",
-    menu:{
-        "카테고리1":[
-            {
-                name: "메뉴이름1",
-                price: "가격1",
-            },{
-                name: "메뉴이름2",
-                price: "가격2",
-            },{
-                name: "메뉴이름1",
-                price: "가격1",
-            },{
-                name: "메뉴이름2",
-                price: "가격2",
-                soldOut: true
-            },
-        ],
-        "카테고리2":[
-            {
-                name: "메뉴이름A",
-                price: "가격A"
-            },{
-                name: "메뉴이름B",
-                price: "가격B"
-            },{
-                name: "메뉴이름A",
-                price: "가격A"
-            },{
-                name: "메뉴이름B",
-                price: "가격B"
-            },{
-                name: "메뉴이름A",
-                price: "가격A"
-            },{
-                name: "메뉴이름B",
-                price: "가격B"
-            },
-        ],
-        "카테고리3":[
-            {
-                name: "메뉴이름A",
-                price: "가격A"
-            },{
-                name: "메뉴이름B",
-                price: "가격B"
-            },{
-                name: "메뉴이름A",
-                price: "가격A"
-            },{
-                name: "메뉴이름B",
-                price: "가격B",
-                soldOut: true
-            },{
-                name: "메뉴이름A",
-                price: "가격A"
-            },{
-                name: "메뉴이름B",
-                price: "가격B"
-            },
-        ],
-        "카테고리4":[
-            {
-                name: "메뉴이름A",
-                price: "가격A"
-            },{
-                name: "메뉴이름B",
-                price: "가격B"
-            },{
-                name: "메뉴이름A",
-                price: "가격A"
-            },{
-                name: "메뉴이름B",
-                price: "가격B"
-            },
-        ]
-    
-    } 
+    커피: [
+        { name: '아메리카노', price: 4000 },
+        { name: '카페라떼', price: 4500 },
+        { name: '아메리카노', price: 4000 },
+        { name: '카페라떼', price: 4500 },
+        { name: '아메리카노', price: 4000 },
+        { name: '카페라떼', price: 4500 },
+        { name: '아메리카노', price: 4000 },
+        { name: '카페라떼', price: 4500 },
+    ],
+    스무디: [
+        { name: '딸기 스무디', price: 5000 },
+        { name: '포도 스무디', price: 5500 },
+        { name: '딸기 스무디', price: 5000 },
+        { name: '포도 스무디', price: 5500 },
+        { name: '딸기 스무디', price: 5000 },
+        { name: '포도 스무디', price: 5500 },
+        { name: '딸기 스무디', price: 5000 },
+        { name: '포도 스무디', price: 5500 },
+        { name: '딸기 스무디', price: 5000 },
+        { name: '포도 스무디', price: 5500 },
+    ],
+    커피2: [
+        { name: '아메리카노', price: 4000 },
+        { name: '카페라떼', price: 4500 },
+        { name: '아메리카노', price: 4000 },
+        { name: '카페라떼', price: 4500 },
+        { name: '아메리카노', price: 4000 },
+    ],
+    스무디2: [
+        { name: '딸기 스무디', price: 5000 },
+        { name: '포도 스무디', price: 5500 },
+        { name: '딸기 스무디', price: 5000 },
+        { name: '포도 스무디', price: 5500 },
+        { name: '딸기 스무디', price: 5000 },
+        { name: '포도 스무디', price: 5500 },
+        { name: '딸기 스무디', price: 5000 },
+        { name: '포도 스무디', price: 5500 },
+        { name: '딸기 스무디', price: 5000 },
+        { name: '포도 스무디', price: 5500 },
+    ],
+    에이드: [
+        { name: '에이드1', price: 5000 },
+        { name: '에이드2', price: 5500 },
+        { name: '에이드1', price: 5000 },
+        { name: '에이드2', price: 5500 },
+    ],
 }
