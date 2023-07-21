@@ -53,12 +53,12 @@ const MenuStyle=styled.div`
   padding: 4px;
   margin:2px;
   border-radius: 10px;
-  /* 선택된 메뉴 블록의 스타일 */
+  /* 선택된 메뉴 블록의 스타일*/
   ${({ selected }) =>
     selected &&
     `
-    background-color: #b2b2b2;
-  `}
+    background-color: #8bacff;
+  `}  
 `
 
 export function MasonryMenuContainer() {
