@@ -58,8 +58,33 @@ const MenuStyle=styled.div`
     selected &&
     `
     background-color: #8bacff;
-  `}  
+  `}
 `
+const SoldOutStyle=styled.div`
+  display: flex; 
+  position: relative;
+  justify-content: space-between;
+  width: 100%;
+  color: gray;
+`;
+const SoldOutLine = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background-color: black;
+`;
+const SoldOutText=styled.div`
+  position: absolute;
+  padding: 8px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  color: black;
+  background-color: lightgray;
+`;
 
 export function MasonryMenuContainer() {
   const [selected, setSelected] = useState([]);
@@ -73,6 +98,9 @@ export function MasonryMenuContainer() {
     );
   console.log(selected);
   }
+
+
+
   return (
     <ListBox id="listBox">
       <List id="list">
@@ -83,8 +111,19 @@ export function MasonryMenuContainer() {
             <ul>
               {items.map((item, index) => (
                 <li key={index}>
-                  <MenuStyle id="menuStyle" selected={selected.includes(`${category}-${item.name}`)} onClick={() => handleMenuItemClick(category, item.name)}>
-                    <div>{item.name}</div><div>{item.price}원</div>
+                  <MenuStyle id="menuStyle" 
+                    selected={selected.includes(`${category}-${item.name}`)} 
+                    onClick={() => handleMenuItemClick(category, item.name)}
+                    soldOut={item.soldOut}>
+                      {item.soldOut?
+                        <SoldOutStyle>
+                          <SoldOutLine/>
+                          <SoldOutText>품절</SoldOutText>
+                          <div>{item.name}</div><div>{item.price}원</div>
+                        </SoldOutStyle>:
+                        <><div>{item.name}</div><div>{item.price}원</div></>
+                      }
+                    {/* <div>{item.name}</div><div>{item.price}원</div> */}
                   </MenuStyle>
                 </li>
               ))}
