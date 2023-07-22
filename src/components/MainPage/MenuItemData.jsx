@@ -1,7 +1,7 @@
 export const DUMMY_DATA = {
     커피: [
         { name: '아메리카노', price: 4000 },
-        { name: '카페라떼', price: 4500, soldOut: true },
+        { name: '카페라떼', price: 4500, soldout: true },
         { name: '아메리카노2', price: 4000 },
         { name: '카페라떼2', price: 4500 },
         { name: '아메리카노3', price: 4000 },
@@ -11,7 +11,7 @@ export const DUMMY_DATA = {
     ],
     스무디: [
         { name: '딸기 스무디1', price: 5000 },
-        { name: '포도 스무디1', price: 5500, soldOut: true  },
+        { name: '포도 스무디1', price: 5500, soldout: true  },
         { name: '딸기 스무디2', price: 5000 },
         { name: '포도 스무디2', price: 5500 },
         { name: '딸기 스무디3', price: 5000 },
@@ -19,7 +19,7 @@ export const DUMMY_DATA = {
         { name: '딸기 스무디4', price: 5000 },
         { name: '포도 스무디4', price: 5500 },
         { name: '딸기 스무디5', price: 5000 },
-        { name: '포도 스무디5', price: 5500, soldOut: true  },
+        { name: '포도 스무디5', price: 5500, soldout: true  },
     ],
     커피2: [
         { name: '아메리카노', price: 4000 },

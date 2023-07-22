@@ -54,9 +54,8 @@ const MenuStyle=styled.div`
   margin:2px;
   border-radius: 10px;
   /* 선택된 메뉴 블록의 스타일*/
-  ${({ selected }) =>
-    selected &&
-    `
+  ${({ selected}) =>
+    selected && `
     background-color: #8bacff;
   `}
 `
@@ -77,7 +76,7 @@ const SoldOutLine = styled.div`
 `;
 const SoldOutText=styled.div`
   position: absolute;
-  padding: 8px;
+  padding: 2px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -96,10 +95,8 @@ export function MasonryMenuContainer() {
         ? prevSelected.filter((item) => item !== selectedMenu)
         : [...prevSelected, selectedMenu]
     );
-  console.log(selected);
+    console.log(selected);
   }
-
-
 
   return (
     <ListBox id="listBox">
@@ -111,11 +108,12 @@ export function MasonryMenuContainer() {
             <ul>
               {items.map((item, index) => (
                 <li key={index}>
-                  <MenuStyle id="menuStyle" 
+                  <MenuStyle 
+                    id="menuStyle" 
                     selected={selected.includes(`${category}-${item.name}`)} 
-                    onClick={() => handleMenuItemClick(category, item.name)}
-                    soldOut={item.soldOut}>
-                      {item.soldOut?
+                    onClick={() => {if(!item.soldout) {handleMenuItemClick(category, item.name);}}}
+                    >
+                      {item.soldout?
                         <SoldOutStyle>
                           <SoldOutLine/>
                           <SoldOutText>품절</SoldOutText>
