@@ -39,9 +39,9 @@ export default function CartDetail({ height }) {
             <FaXmark style={{ cursor: "pointer" }} />
           </div>
           <div>{order.name}</div>
-          <div>{order.option}</div>
+          {order.option ? <div>{order.option}</div> : <div>-</div>}
           <ItemAmount amount={order.amount} />
-          <div>{convertPrice(order.price)}</div>
+          <div>{convertPrice(order.amount * order.price)}</div>
         </CartItem>
       ))}
     </Temp>
