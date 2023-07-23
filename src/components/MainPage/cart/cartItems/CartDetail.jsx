@@ -28,13 +28,19 @@ export default function CartDetail({ height }) {
   const [cartItems, setCartItems] = useState(DUMMY_DATA.orders);
 
   const handleRemove = (itemId) => {
-    console.log("전: ", cartItems);
     setCartItems((prevCartItems) =>
       prevCartItems.map((item) =>
         item.id === itemId ? { ...item, delete: true } : item
       )
     );
-    console.log("후: ", cartItems);
+  };
+
+  const handleAmountChange = (itemId, newAmount) => {
+    setCartItems((prevCartItems) =>
+      prevCartItems.map((item) =>
+        item.id === itemId ? { ...item, amount: newAmount } : item
+      )
+    );
   };
 
   return (
@@ -58,7 +64,12 @@ export default function CartDetail({ height }) {
               </div>
               <div>{order.name}</div>
               {order.option ? <div>{order.option}</div> : <div>-</div>}
-              <ItemAmount amount={order.amount} />
+              <ItemAmount
+                amount={order.amount}
+                onChange={(newAmount) =>
+                  handleAmountChange(order.id, newAmount)
+                }
+              />
               <div>{convertPrice(order.amount * order.price)}</div>
             </CartItem>
           )

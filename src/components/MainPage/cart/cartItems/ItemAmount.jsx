@@ -13,18 +13,20 @@ const ItemAmountBox = styled.div`
   }
 `;
 
-export default function ItemAmount({ amount }) {
+export default function ItemAmount({ amount, onChange }) {
   const [count, setCount] = useState(amount);
 
   const plus = () => {
-    if (count < 50) {
+    if (count < 11) {
       setCount(count + 1);
+      onChange(count + 1);
     }
   };
 
   const minus = () => {
     if (count > 1) {
       setCount(count - 1);
+      onChange(count - 1);
     }
   };
 
