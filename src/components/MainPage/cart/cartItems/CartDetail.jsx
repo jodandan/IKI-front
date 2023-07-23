@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import convertPrice from "../../../../utils/convertPrice";
 import ItemAmount from "./ItemAmount";
 import { styled } from "styled-components";
@@ -24,8 +24,9 @@ const CartItem = styled.div`
   }
 `;
 
-export default function CartDetail({ height }) {
+export default function CartDetail({ height, onUpdatePrice }) {
   const [cartItems, setCartItems] = useState(DUMMY_DATA.orders);
+  // const [totalPrice, setTotalPrice] = useState(0);
 
   const handleRemove = (itemId) => {
     setCartItems((prevCartItems) =>
@@ -42,6 +43,23 @@ export default function CartDetail({ height }) {
       )
     );
   };
+
+  // useEffect(() => {
+  //   const sum = cartItems.reduce(
+  //     (total, item) => total + item.amount * item.price,
+  //     0
+  //   );
+  //   setTotalPrice(sum);
+  // }, [cartItems, onUpdatePrice]);
+
+  const totalPrice = cartItems.reduce(
+    (total, order) => total + order.amount * order.price,
+    0
+  );
+
+  useEffect(() => {
+    onUpdatePrice(totalPrice);
+  }, [totalPrice, onUpdatePrice]);
 
   return (
     <Temp height={height}>

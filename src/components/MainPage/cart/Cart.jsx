@@ -7,8 +7,17 @@ const CartBox = styled.div`
   position: relative;
 `;
 
-export default function Cart({ toggle, handleClick }) {
+export default function Cart({
+  toggle,
+  handleClick,
+  onUpdatePrice,
+  totalPrice,
+}) {
   const cart_detail_height = 40; //vh
+
+  const handleUpdatePrice = (price) => {
+    onUpdatePrice(price);
+  };
 
   return (
     <CartBox>
@@ -17,7 +26,12 @@ export default function Cart({ toggle, handleClick }) {
         handleClick={handleClick}
         height={cart_detail_height}
       />
-      <CartToggle toggle={toggle} height={cart_detail_height} />
+      <CartToggle
+        toggle={toggle}
+        height={cart_detail_height}
+        onUpdatePrice={handleUpdatePrice}
+        totalPrice={totalPrice}
+      />
     </CartBox>
   );
 }

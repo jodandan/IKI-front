@@ -15,7 +15,7 @@ export const DUMMY_DATA = {
       name: "카페라떼",
       option: "뜨겁게",
       amount: 1,
-      price: 3200,
+      price: 3100,
     },
     {
       id: 2,
