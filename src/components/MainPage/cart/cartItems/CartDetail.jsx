@@ -1,7 +1,8 @@
-import { styled } from "styled-components";
+import { useState } from "react";
 import convertPrice from "../../../../utils/convertPrice";
-import { FaXmark } from "react-icons/fa6";
 import ItemAmount from "./ItemAmount";
+import { styled } from "styled-components";
+import { FaXmark } from "react-icons/fa6";
 import { DUMMY_DATA } from "./EachItem";
 
 const Temp = styled.div`
@@ -24,6 +25,18 @@ const CartItem = styled.div`
 `;
 
 export default function CartDetail({ height }) {
+  const [cartItems, setCartItems] = useState(DUMMY_DATA.orders);
+
+  const handleRemove = (itemId) => {
+    console.log("전: ", cartItems);
+    setCartItems((prevCartItems) =>
+      prevCartItems.map((item) =>
+        item.id === itemId ? { ...item, delete: true } : item
+      )
+    );
+    console.log("후: ", cartItems);
+  };
+
   return (
     <Temp height={height}>
       <CartItem>
@@ -33,17 +46,23 @@ export default function CartDetail({ height }) {
         <div>수량</div>
         <div>가격</div>
       </CartItem>
-      {DUMMY_DATA.orders.map((order) => (
-        <CartItem key={order.id}>
-          <div>
-            <FaXmark style={{ cursor: "pointer" }} />
-          </div>
-          <div>{order.name}</div>
-          {order.option ? <div>{order.option}</div> : <div>-</div>}
-          <ItemAmount amount={order.amount} />
-          <div>{convertPrice(order.amount * order.price)}</div>
-        </CartItem>
-      ))}
+      {cartItems.map(
+        (order) =>
+          !order.delete && (
+            <CartItem key={order.id}>
+              <div>
+                <FaXmark
+                  onClick={() => handleRemove(order.id)}
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+              <div>{order.name}</div>
+              {order.option ? <div>{order.option}</div> : <div>-</div>}
+              <ItemAmount amount={order.amount} />
+              <div>{convertPrice(order.amount * order.price)}</div>
+            </CartItem>
+          )
+      )}
     </Temp>
   );
 }
