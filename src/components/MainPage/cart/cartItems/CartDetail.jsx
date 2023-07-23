@@ -31,7 +31,7 @@ export default function CartDetail({ height, onUpdatePrice }) {
   const handleRemove = (itemId) => {
     setCartItems((prevCartItems) =>
       prevCartItems.map((item) =>
-        item.id === itemId ? { ...item, delete: true } : item
+        item.id === itemId ? { ...item, delete: true, amount: 0 } : item
       )
     );
   };
