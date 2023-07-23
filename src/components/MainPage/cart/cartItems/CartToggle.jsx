@@ -17,7 +17,12 @@ const CartToggleBox = styled.div`
     props.toggle === "true" ? `${props.height}vh` : "none"}; */
 `;
 
-export default function CartToggle({ toggle, height }) {
+export default function CartToggle({
+  toggle,
+  height,
+  onUpdatePrice,
+  totalPrice,
+}) {
   const [showCartDetail, setShowCartDetail] = useState(false);
 
   useEffect(() => {
@@ -33,13 +38,23 @@ export default function CartToggle({ toggle, height }) {
     };
   }, [toggle]);
 
+  // const handleUpdatePrice = (price) => {
+  //   onUpdatePrice(price);
+  // };
+
   return (
     <CartToggleBox
       toggle={toggle.toString()}
       height={height}
       id="cartToggleBox"
     >
-      {showCartDetail && toggle && <CartDetail height={height} />}
+      {showCartDetail && toggle && (
+        <CartDetail
+          height={height}
+          onUpdatePrice={onUpdatePrice}
+          totalPrice={totalPrice}
+        />
+      )}
     </CartToggleBox>
   );
 }

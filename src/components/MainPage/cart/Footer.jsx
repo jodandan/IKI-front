@@ -14,12 +14,10 @@ const FooterBox = styled.div`
   font-size: var(--font-big);
 `;
 
-export default function Footer() {
-  var price = 8000;
-
+export default function Footer({ totalPrice }) {
   return (
     <FooterBox>
-      <Price price={price} />
+      <Price price={totalPrice} />
       <PayButton />
     </FooterBox>
   );
