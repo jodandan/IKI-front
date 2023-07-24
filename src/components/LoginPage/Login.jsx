@@ -1,16 +1,117 @@
 import { Link } from "react-router-dom";
-import { styled } from "styled-components";
+import styled from 'styled-components';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
 
 const LoginBox = styled.div`
-  padding: 1vw 1.2vw;
   height: 100vh; /* 추후 메뉴판 길이에 맞게 수정 */
+  background: rgba(0, 82, 212, 0.70); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
+const Title = styled.div`
+  font-size:30px;
+  margin-bottom: 50%;
+  color:white;
+`;
+
+const SignUpForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const FormLabel = styled.label`
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+`;
+
+const FormInput = styled.input`
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+`;
+
+
+const Trash = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:white;
+  white-space: normal;
+  flex-direction: column;
+`;
+
+
+
 export default function Login() {
+  const [nickname, setNickname] = useState('');
+  const [password, setPassword] = useState('');
+
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Send email and password to the server for authentication
+      const response = await axios.post('http://43.202.93.57:8080/members/login', {
+        nickname,
+        password,
+        
+      });
+
+      // Assuming the server responds with a token upon successful authentication
+      console.log(response.data.result.jwt)
+      const token = response.data.result.jwt;
+
+      // Store the token in local storage or state for further use
+      localStorage.setItem('token', token);
+      console.log(token);   
+      console.log('로그인성공!');
+      navigate('/main'); // Redirect to the login page
+    } catch (error) {
+      console.error('Login failed!', error);
+    }
+  };
   return (
+    <>
     <LoginBox>
-      <div>로그인 페이지</div>
-      <Link to={"/main"}>메인 페이지로 이동</Link>
+      <SignUpForm onSubmit={handleLogin}>
+      <Title>로그인</Title>
+          <FormLabel htmlFor="nickname">닉네임:</FormLabel>
+          <FormInput
+            type="text"
+            name="nickname"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            required
+          />
+          <FormLabel htmlFor="password">비밀번호:</FormLabel>
+          <FormInput
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <FormInput
+          type="submit"
+          value="로그인"
+         />
+          <Trash>
+            <Link to={"/signup"}>회원가입 페이지로 이동 </Link>
+            <br/>
+            <Link to={"/main"}>메인 페이지로 이동</Link>
+          </Trash>
+      </SignUpForm>  
+
     </LoginBox>
+    </>
   );
 }
