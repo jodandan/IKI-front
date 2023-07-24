@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import AdminHeader from "./header&footer/AdminHeader";
+import AdminContainer from "./AdminContainer";
 import AdminFooter from "./header&footer/AdminFooter";
 
 const AdminBox = styled.div`
@@ -15,6 +16,7 @@ export default function Admin() {
       <AdminHeader
         title={"메뉴 등록"} /* 정확한 헤더 디자인 나오면 수정 예정*/
       />
+      <AdminContainer />
       <AdminFooter />
     </AdminBox>
   );
