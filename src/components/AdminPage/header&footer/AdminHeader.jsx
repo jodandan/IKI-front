@@ -42,14 +42,14 @@ const AddCategoryButton = styled.div`
   }
 `;
 
-export default function AdminHeader({ title, subtitle }) {
+export default function AdminHeader({ title, addCategory }) {
   return (
     <HeaderBox>
       <LogoBox>로고</LogoBox>
       <TitleBox>
         <Title>메뉴 등록</Title>
       </TitleBox>
-      <AddCategoryButton>카테고리 추가</AddCategoryButton>
+      <AddCategoryButton onClick={addCategory}>카테고리 추가</AddCategoryButton>
     </HeaderBox>
   );
 }
