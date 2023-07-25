@@ -58,31 +58,33 @@ const Options=styled.ul`
     margin-bottom: 30px;
 `
 const Option=styled.li`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: lightgray;
-    text-align: center;
     height: 150px;/*반응형으로 고치기?*/
 `
 export default function MenuModal({modalMenu, onCloseModal}){
     // 선택받은 옵션을 저장하는 배열-> 모달창을 닫으면 백엔드로 전송
-    const [selectedOptions, setSelectedOptions] = useState([]); 
+    // const [selectedOptions, setSelectedOptions] = useState([]); 
     
     return(
         <>
             <ModalBackground/>
             <ModalContainer>
                 <OptionConainer>
-                    <OptionTitle>필수선택-{modalMenu}</OptionTitle>
+                    <OptionTitle>필수선택-메뉴이름: {modalMenu}</OptionTitle>
                     <Options>
-                        <Option><div>차갑게</div><div>+1000원</div></Option>
+                        <Option><div>차갑게<br/>+1000원</div></Option>
                         <Option>뜨겁게<br/>+0원</Option>
                     </Options>
                     <OptionTitle>추가주문</OptionTitle>
                     <Options>
-                        <Option><div>차갑게</div><div>+1000원</div></Option>
+                        <Option><div>차갑게<br/>+1000원</div></Option>
                         <Option>뜨겁게<br/>+0원</Option>
-                        <Option><div>차갑게</div><div>+1000원</div></Option>
+                        <Option><div>차갑게<br/>+1000원</div></Option>
                         <Option>뜨겁게<br/>+0원</Option>
-                        <Option><div>차갑게</div><div>+1000원</div></Option>
+                        <Option><div>차갑게<br/>+1000원</div></Option>
                         <Option>뜨겁게<br/>+0원</Option>
                     </Options>
                 </OptionConainer>
