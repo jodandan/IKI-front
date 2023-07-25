@@ -88,9 +88,10 @@ const SoldOutText=styled.div`
 
 export function MasonryMenuContainer() {
   const [selected, setSelected] = useState([]);
-
+  const [modalMenu, setModalMenu] = useState(null);
   const handleMenuItemClick = (category, itemName) => {
     const selectedMenu = `${category}-${itemName}`;
+    setModalMenu(selectedMenu);
     setSelected((prevSelected) =>
       prevSelected.includes(selectedMenu)
         ? prevSelected.filter((item) => item !== selectedMenu)
@@ -98,6 +99,10 @@ export function MasonryMenuContainer() {
     );
     console.log(selected);
   }
+
+  const handleCloseModal = () => {
+    setModalMenu(null);
+  };
 
   return (
     <ListBox id="listBox">
@@ -109,11 +114,12 @@ export function MasonryMenuContainer() {
             <ul>
               {items.map((item, index) => (
                 <li key={index}>
-                  {/* <button> */}
                   <MenuStyle 
                     id="menuStyle" 
                     selected={selected.includes(`${category}-${item.name}`)} 
-                    onClick={() => {if(!item.soldout) {handleMenuItemClick(category, item.name);}}}
+                    onClick={() => {
+                      if(!item.soldout) {handleMenuItemClick(category, item.name);};
+                    }}
                     >
                       {item.soldout?
                         <SoldOutStyle>
@@ -123,9 +129,7 @@ export function MasonryMenuContainer() {
                         </SoldOutStyle>:
                         <><div>{item.name}</div><div>{item.price}원</div></>
                       }
-                    {/* <div>{item.name}</div><div>{item.price}원</div> */}
                   </MenuStyle>
-                  {/* </button> */}
                 </li>
               ))}
             </ul>
@@ -133,7 +137,9 @@ export function MasonryMenuContainer() {
           </Item>
         ))}
       </List>
-      <MenuModal/>
+      {modalMenu && (
+        <MenuModal modalMenu={modalMenu} onCloseModal={handleCloseModal}/>
+      )}
     </ListBox>
   );
 }

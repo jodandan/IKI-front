@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { useState } from "react";
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -61,13 +62,16 @@ const Option=styled.li`
     text-align: center;
     height: 150px;/*반응형으로 고치기?*/
 `
-export default function MenuModal(){
+export default function MenuModal({modalMenu, onCloseModal}){
+    // 선택받은 옵션을 저장하는 배열-> 모달창을 닫으면 백엔드로 전송
+    const [selectedOptions, setSelectedOptions] = useState([]); 
+    
     return(
         <>
             <ModalBackground/>
             <ModalContainer>
                 <OptionConainer>
-                    <OptionTitle>필수선택</OptionTitle>
+                    <OptionTitle>필수선택-{modalMenu}</OptionTitle>
                     <Options>
                         <Option><div>차갑게</div><div>+1000원</div></Option>
                         <Option>뜨겁게<br/>+0원</Option>
@@ -82,7 +86,7 @@ export default function MenuModal(){
                         <Option>뜨겁게<br/>+0원</Option>
                     </Options>
                 </OptionConainer>
-                <ModalButton>계속 주문하기</ModalButton>
+                <ModalButton  onClick={()=>{onCloseModal();}}>계속 주문하기</ModalButton>
             </ModalContainer>
         </>
     )
