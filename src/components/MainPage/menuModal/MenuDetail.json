@@ -1,0 +1,23 @@
+{
+    "menusId": 1,
+    "menusCategory": "커피",
+    "menusName": "아메리카노",
+    "menusPrice": 3000,
+    "soldOut": true,
+    "menuOptionsList": [
+        {
+            "menuOptionsId": 1,
+            "menusName": "아메리카노",
+            "menuOptionsCategory": "온도",
+            "menuOptionsContents": "차갑게",
+            "menuOptionsPrice": 0
+        },
+        {
+            "menuOptionsId": 2,
+            "menusName": "아메리카노",
+            "menuOptionsCategory": "펄",
+            "menuOptionsContents": "화이트펄 추가",
+            "menuOptionsPrice": 1000
+        }
+    ]
+}

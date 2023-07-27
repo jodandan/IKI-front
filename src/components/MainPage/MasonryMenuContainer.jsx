@@ -1,24 +1,8 @@
 import { styled } from "styled-components";
-import { DUMMY_DATA } from "./MenuItemData";
+import { DUMMY_DATA } from "./MenuItemData.jsx";
+import menuData from "./MenuItemData.json";
 import { useState } from "react";
 import MenuModal from "./menuModal/MenuModal";
-// flex를 이용한 구현 (나중에 라이브러리 필요할 수도 있어요.)
-// const List=styled.div `
-//     display: flex; // 1
-//     flex-direction: column; // 2
-//     flex-wrap: wrap; // 3
-//     align-content: start; // 4
-//     height: 700px; // 5
-//     column-gap:10px;
-//     width: 100%;
-// `
-
-// const Item= styled.div`
-//     width: 48%; // 6
-//     background-color: green;
-//     height: ${(props )=> props.height || '100px'};
-//     margin-bottom: 10px;
-// `
 
 const ListBox = styled.div`
   padding: 0 1.2vw; /* 위아래 패딩 0으로 수정 */
@@ -99,7 +83,28 @@ export function MasonryMenuContainer() {
     );
     console.log(selected);
   }
+  // json데이터 출력
+  console.log(menuData);
+  // const DUMMY_DATA=menuData;
 
+  // 서버에서부터 데이터 받기
+  // useEffect(() => {
+  //   // ownerId에 해당하는 데이터를 백엔드로부터 GET 요청으로 받아옵니다.
+  //   const ownerId = 'yourOwnerId'; // ownerId 값을 적절히 변경해주세요.
+
+  //   axios.get(`/api/v1/menus/all/${ownerId}`)
+  //     .then(response => {
+  //       // 요청이 성공적으로 완료되었을 때 실행되는 코드
+  //       console.log(response.data); // 서버로부터 받은 데이터 출력
+  //       setMenuData(response.data.responseData); // 받은 데이터를 menuData에 저장
+  //     })
+  //     .catch(error => {
+  //       // 요청이 실패했을 때 실행되는 코드
+  //       console.error(error);
+  //     });
+  // }, []);
+
+  
   const handleCloseModal = () => {
     setModalMenu(null);
   };
@@ -107,6 +112,7 @@ export function MasonryMenuContainer() {
   return (
     <ListBox id="listBox">
       <List id="list">
+        {/* 데이터 받기 */}
         {Object.entries(DUMMY_DATA).map(([category, items]) => (
           <Item key={category}>
             <div style={{padding: "10px"}}>

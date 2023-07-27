@@ -9,7 +9,6 @@ const ModalBackground = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* 투명한 회색 배경 */
 `;
-
 const ModalContainer = styled.div`
   width: 100%;
   max-width: 500px;
@@ -26,8 +25,7 @@ const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
+`
 const ModalButton = styled.button`
     all: unset;
     position: fixed;
