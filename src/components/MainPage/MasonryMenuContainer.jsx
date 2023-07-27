@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { DUMMY_DATA } from "./MenuItemData.jsx";
-import menuData from "./MenuItemData.json";
+import menuDataJson from "./MenuItemData.json";
 import { useState } from "react";
 import MenuModal from "./menuModal/MenuModal";
 
@@ -71,21 +71,10 @@ const SoldOutText=styled.div`
 `;
 
 export function MasonryMenuContainer() {
-  const [selected, setSelected] = useState([]);
-  const [modalMenu, setModalMenu] = useState(null);
-  const handleMenuItemClick = (category, itemName) => {
-    const selectedMenu = `${category}-${itemName}`;
-    setModalMenu(selectedMenu);
-    setSelected((prevSelected) =>
-      prevSelected.includes(selectedMenu)
-        ? prevSelected.filter((item) => item !== selectedMenu)
-        : [...prevSelected, selectedMenu]
-    );
-    console.log(selected);
-  }
+  const [modalMenusId, setModalMenusId] = useState(null);
+  const handleMenuItemClick = (menusId) => {  setModalMenusId(menusId); }
   // json데이터 출력
-  console.log(menuData);
-  // const DUMMY_DATA=menuData;
+  console.log(menuDataJson);
 
   // 서버에서부터 데이터 받기
   // useEffect(() => {
@@ -106,7 +95,7 @@ export function MasonryMenuContainer() {
 
   
   const handleCloseModal = () => {
-    setModalMenu(null);
+    setModalMenusId(null);
   };
 
   return (
@@ -122,12 +111,11 @@ export function MasonryMenuContainer() {
                 <li key={index}>
                   <MenuStyle 
                     id="menuStyle" 
-                    selected={selected.includes(`${category}-${item.name}`)} 
                     onClick={() => {
-                      if(!item.soldout) {handleMenuItemClick(category, item.name);};
+                      if(!item.soldOut) {handleMenuItemClick(item.menusId);};
                     }}
                     >
-                      {item.soldout?
+                      {item.soldOut?
                         <SoldOutStyle>
                           <SoldOutLine/>
                           <SoldOutText>품절</SoldOutText>
@@ -143,8 +131,8 @@ export function MasonryMenuContainer() {
           </Item>
         ))}
       </List>
-      {modalMenu && (
-        <MenuModal modalMenu={modalMenu} onCloseModal={handleCloseModal}/>
+      {modalMenusId && (
+        <MenuModal menusId={modalMenusId} onCloseModal={handleCloseModal} orderUsers={false}/>
       )}
     </ListBox>
   );

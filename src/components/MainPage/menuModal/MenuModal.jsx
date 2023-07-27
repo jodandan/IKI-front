@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import { useState } from "react";
+import MenuDetailData from "./MenuDetail.json"
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -62,16 +63,43 @@ const Option=styled.li`
     background-color: lightgray;
     height: 150px;/*반응형으로 고치기?*/
 `
-export default function MenuModal({modalMenu, onCloseModal}){
+export default function MenuModal({menusId, onCloseModal, orderUsers}){
     // 선택받은 옵션을 저장하는 배열-> 모달창을 닫으면 백엔드로 전송
-    // const [selectedOptions, setSelectedOptions] = useState([]); 
-    
+
+    //menusId에 따라 모든 정보를 조회하는 api/v1/menuOptions/all/{menusId} 사용하여 json받기
+    console.log(MenuDetailData);
+
+    // 백엔드로 넘길 정보들{
+    //     "menusId" : 1, [메뉴의 PK]
+    //     "orderUsers" : 1 [현재 주문하고 있는 고객 PK (최초 장바구니 담기라면 null)]
+    //     "menuOptionsIdList" : "1,2,5", [옵션의 PK 스트링으로 ,로 엮어서]
+    // }
+    const [cart, setCart] = useState({
+        menusId: menusId,
+        orderUsers: orderUsers?orderUsers:null,//최초 장바구니 담기는 null
+        menuOptionsIdList: "", // 처음에는 빈 문자열로 초기화, [옵션의 PK 스트링으로 ,로 엮어서]
+    });
+
+    //메뉴 선택시에 menuOptionIdList 수정
+    const addMenuOptionId = (menuOptionId) => {
+        setCart((prevCart) => ({
+          ...prevCart,
+          menuOptionsIdList: prevCart.menuOptionsIdList ? `${prevCart.menuOptionsIdList}, ${menuOptionId}` : menuOptionId.toString()
+        }));
+        console.log(cart);
+      };
+
     return(
         <>
             <ModalBackground/>
             <ModalContainer>
                 <OptionConainer>
-                    <OptionTitle>필수선택-메뉴이름: {modalMenu}</OptionTitle>
+                    <Options>
+                    {MenuDetailData.menuOptionsList.map((datas)=>(
+                        <Option key={datas.menuOptionsId} onClick={() => addMenuOptionId(datas.menuOptionsId)}><div>{datas.menuOptionsContents}<br/>{datas.menuOptionsPrice}</div></Option>
+                    ))}
+                    </Options>
+                    <OptionTitle>필수선택-메뉴: {MenuDetailData.menusName}</OptionTitle>
                     <Options>
                         <Option><div>차갑게<br/>+1000원</div></Option>
                         <Option>뜨겁게<br/>+0원</Option>

@@ -5,19 +5,62 @@
     "menusPrice": 3000,
     "soldOut": true,
     "menuOptionsList": [
-        {
-            "menuOptionsId": 1,
-            "menusName": "아메리카노",
-            "menuOptionsCategory": "온도",
-            "menuOptionsContents": "차갑게",
-            "menuOptionsPrice": 0
-        },
-        {
-            "menuOptionsId": 2,
-            "menusName": "아메리카노",
-            "menuOptionsCategory": "펄",
-            "menuOptionsContents": "화이트펄 추가",
-            "menuOptionsPrice": 1000
-        }
+      {
+        "menuOptionsId": 1,
+        "menusName": "아메리카노",
+        "menuOptionsCategory": "온도",
+        "menuOptionsContents": "차갑게",
+        "menuOptionsPrice": 0
+      },
+      {
+        "menuOptionsId": 2,
+        "menusName": "아메리카노",
+        "menuOptionsCategory": "펄",
+        "menuOptionsContents": "화이트펄 추가",
+        "menuOptionsPrice": 1000
+      },
+      {
+        "menuOptionsId": 3,
+        "menusName": "아메리카노",
+        "menuOptionsCategory": "샷",
+        "menuOptionsContents": "샷추가",
+        "menuOptionsPrice": 500
+      },
+      {
+        "menuOptionsId": 4,
+        "menusName": "아메리카노",
+        "menuOptionsCategory": "펄",
+        "menuOptionsContents": "타피오카 펄 추가",
+        "menuOptionsPrice": 800
+      },
+      {
+        "menuOptionsId": 5,
+        "menusName": "아메리카노",
+        "menuOptionsCategory": "온도",
+        "menuOptionsContents": "따뜻하게",
+        "menuOptionsPrice": 0
+      },
+      {
+        "menuOptionsId": 6,
+        "menusName": "아메리카노",
+        "menuOptionsCategory": "샷",
+        "menuOptionsContents": "더블 샷 추가",
+        "menuOptionsPrice": 700
+      },
+      {
+        "menuOptionsId": 7,
+        "menusName": "아메리카노",
+        "menuOptionsCategory": "시럽",
+        "menuOptionsContents": "바닐라 시럽 추가",
+        "menuOptionsPrice": 600
+      },
+      {
+        "menuOptionsId": 8,
+        "menusName": "아메리카노",
+        "menuOptionsCategory": "토핑",
+        "menuOptionsContents": "휘핑크림 추가",
+        "menuOptionsPrice": 500
+      }
     ]
-}
+  }
+  

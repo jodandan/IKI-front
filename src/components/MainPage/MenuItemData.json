@@ -74,7 +74,8 @@
             "menusPrice": 4500,
             "soldOut": false
           }
-        ],
+        ]
+      },{
         "스무디": [
           {
             "menusId": 11,
@@ -132,7 +133,8 @@
             "menusPrice": 5000,
             "soldOut": false
           }
-        ],
+        ]
+      },{
         "에이드": [
           {
             "menusId": 19,
@@ -197,7 +199,8 @@
             "menusPrice": 5500,
             "soldOut": false
           }
-        ],
+        ]
+      },{
         "차": [
           {
             "menusId": 28,
@@ -262,7 +265,8 @@
             "menusPrice": 4200,
             "soldOut": false
           }
-        ],
+        ]
+      },{
         "주스": [
           {
             "menusId": 37,
