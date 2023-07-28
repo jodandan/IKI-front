@@ -50,14 +50,14 @@
       {
         "menuOptionsId": 7,
         "menusName": "아메리카노",
-        "menuOptionsCategory": "시럽",
+        "menuOptionsCategory": "기타 추가",
         "menuOptionsContents": "바닐라 시럽 추가",
         "menuOptionsPrice": 600
       },
       {
         "menuOptionsId": 8,
         "menusName": "아메리카노",
-        "menuOptionsCategory": "토핑",
+        "menuOptionsCategory": "기타 추가",
         "menuOptionsContents": "휘핑크림 추가",
         "menuOptionsPrice": 500
       }

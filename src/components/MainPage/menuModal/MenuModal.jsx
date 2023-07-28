@@ -69,11 +69,7 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
     //menusId에 따라 모든 정보를 조회하는 api/v1/menuOptions/all/{menusId} 사용하여 json받기
     console.log(MenuDetailData);
 
-    // 백엔드로 넘길 정보들{
-    //     "menusId" : 1, [메뉴의 PK]
-    //     "orderUsers" : 1 [현재 주문하고 있는 고객 PK (최초 장바구니 담기라면 null)]
-    //     "menuOptionsIdList" : "1,2,5", [옵션의 PK 스트링으로 ,로 엮어서]
-    // }
+    // 백엔드로 넘길 정보들
     const [cart, setCart] = useState({
         menusId: menusId,
         orderUsers: orderUsers?orderUsers:null,//최초 장바구니 담기는 null
@@ -87,32 +83,37 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
           menuOptionsIdList: prevCart.menuOptionsIdList ? `${prevCart.menuOptionsIdList}, ${menuOptionId}` : menuOptionId.toString()
         }));
         console.log(cart);
-      };
+    };
+
+    //서버로부터 받은 옵션데이터를 카테고리별로 나누어주는 함수
+    const groupMenuOptionsByCategory = (optionsList) => {
+        const groupedOptions = {};
+        optionsList.forEach(option => {
+          const { menuOptionsCategory, menuOptionsContents, menuOptionsPrice, menuOptionsId } = option;
+          if (!groupedOptions[menuOptionsCategory]) {
+            groupedOptions[menuOptionsCategory] = [];
+          }
+          groupedOptions[menuOptionsCategory].push({ contents: menuOptionsContents, price: menuOptionsPrice, id: menuOptionsId });
+        });
+        return groupedOptions;
+    };
 
     return(
         <>
             <ModalBackground/>
             <ModalContainer>
                 <OptionConainer>
-                    <Options>
-                    {MenuDetailData.menuOptionsList.map((datas)=>(
-                        <Option key={datas.menuOptionsId} onClick={() => addMenuOptionId(datas.menuOptionsId)}><div>{datas.menuOptionsContents}<br/>{datas.menuOptionsPrice}</div></Option>
+                    {Object.entries(groupMenuOptionsByCategory(MenuDetailData.menuOptionsList)).map(([category, options]) => (
+                        <div key={category}>
+                            <OptionTitle>{category}</OptionTitle>
+                            <Options>
+                                {options.map(option => (
+                                <Option key={option.id} onClick={() => addMenuOptionId(option.id)}>
+                                    <div>{option.contents}</div><div>{option.price}</div>
+                                </Option>))}
+                            </Options>
+                        </div>
                     ))}
-                    </Options>
-                    <OptionTitle>필수선택-메뉴: {MenuDetailData.menusName}</OptionTitle>
-                    <Options>
-                        <Option><div>차갑게<br/>+1000원</div></Option>
-                        <Option>뜨겁게<br/>+0원</Option>
-                    </Options>
-                    <OptionTitle>추가주문</OptionTitle>
-                    <Options>
-                        <Option><div>차갑게<br/>+1000원</div></Option>
-                        <Option>뜨겁게<br/>+0원</Option>
-                        <Option><div>차갑게<br/>+1000원</div></Option>
-                        <Option>뜨겁게<br/>+0원</Option>
-                        <Option><div>차갑게<br/>+1000원</div></Option>
-                        <Option>뜨겁게<br/>+0원</Option>
-                    </Options>
                 </OptionConainer>
                 <ModalButton  onClick={()=>{onCloseModal();}}>계속 주문하기</ModalButton>
             </ModalContainer>
