@@ -4,16 +4,16 @@ import convertPrice from "../../../../utils/convertPrice";
 const PriceBox = styled.div`
   display: flex;
   align-items: center;
-  padding: 2px;
+  padding: 5px;
 `;
 
 export default function Price({ price }) {
   return (
     <PriceBox>
-      <span style={{ borderBottom: "solid 2px black" }}>
+      <span style={{ padding: "1px 5px", borderBottom: "solid 2px black" }}>
         {convertPrice(price)}
       </span>
-      <span>원</span>
+      <span style={{ padding: "1px 3px" }}>원</span>
     </PriceBox>
   );
 }

@@ -8,7 +8,9 @@ const FooterBox = styled.div`
   align-items: center;
   gap: 10px;
 
-  background-color: #9a9a9a;
+  background-color: var(--secondary-color);
+  font-weight: bold;
+
   padding: 12px;
   height: 64px;
   font-size: var(--font-big);
