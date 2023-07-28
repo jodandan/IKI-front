@@ -69,25 +69,39 @@ const Option=styled.li`
     font-weight: bold;
     height: 15vh;/*반응형으로 고치기?*/
     border-radius: 10px;
+    /* 선택된 메뉴 블록의 스타일*/
+    ${({ selected}) =>
+        selected && `
+        background-color: var(--secondary-color);
+    `}
 `
 export default function MenuModal({menusId, onCloseModal, orderUsers}){
 
     //menusId에 따라 모든 정보를 조회하는 api/v1/menuOptions/all/{menusId} 사용하여 json받기
-    console.log(MenuDetailData);
+    // console.log(MenuDetailData);
 
-    // 백엔드로 넘길 정보들
-    const [cart, setCart] = useState({
-        menusId: menusId,
-        orderUsers: orderUsers?orderUsers:null,//최초 장바구니 담기는 null
-        menuOptionsIdList: "", // 처음에는 빈 문자열로 초기화, [옵션의 PK 스트링으로 ,로 엮어서]
-    });
+    //선택된 옵션들, 옵션 선택시에 selected만 수정하고, 메뉴 제출시에 menuOptionIdList <= selected
+    const [selectedOptions, setSelectedOptions] = useState([]);
 
-    //메뉴 선택시에 menuOptionIdList 수정
-    const addMenuOptionId = (menuOptionId) => {
-        setCart((prevCart) => ({
-          ...prevCart,
-          menuOptionsIdList: prevCart.menuOptionsIdList ? `${prevCart.menuOptionsIdList}, ${menuOptionId}` : menuOptionId.toString()
-        }));
+    //옵션 선택시, selected를 수정하는 함수
+    const handleOptionClick = (optionId) => {
+        setSelectedOptions(prevOptions => {
+          if (prevOptions.includes(optionId)) {
+            return prevOptions.filter(id => id !== optionId); // 선택 해제
+          } else {
+            return [...prevOptions, optionId]; // 선택 추가
+          }
+        });
+      };
+
+    //메뉴 옵션 선택 후, 하단 버튼 클릭시
+    const handleSubmitButton=() =>{
+        const cart= {
+            menusId: menusId,
+            orderUsers: orderUsers?orderUsers:null,//최초 장바구니 담기는 null
+            menuOptionsIdList: selectedOptions.join(","), // 처음에는 빈 문자열로 초기화, [옵션의 PK 스트링으로 ,로 엮어서]
+        };
+        console.log("submit");
         console.log(cart);
     };
 
@@ -114,15 +128,19 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
                             <OptionTitle>{category}</OptionTitle>
                             <Options>
                                 {options.map(option => (
-                                <Option key={option.id} onClick={() => addMenuOptionId(option.id)}>
-                                    <p style={{marginBottom:"5px"}}>{option.contents}</p><p>{(option.price===0)?null:option.price}</p>
+                                <Option 
+                                    key={option.id} 
+                                    // onClick={() => addMenuOptionId(option.id)}
+                                    onClick={() => handleOptionClick(option.id)}
+                                    selected={selectedOptions.includes(option.id)}>
+                                    <p style={{marginBottom:"5px"}}>{option.contents}</p><p>{(option.price===0)?null:`(${option.price})`}</p>
                                 </Option>))}
                             </Options>
                         </div>
                     ))}
                 </OptionConainer>
                 <div style={{backgroundColor: "white", width: "100%", position: "fixed", bottom:"0px", borderRadius: "20px", display: "flex", justifyContent: "center"}}>
-                    <ModalButton  onClick={()=>{onCloseModal();}}>계속 주문하기</ModalButton>
+                    <ModalButton  onClick={()=>{onCloseModal(); handleSubmitButton();}}>계속 주문하기</ModalButton>
                 </div>
             </ModalContainer>
         </>
