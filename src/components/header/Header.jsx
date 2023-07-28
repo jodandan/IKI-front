@@ -2,9 +2,9 @@ import { styled } from "styled-components";
 
 const HeaderBox = styled.header`
   width: 100%;
-  height: 15vh;
+  height: 14vh;
   /* background-color: green; */
-  background-color: white;
+  background-color: var(--white);
   display: flex;
   align-items: center;
   position: sticky;
@@ -27,10 +27,9 @@ const Title=styled.div`
     color: var(--primary-color);
     font-size: xx-large;
     font-weight: bolder;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 `
 const Subtitle=styled.div`
-    color: darkgray;
     font-size: var(--font-big);
     font-weight: bold;
 `

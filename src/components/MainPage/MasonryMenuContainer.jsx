@@ -19,15 +19,14 @@ const List = styled.div`
 const Item = styled.div`
   width: 100%;
   /* height: ${(props) => props.height || "100px"}; */
-  background-color: lightgray;
+  background-color: var(--third-color);
   display: inline-block;
   break-inside: avoid;
   margin-bottom: 10px;
-  border-radius: 10px;
 `;
 
 const CategoryTltleStyle=styled.h2`
-  padding-bottom: 10px;
+  padding: 10px;
   font-size: 20px; 
   font-weight: bold;
 `
@@ -49,25 +48,27 @@ const SoldOutStyle=styled.div`
   position: relative;
   justify-content: space-between;
   width: 100%;
-  color: gray;
+  color: #9c9c9c;
 `;
 const SoldOutLine = styled.div`
   position: absolute;
   top: 50%;
   left: 0;
   right: 0;
-  height: 1.5px;
+  height: 1px;
   background-color: black;
 `;
 const SoldOutText=styled.div`
   position: absolute;
-  padding: 2px;
+  padding: 4px 6px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-weight: bold;
-  color: black;
-  background-color: lightgray;
+  border-radius:5px;
+  font-size: var(--font-small);
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
 `;
 
 export function MasonryMenuContainer() {
@@ -106,7 +107,7 @@ export function MasonryMenuContainer() {
           <Item key={category}>
             <div style={{padding: "10px"}}>
             <CategoryTltleStyle>{category}</CategoryTltleStyle>
-            <ul>
+            <ul style={{marginTop: "5px"}}>
               {items.map((item, index) => (
                 <li key={index}>
                   <MenuStyle 

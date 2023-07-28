@@ -43,8 +43,11 @@ const OptionConainer=styled.div`
     &::-webkit-scrollbar { display: none; };
 `
 const OptionTitle=styled.h2`
-    background-color: lightgray;
+    background-color: #5977e0;
+    color: white;
+    font-weight: bolder;
     font-size: var(--font-big);
+    border-radius: 10px;
     width: 100%;
     padding: 7px 0px;
     text-align: center;
@@ -58,10 +61,14 @@ const Options=styled.ul`
 `
 const Option=styled.li`
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: lightgray;
+    font-size: var(--font-big);
+    background-color: var(--third-color);
+    font-weight: bold;
     height: 150px;/*반응형으로 고치기?*/
+    border-radius: 10px;
 `
 export default function MenuModal({menusId, onCloseModal, orderUsers}){
     // 선택받은 옵션을 저장하는 배열-> 모달창을 닫으면 백엔드로 전송
@@ -109,7 +116,7 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
                             <Options>
                                 {options.map(option => (
                                 <Option key={option.id} onClick={() => addMenuOptionId(option.id)}>
-                                    <div>{option.contents}</div><div>{option.price}</div>
+                                    <p style={{marginBottom:"5px"}}>{option.contents}</p><p>{(option.price===0)?null:option.price}</p>
                                 </Option>))}
                             </Options>
                         </div>
