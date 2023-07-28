@@ -15,26 +15,6 @@ const MainBox = styled.div`
   height: 100vh; /* Modify later to fit the length of the menu board */
 `;
 
-const PopUpButton = styled.button`
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  background: #FFF;
-  width: 295px;
-  height: 92px;
-  flex-shrink: 0;
-  font-size: 25px;
-`;
-
-const PopUpContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  text-align: center;
-  font-size: 30px;
-`;
 
 const PayButtonBox = styled.button`
   background-color: var(--primary-color);
