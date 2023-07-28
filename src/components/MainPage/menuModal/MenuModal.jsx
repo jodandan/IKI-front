@@ -12,6 +12,7 @@ const ModalBackground = styled.div`
 `;
 const ModalContainer = styled.div`
   width: 100%;
+  /* 넓이 반응형으로 고치기 */
   max-width: 500px;
   position: fixed;
   top: 50%;
@@ -29,18 +30,18 @@ const ModalContainer = styled.div`
 `
 const ModalButton = styled.button`
     all: unset;
-    position: fixed;
     bottom: 0;
-    margin-bottom: 30px;
+    margin: 30px 0;
+    /* margin: auto; */
     padding: 10px;
     border-radius: 10px;
     background-color: var(--primary-color);
+    color: white;
     font-size: var(--font-big);
 `
 const OptionConainer=styled.div`
     width: 100%;
     overflow-y: scroll;
-    &::-webkit-scrollbar { display: none; };
 `
 const OptionTitle=styled.h2`
     background-color: #5977e0;
@@ -56,8 +57,7 @@ const Options=styled.ul`
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    margin-top: 10px;
-    margin-bottom: 30px;
+    margin: 10px 0;
 `
 const Option=styled.li`
     display: flex;
@@ -67,11 +67,10 @@ const Option=styled.li`
     font-size: var(--font-big);
     background-color: var(--third-color);
     font-weight: bold;
-    height: 150px;/*반응형으로 고치기?*/
+    height: 15vh;/*반응형으로 고치기?*/
     border-radius: 10px;
 `
 export default function MenuModal({menusId, onCloseModal, orderUsers}){
-    // 선택받은 옵션을 저장하는 배열-> 모달창을 닫으면 백엔드로 전송
 
     //menusId에 따라 모든 정보를 조회하는 api/v1/menuOptions/all/{menusId} 사용하여 json받기
     console.log(MenuDetailData);
@@ -122,7 +121,9 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
                         </div>
                     ))}
                 </OptionConainer>
-                <ModalButton  onClick={()=>{onCloseModal();}}>계속 주문하기</ModalButton>
+                <div style={{backgroundColor: "white", width: "100%", position: "fixed", bottom:"0px", borderRadius: "20px", display: "flex", justifyContent: "center"}}>
+                    <ModalButton  onClick={()=>{onCloseModal();}}>계속 주문하기</ModalButton>
+                </div>
             </ModalContainer>
         </>
     )
