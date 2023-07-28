@@ -6,10 +6,11 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-:root{ /*임시로 넣어둠*/
-    --primary-color: #4277ff;  /*계속 주문하기 버튼 색*/
-    --cold-color: #d3e5ff;  /*차갑게 버튼 색*/
-    --hot-color: #ffd3d3    /* background-color: var(--hot-color); 이런식으로 사용*/
+:root{ 
+    --primary-color: #002ecf;   /* background-color: var(--primary-color); 이런식으로 사용*/
+    --secondary-color: #d1dbff;  /*계속 주문하기 버튼 색*/
+    --third-color: #f7f7f7;
+    --white: #ffffff  /* 사실 white는 그냥 white로 쓰는게 더...ㅎ */
 
     --font-regular: 1rem;
     --font-big: 1.3rem;
