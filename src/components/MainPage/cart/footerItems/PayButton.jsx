@@ -2,13 +2,12 @@ import { styled } from "styled-components";
 import { useState } from "react";
 import { useEffect } from "react";
 
-import Pointpopup from './../../../CreditPage/Pointpopup';
+import Pointpopup from "./../../../CreditPage/Pointpopup";
 import ShowTakeoutPopUp from "../../../CreditPage/ShowTakeoutPopUp";
 import ShowFirstPopUp from "../../../CreditPage/ShowFirstPopUp";
 import ShowPopUp from "../../../CreditPage/ShowPopUp";
 import ShowNextPopUp from "../../../CreditPage/ShowNextPopUp";
 import ShowReceiptPopup from "../../../CreditPage/ShowReceiptPopup";
-
 
 const MainBox = styled.div`
   padding: 1vw 1.2vw;
@@ -18,8 +17,9 @@ const MainBox = styled.div`
 
 const PayButtonBox = styled.button`
   background-color: var(--primary-color);
+  color: white;
   font-size: inherit;
-  font-weight: inherit;
+  font-weight: bold;
   border: none;
   border-radius: 11px;
   box-shadow: none;
@@ -31,7 +31,6 @@ const PayButtonBox = styled.button`
     background-color: #2764ff;
   }
 `;
-
 
 export default function PayButton() {
   const [isPaymentComplete, setPaymentComplete] = useState(false);
@@ -46,13 +45,13 @@ export default function PayButton() {
     setPaymentComplete(true);
     setShowTakeoutPopUp(true);
   };
-  
+
   const openReceiptPopup = () => {
     setShowReceiptPopup(true);
     setShowNextPopUp(false); // 영수증 팝업을 열면 결제 완료 팝업을 닫습니다.
   };
-  
-  const openShowFirstPopUp = (shouldTakeout) => { 
+
+  const openShowFirstPopUp = (shouldTakeout) => {
     setShowTakeoutPopUp(false);
     // 필요한 경우 "shouldTakeout" 변수를 기반으로 다른 작업을 수행할 수 있습니다.
     // 예를 들어 사용자의 선택에 따라 다른 상태 변수를 업데이트하거나 다른 작업을 수행할 수 있습니다.
@@ -64,13 +63,13 @@ export default function PayButton() {
     setShowSmallPopUp(true);
   };
 
-  const closeSmallPopUp = () => { 
+  const closeSmallPopUp = () => {
     setShowSmallPopUp(false);
-  }
+  };
 
   const closeReceiptPopup = () => {
-  setShowReceiptPopup(false);
-};
+    setShowReceiptPopup(false);
+  };
 
   useEffect(() => {
     if (showFirstPopUp) {
@@ -122,9 +121,9 @@ export default function PayButton() {
             <ShowFirstPopUp onClose={() => setFirstShowPopUp(false)} />
           )}
 
-          {showPopUp && //결제중 팝업창
-            <ShowPopUp onClose={() => setShowNextPopUp(true)} 
-          />}
+          {showPopUp && ( //결제중 팝업창
+            <ShowPopUp onClose={() => setShowNextPopUp(true)} />
+          )}
 
           {showNextPopUp && ( //결제완료 팝업
             <ShowNextPopUp
@@ -135,28 +134,28 @@ export default function PayButton() {
 
           {showReceiptPopup && ( // 영수증 발급 완료 팝업
             <ShowReceiptPopup onClose={closeReceiptPopup} />
-          )}    
+          )}
 
           {showSmallPopUp && ( //포인트적립 팝업
-              <div
-                style={{
-                  position: "fixed",
-                  top: "5%",
-                  left: "30%",
-                  width: "40%",
-                  height: "90%",
-                  background: "#FFFFFF",
-                  zIndex: 9999,
-                  color: "white",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: "11px",
-                }}
-              >
+            <div
+              style={{
+                position: "fixed",
+                top: "5%",
+                left: "30%",
+                width: "40%",
+                height: "90%",
+                background: "#FFFFFF",
+                zIndex: 9999,
+                color: "white",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "11px",
+              }}
+            >
               <Pointpopup onClose={closeSmallPopUp}></Pointpopup>
-              </div>
-            )}
+            </div>
+          )}
         </MainBox>
       )}
     </>

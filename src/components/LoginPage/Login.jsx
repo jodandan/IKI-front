@@ -27,6 +27,7 @@ const SignUpForm = styled.form`
 const FormLabel = styled.label`
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
+  margin-right: 1rem;
 `;
 
 const FormInput = styled.input`
@@ -37,6 +38,11 @@ const FormInput = styled.input`
   margin-bottom: 1rem;
 `;
 
+const Form = styled.form`
+  display: flex;
+  flex-direction: row; /* Change flex-direction to row */
+  align-items: center;
+`;
 
 const Trash = styled.div`
   display: flex;
@@ -84,7 +90,8 @@ export default function Login() {
     <LoginBox>
       <SignUpForm onSubmit={handleLogin}>
       <Title>로그인</Title>
-          <FormLabel htmlFor="nickname">닉네임:</FormLabel>
+        <Form>
+          <FormLabel htmlFor="nickname">사용자명</FormLabel>
           <FormInput
             type="text"
             name="nickname"
@@ -92,7 +99,9 @@ export default function Login() {
             onChange={(e) => setNickname(e.target.value)}
             required
           />
-          <FormLabel htmlFor="password">비밀번호:</FormLabel>
+        </Form>
+        <Form>
+          <FormLabel htmlFor="password">비밀번호</FormLabel>
           <FormInput
             type="password"
             name="password"
@@ -100,6 +109,7 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+        </Form>
           <FormInput
           type="submit"
           value="로그인"
