@@ -7,7 +7,9 @@ const CartIndexBox = styled.span`
   display: inline-block;
   transition: bottom 0.5s ease-in-out;
 
-  background-color: #9a9a9a;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
   padding: 20px 20px 15px 20px;
   margin-left: 12px;
   border-top-right-radius: 12px;

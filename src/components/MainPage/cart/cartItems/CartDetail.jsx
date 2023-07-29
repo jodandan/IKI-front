@@ -5,22 +5,39 @@ import { styled } from "styled-components";
 import { FaXmark } from "react-icons/fa6";
 import { DUMMY_DATA } from "./EachItem";
 
-const Temp = styled.div`
+const CartDetailBox = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   width: 100%;
-  padding: 20px;
+  padding: 20px 40px;
 `;
 
 const CartItem = styled.div`
+  // border: solid 1px blue;
   display: grid;
-  grid-template-columns: 1.5fr 4fr 3fr 1.5fr 2fr;
-  justify-items: center;
+  grid-template-columns: 4fr 3fr 1.5fr 2fr 43px;
+
+  .names {
+    font-weight: bold;
+  }
 
   div {
-    // border: solid 1px red;
     padding: 12px 0;
+  }
+
+  > div:nth-child(1) {
+    // 이름 열 좌측정렬
+    justify-self: start;
+  }
+  > div:nth-child(2),
+  > div:nth-child(3),
+  > div:nth-child(4) {
+    justify-self: center; // 나머지 열 중앙정렬
+  }
+  > div:nth-child(5) {
+    // 추후 우측정렬 할 수도 있어서 일단 빼둠
+    justify-self: center;
   }
 `;
 
@@ -62,24 +79,20 @@ export default function CartDetail({ height, onUpdatePrice }) {
   }, [totalPrice, onUpdatePrice]);
 
   return (
-    <Temp height={height}>
+    <CartDetailBox height={height}>
       <CartItem>
-        <div>삭제</div>
-        <div>이름</div>
-        <div>옵션</div>
-        <div>수량</div>
-        <div>가격</div>
+        <div className="names">이름</div>
+        <div className="names">옵션</div>
+        <div className="names">수량</div>
+        <div className="names">가격</div>
+        <div className="names">
+          <span className="delete">삭제</span>
+        </div>
       </CartItem>
       {cartItems.map(
         (order) =>
           !order.delete && (
             <CartItem key={order.id}>
-              <div>
-                <FaXmark
-                  onClick={() => handleRemove(order.id)}
-                  style={{ cursor: "pointer" }}
-                />
-              </div>
               <div>{order.name}</div>
               {order.option ? <div>{order.option}</div> : <div>-</div>}
               <ItemAmount
@@ -89,9 +102,17 @@ export default function CartDetail({ height, onUpdatePrice }) {
                 }
               />
               <div>{convertPrice(order.amount * order.price)}</div>
+              <div>
+                <span className="delete">
+                  <FaXmark
+                    onClick={() => handleRemove(order.id)}
+                    style={{ cursor: "pointer" }}
+                  />
+                </span>
+              </div>
             </CartItem>
           )
       )}
-    </Temp>
+    </CartDetailBox>
   );
 }

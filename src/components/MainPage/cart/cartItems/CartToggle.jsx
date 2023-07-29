@@ -6,7 +6,7 @@ const CartToggleBox = styled.div`
   position: absolute;
   display: flex;
   z-index: -1;
-  background-color: #9a9a9a;
+  background-color: var(--secondary-color);
   width: 100%;
   transition: top 0.5s ease-in-out;
 
