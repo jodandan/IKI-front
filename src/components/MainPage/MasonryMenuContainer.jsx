@@ -1,23 +1,8 @@
 import { styled } from "styled-components";
-import { DUMMY_DATA } from "./MenuItemData";
+import { DUMMY_DATA } from "./MenuItemData.jsx";
+import menuDataJson from "./MenuItemData.json";
 import { useState } from "react";
-// flex를 이용한 구현 (나중에 라이브러리 필요할 수도 있어요.)
-// const List=styled.div `
-//     display: flex; // 1
-//     flex-direction: column; // 2
-//     flex-wrap: wrap; // 3
-//     align-content: start; // 4
-//     height: 700px; // 5
-//     column-gap:10px;
-//     width: 100%;
-// `
-
-// const Item= styled.div`
-//     width: 48%; // 6
-//     background-color: green;
-//     height: ${(props )=> props.height || '100px'};
-//     margin-bottom: 10px;
-// `
+import MenuModal from "./menuModal/MenuModal";
 
 const ListBox = styled.div`
   padding: 0 1.2vw; /* 위아래 패딩 0으로 수정 */
@@ -34,15 +19,14 @@ const List = styled.div`
 const Item = styled.div`
   width: 100%;
   /* height: ${(props) => props.height || "100px"}; */
-  background-color: lightgray;
+  background-color: var(--third-color);
   display: inline-block;
   break-inside: avoid;
   margin-bottom: 10px;
-  border-radius: 10px;
 `;
 
 const CategoryTltleStyle=styled.h2`
-  padding-bottom: 10px;
+  padding: 10px;
   font-size: 20px; 
   font-weight: bold;
 `
@@ -64,56 +48,75 @@ const SoldOutStyle=styled.div`
   position: relative;
   justify-content: space-between;
   width: 100%;
-  color: gray;
+  color: #9c9c9c;
 `;
 const SoldOutLine = styled.div`
   position: absolute;
   top: 50%;
   left: 0;
   right: 0;
-  height: 1.5px;
+  height: 1px;
   background-color: black;
 `;
 const SoldOutText=styled.div`
   position: absolute;
-  padding: 2px;
+  padding: 4px 6px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-weight: bold;
-  color: black;
-  background-color: lightgray;
+  border-radius:5px;
+  font-size: var(--font-small);
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
 `;
 
 export function MasonryMenuContainer() {
-  const [selected, setSelected] = useState([]);
+  const [modalMenusId, setModalMenusId] = useState(null);
+  const handleMenuItemClick = (menusId) => {  setModalMenusId(menusId); }
+  // json데이터 출력
+  console.log(menuDataJson);
 
-  const handleMenuItemClick = (category, itemName) => {
-    const selectedMenu = `${category}-${itemName}`;
-    setSelected((prevSelected) =>
-      prevSelected.includes(selectedMenu)
-        ? prevSelected.filter((item) => item !== selectedMenu)
-        : [...prevSelected, selectedMenu]
-    );
-    console.log(selected);
-  }
+  // 서버에서부터 데이터 받기
+  // useEffect(() => {
+  //   // ownerId에 해당하는 데이터를 백엔드로부터 GET 요청으로 받아옵니다.
+  //   const ownerId = 'yourOwnerId'; // ownerId 값을 적절히 변경해주세요.
+
+  //   axios.get(`/api/v1/menus/all/${ownerId}`)
+  //     .then(response => {
+  //       // 요청이 성공적으로 완료되었을 때 실행되는 코드
+  //       console.log(response.data); // 서버로부터 받은 데이터 출력
+  //       setMenuData(response.data.responseData); // 받은 데이터를 menuData에 저장
+  //     })
+  //     .catch(error => {
+  //       // 요청이 실패했을 때 실행되는 코드
+  //       console.error(error);
+  //     });
+  // }, []);
+
+  
+  const handleCloseModal = () => {
+    setModalMenusId(null);
+  };
 
   return (
     <ListBox id="listBox">
       <List id="list">
+        {/* 데이터 받기 */}
         {Object.entries(DUMMY_DATA).map(([category, items]) => (
           <Item key={category}>
             <div style={{padding: "10px"}}>
             <CategoryTltleStyle>{category}</CategoryTltleStyle>
-            <ul>
+            <ul style={{marginTop: "5px"}}>
               {items.map((item, index) => (
                 <li key={index}>
                   <MenuStyle 
                     id="menuStyle" 
-                    selected={selected.includes(`${category}-${item.name}`)} 
-                    onClick={() => {if(!item.soldout) {handleMenuItemClick(category, item.name);}}}
+                    onClick={() => {
+                      if(!item.soldOut) {handleMenuItemClick(item.menusId);};
+                    }}
                     >
-                      {item.soldout?
+                      {item.soldOut?
                         <SoldOutStyle>
                           <SoldOutLine/>
                           <SoldOutText>품절</SoldOutText>
@@ -121,7 +124,6 @@ export function MasonryMenuContainer() {
                         </SoldOutStyle>:
                         <><div>{item.name}</div><div>{item.price}원</div></>
                       }
-                    {/* <div>{item.name}</div><div>{item.price}원</div> */}
                   </MenuStyle>
                 </li>
               ))}
@@ -130,6 +132,9 @@ export function MasonryMenuContainer() {
           </Item>
         ))}
       </List>
+      {modalMenusId && (
+        <MenuModal menusId={modalMenusId} onCloseModal={handleCloseModal} orderUsers={false}/>
+      )}
     </ListBox>
   );
 }
