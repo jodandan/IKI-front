@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import Category from "./adminItems/Category";
+import OptionModal from "./adminOption/OptionModal";
 
 const AdminContainerBox = styled.div`
   padding: 0 1.2vw;
@@ -16,12 +17,10 @@ export default function AdminContainer({ numCategories }) {
 
   return (
     <>
-      <AdminContainerBox>{categories}</AdminContainerBox>
-      <span
-        style={{ padding: "30px", background: "pink", width: "fit-content" }}
-      >
-        카테고리 추가 버튼 누르면 컴포넌트 추가돼요!
-      </span>
+      <AdminContainerBox>
+        <OptionModal />
+        {categories}
+      </AdminContainerBox>
     </>
   );
 }
