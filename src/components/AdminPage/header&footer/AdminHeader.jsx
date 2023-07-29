@@ -27,14 +27,16 @@ const Title = styled.div`
   font-size: xx-large;
   font-weight: bolder;
   padding-bottom: 20px;
+  padding-right: 40px;
+  padding-top: 20px;
 `;
 
 const AddCategoryButton = styled.div`
   background-color: #d9d9d9;
-  padding: 18px 10px;
+  padding: 20px 10px;
   border-radius: 5px;
-  margin-right: 20px;
-
+  margin: 20px;
+  text-align: center;
   cursor: pointer;
 
   &:active {
@@ -42,14 +44,21 @@ const AddCategoryButton = styled.div`
   }
 `;
 
+const StoreName = styled.div`
+  margin-right:20px;
+`;
+
 export default function AdminHeader({ title, addCategory }) {
   return (
-    <HeaderBox>
-      <LogoBox>로고</LogoBox>
-      <TitleBox>
-        <Title>메뉴 등록</Title>
-      </TitleBox>
-      <AddCategoryButton onClick={addCategory}>카테고리 추가</AddCategoryButton>
-    </HeaderBox>
+    <>
+      <HeaderBox>
+        <LogoBox>로고</LogoBox>
+        <TitleBox>
+          <Title>메뉴 등록</Title>
+        </TitleBox>
+          <StoreName>상호명</StoreName>
+      </HeaderBox>
+        <AddCategoryButton onClick={addCategory}>카테고리 추가 ➕</AddCategoryButton>
+    </>
   );
 }
