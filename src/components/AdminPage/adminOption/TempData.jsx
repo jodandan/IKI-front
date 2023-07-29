@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { styled } from "styled-components";
-import { FaCheck } from "react-icons/fa6";
+import Checkbox from "./Checkbox";
 
 const CategoryBox = styled.div`
   background-color: lightgoldenrodyellow;
@@ -27,40 +27,6 @@ const CheckArea = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
-const CheckboxContainer = styled.div`
-  display: inline-block;
-  width: 20px; // StyledCheckbox랑 동일하게 유지해줘야함
-  height: 20px;
-  cursor: pointer;
-`;
-
-const StyledCheckbox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20px;
-  height: 20px;
-  background-color: ${({ checked }) =>
-    checked ? "var(--primary-color)" : "white"};
-`;
-
-const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
-  display: none;
-`;
-
-const CheckIcon = styled(FaCheck)`
-  color: white;
-`;
-
-const Checkbox = ({ className, checked, onChange, ...props }) => (
-  <CheckboxContainer onClick={onChange} className={className}>
-    <HiddenCheckbox checked={checked} onChange={onChange} {...props} />
-    <StyledCheckbox checked={checked}>
-      <CheckIcon checked={checked} />
-    </StyledCheckbox>
-  </CheckboxContainer>
-);
 
 export default function TempData() {
   const [isChecked, setIsChecked] = useState(false);
