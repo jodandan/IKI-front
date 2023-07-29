@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { AddButton, CloseButton } from "./ButtonCSS";
-import { FaPlus } from "react-icons/fa6";
+import { PlusButton, CloseButton } from "./ButtonCSS";
 
 /* FIXME!! - 추후 fit in body하게 수정*/
 const ModalBackground = styled.div`
@@ -34,7 +33,7 @@ const OptionContents = styled.div`
   width: 100%;
   overflow-y: auto;
   div {
-    margin: 6px 17px;
+    margin: 6px 17px 25px 17px; // 상 우 하 좌
   }
 `;
 
@@ -60,11 +59,7 @@ const OptionModal = ({ isOpen, onClose }) => {
           <div>HELLO</div>
           <div>HELLO</div>
           <div>HELLO</div>
-
-          <AddButton>
-            <FaPlus className="plus" />
-            카테고리 추가
-          </AddButton>
+          <PlusButton>카테고리 추가</PlusButton>
         </OptionContents>
         <CloseButton onClick={onClose}>입력 완료</CloseButton>
       </OptionModalBox>

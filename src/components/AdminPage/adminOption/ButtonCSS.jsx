@@ -1,6 +1,14 @@
 import { styled } from "styled-components";
+import { FaPlus } from "react-icons/fa6";
 
-export const AddButton = styled.div`
+export const PlusButton = ({ children }) => (
+  <AddButton>
+    <FaPlus className="plus" />
+    {children}
+  </AddButton>
+);
+
+const AddButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
