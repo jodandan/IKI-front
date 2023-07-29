@@ -1,6 +1,7 @@
-import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { PlusButton, CloseButton } from "./ButtonCSS";
+import TempData from "./TempData";
 
 /* FIXME!! - 추후 fit in body하게 수정*/
 const ModalBackground = styled.div`
@@ -29,18 +30,21 @@ const OptionModalBox = styled.div`
 
 const OptionContents = styled.div`
   height: 100%;
-  background-color: lightgoldenrodyellow;
   width: 100%;
   overflow-y: auto;
-  div {
-    margin: 6px 17px 25px 17px; // 상 우 하 좌
-  }
 `;
 
 const OptionModal = ({ isOpen, onClose }) => {
   // if (!isOpen) return null;
-
   const menuName = "아메리카노";
+  const [numCategories, setNumCategories] = useState(1);
+  const addCategory = () => {
+    setNumCategories((prev) => prev + 1);
+  };
+  const categories = [];
+  for (let i = 0; i < numCategories; i++) {
+    categories.push(<TempData key={i} />);
+  }
 
   return (
     <ModalBackground>
@@ -55,11 +59,8 @@ const OptionModal = ({ isOpen, onClose }) => {
           {menuName}
         </div>
         <OptionContents>
-          <div>HELLO</div>
-          <div>HELLO</div>
-          <div>HELLO</div>
-          <div>HELLO</div>
-          <PlusButton>카테고리 추가</PlusButton>
+          {categories}
+          <PlusButton addCategory={addCategory}>카테고리 추가</PlusButton>
         </OptionContents>
         <CloseButton onClick={onClose}>입력 완료</CloseButton>
       </OptionModalBox>

@@ -1,13 +1,6 @@
 import { styled } from "styled-components";
 import { FaPlus } from "react-icons/fa6";
 
-export const PlusButton = ({ children }) => (
-  <AddButton>
-    <FaPlus className="plus" />
-    {children}
-  </AddButton>
-);
-
 const AddButton = styled.div`
   display: flex;
   justify-content: center;
@@ -18,6 +11,7 @@ const AddButton = styled.div`
   font-weight: bold;
   background: var(--secondary-color);
   cursor: pointer;
+  margin: 6px 17px 25px 17px; // 상 우 하 좌
 
   .plus {
     margin-top: 2px;
@@ -29,6 +23,13 @@ const AddButton = styled.div`
     padding: 2px;
   }
 `;
+
+export const PlusButton = ({ children, addCategory }) => (
+  <AddButton onClick={addCategory}>
+    <FaPlus className="plus" />
+    {children}
+  </AddButton>
+);
 
 export const CloseButton = styled.button`
   width: 120px;
