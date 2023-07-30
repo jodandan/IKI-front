@@ -1,3 +1,5 @@
+// 나중에 다 개별 컴포넌트로 쪼개기.. 지금 넘 복잡
+
 import { useState } from "react";
 import { styled } from "styled-components";
 import CategoryName from "./CategoryName";
@@ -45,7 +47,7 @@ const EachOption = styled.div`
   }
 `;
 
-export default function TempData() {
+export default function CategoryData() {
   const [optionName, setOptionName] = useState("");
   const [optionPrice, SetOptionPrice] = useState("");
   const [isChecked, setIsChecked] = useState(false); // '필수' 체크 관리
@@ -64,6 +66,17 @@ export default function TempData() {
     setOptionName("");
     SetOptionPrice("");
   };
+
+  const handleDeleteOption = (index) => {
+    setOptions((prevOptions) => prevOptions.filter((_, i) => i !== index));
+  };
+
+  // 옵션 제대로 입력되고 있는지 확인
+  // useEffect(() => {
+  //   options.forEach((option, index) => {
+  //     console.log(`Option ${index} - optionName: ${option.optionName}`);
+  //   });
+  // }, [options]);
 
   return (
     <CategoryBox>
@@ -105,7 +118,10 @@ export default function TempData() {
                 }
               />
             </div>
-            <div style={{ cursor: "pointer" }}>
+            <div
+              onClick={() => handleDeleteOption(index)}
+              style={{ cursor: "pointer" }}
+            >
               <FaXmark style={{ color: "#515151" }} />
             </div>
           </EachOption>
