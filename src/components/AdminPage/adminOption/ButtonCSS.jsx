@@ -43,3 +43,13 @@ export const CloseButton = styled.button`
   color: var(--primary-color);
   cursor: pointer;
 `;
+
+export const AddOptionButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 3px 0;
+  background-color: #f2f2f2;
+  cursor: pointer;
+`;

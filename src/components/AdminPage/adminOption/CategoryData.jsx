@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { styled } from "styled-components";
 import CategoryName from "./CategoryName";
-import { FaXmark } from "react-icons/fa6";
+import { AddOptionButton } from "./ButtonCSS";
+import { FaPlus, FaXmark } from "react-icons/fa6";
 
 const CategoryBox = styled.div`
-  background-color: lightgreen;
-  margin: 6px 17px 25px 17px; // 상 우 하 좌
+  margin: 6px 17px 20px 17px; // 상 우 하 좌
 `;
 
 const CategoryContents = styled.div`
-  background-color: darkgray;
+  // background-color: darkgray;
   padding: 10px 0;
   display: grid;
   gap: 5px;
@@ -30,7 +30,7 @@ const EachOption = styled.div`
     // 옵션이름 칸 그 자체
     border-radius: 4px;
     padding: 3px 0;
-    background-color: var(--third-color);
+    background-color: #f2f2f2;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -83,9 +83,12 @@ export default function TempData() {
             />
           </div>
           <div style={{ cursor: "pointer" }}>
-            <FaXmark />
+            <FaXmark style={{ color: "#515151" }} />
           </div>
         </EachOption>
+        <AddOptionButton>
+          <FaPlus style={{ color: "#515151" }} />
+        </AddOptionButton>
       </CategoryContents>
     </CategoryBox>
   );
