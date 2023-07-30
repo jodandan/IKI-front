@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import { DUMMY_DATA } from "./MenuItemData.jsx";
 import menuDataJson from "./MenuItemData.json";
 import { useState } from "react";
 import MenuModal from "./menuModal/MenuModal";
@@ -9,13 +8,11 @@ const ListBox = styled.div`
   overflow-y: scroll; /* 마지막에 스크롤 없애기 */
   height: 100%;
 `;
-
 //column을 이용한 구현
 const List = styled.div`
   column-count: 2;
   column-gap: 10px;
 `;
-
 const Item = styled.div`
   width: 100%;
   /* height: ${(props) => props.height || "100px"}; */
@@ -24,23 +21,20 @@ const Item = styled.div`
   break-inside: avoid;
   margin-bottom: 10px;
 `;
-
 const CategoryTltleStyle=styled.h2`
   padding: 10px;
-  font-size: 20px; 
+  font-size: var(--font-big);
   font-weight: bold;
 `
-
-const MenuStyle=styled.div`
+const MenuStyle=styled.li`
   display: flex;
   justify-content: space-between;
-  padding: 4px;
-  margin:2px;
-  border-radius: 10px;
+  padding: 4px 10px;
+  margin: 4px 0;
   /* 선택된 메뉴 블록의 스타일*/
   ${({ selected}) =>
     selected && `
-    background-color: #8bacff;
+    background-color: var(--secondary-color);
   `}
 `
 const SoldOutStyle=styled.div`
@@ -72,6 +66,7 @@ const SoldOutText=styled.div`
 `;
 
 export function MasonryMenuContainer() {
+  const cartMenu=[1,4,25,38];//장바구니 정보
   const [modalMenusId, setModalMenusId] = useState(null);
   const handleMenuItemClick = (menusId) => {  setModalMenusId(menusId); }
   // json데이터 출력
@@ -103,29 +98,29 @@ export function MasonryMenuContainer() {
     <ListBox id="listBox">
       <List id="list">
         {/* 데이터 받기 */}
-        {Object.entries(DUMMY_DATA).map(([category, items]) => (
-          <Item key={category}>
-            <div style={{padding: "10px"}}>
-            <CategoryTltleStyle>{category}</CategoryTltleStyle>
+        {menuDataJson.responseData.map((category) => (
+          <Item key={category.categoryId}>
+            <div style={{padding: "10px 0"}}>
+            <CategoryTltleStyle>{category.categoryName}</CategoryTltleStyle>
             <ul style={{marginTop: "5px"}}>
-              {items.map((item, index) => (
-                <li key={index}>
+              {category.menusList.map((menu, index) => (
                   <MenuStyle 
+                    key={index}
                     id="menuStyle" 
                     onClick={() => {
-                      if(!item.soldOut) {handleMenuItemClick(item.menusId);};
+                      if(!menu.soldOut) {handleMenuItemClick(menu.menusId);};
                     }}
+                    selected={cartMenu.includes(menu.menusId)?true:false}
                     >
-                      {item.soldOut?
+                      {menu.soldOut?
                         <SoldOutStyle>
                           <SoldOutLine/>
                           <SoldOutText>품절</SoldOutText>
-                          <div>{item.name}</div><div>{item.price}원</div>
+                          <div>{menu.menusName}</div><div>{menu.menusPrice}원</div>
                         </SoldOutStyle>:
-                        <><div>{item.name}</div><div>{item.price}원</div></>
+                        <><div>{menu.menusName}</div><div>{menu.menusPrice}원</div></>
                       }
                   </MenuStyle>
-                </li>
               ))}
             </ul>
             </div>

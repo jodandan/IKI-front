@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { useState } from "react";
-import MenuDetailData from "./MenuDetail.json"
+import MenuDetailData from "./MenuDetail.json"//더미데이터(서버로 받은 데이터)
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -35,9 +35,10 @@ const ModalButton = styled.button`
     /* margin: auto; */
     padding: 10px;
     border-radius: 10px;
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
     font-size: var(--font-big);
+    font-weight: bold;
 `
 const OptionConainer=styled.div`
     width: 100%;
@@ -50,7 +51,7 @@ const OptionTitle=styled.h2`
     font-size: var(--font-big);
     border-radius: 10px;
     width: 100%;
-    padding: 7px 0px;
+    padding: 4px 0px;
     text-align: center;
 `
 const Options=styled.ul`
@@ -67,7 +68,7 @@ const Option=styled.li`
     font-size: var(--font-big);
     background-color: var(--third-color);
     font-weight: bold;
-    height: 15vh;/*반응형으로 고치기?*/
+    height: 14vh;/*반응형으로 고치기?*/
     border-radius: 10px;
     /* 선택된 메뉴 블록의 스타일*/
     ${({ selected}) =>
@@ -76,6 +77,7 @@ const Option=styled.li`
     `}
 `
 export default function MenuModal({menusId, onCloseModal, orderUsers}){
+
 
     //menusId에 따라 모든 정보를 조회하는 api/v1/menuOptions/all/{menusId} 사용하여 json받기
     // console.log(MenuDetailData);
@@ -92,9 +94,9 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
             return [...prevOptions, optionId]; // 선택 추가
           }
         });
-      };
+    };
 
-    //메뉴 옵션 선택 후, 하단 버튼 클릭시
+    //메뉴 옵션 선택 후, 하단 버튼 클릭시 , 서버로 전송하는 것 추가하기++
     const handleSubmitButton=() =>{
         const cart= {
             menusId: menusId,
@@ -124,7 +126,7 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
             <ModalContainer>
                 <OptionConainer>
                     {Object.entries(groupMenuOptionsByCategory(MenuDetailData.menuOptionsList)).map(([category, options]) => (
-                        <div key={category}>
+                        <div key={category} style={{paddingTop: "8px"}}>
                             <OptionTitle>{category}</OptionTitle>
                             <Options>
                                 {options.map(option => (
@@ -139,8 +141,8 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
                         </div>
                     ))}
                 </OptionConainer>
-                <div style={{backgroundColor: "white", width: "100%", position: "fixed", bottom:"0px", borderRadius: "20px", display: "flex", justifyContent: "center"}}>
-                    <ModalButton  onClick={()=>{onCloseModal(); handleSubmitButton();}}>계속 주문하기</ModalButton>
+                <div style={{backgroundColor: "white", width: "100%", position: "sticky", borderRadius: "20px", display: "flex", justifyContent: "center"}}>
+                    <ModalButton  onClick={()=>{onCloseModal(); handleSubmitButton();}}>선택 완료</ModalButton>
                 </div>
             </ModalContainer>
         </>
