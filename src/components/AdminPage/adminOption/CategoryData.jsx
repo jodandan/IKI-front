@@ -48,12 +48,22 @@ const EachOption = styled.div`
 export default function TempData() {
   const [optionName, setOptionName] = useState("");
   const [optionPrice, SetOptionPrice] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(false); // '필수' 체크 관리
+  const [options, setOptions] = useState([]);
+
   const handleCheckbox = () => {
     setIsChecked((prev) => !prev);
   };
 
-  //const catName = "온도";
+  const handleAddOption = () => {
+    const newOption = {
+      optionName: optionName,
+      optionPrice: optionPrice,
+    };
+    setOptions((prevOptions) => [...prevOptions, newOption]);
+    setOptionName("");
+    SetOptionPrice("");
+  };
 
   return (
     <CategoryBox>
@@ -63,30 +73,44 @@ export default function TempData() {
           <div className="fixed">옵션 이름</div>
           <div className="fixed">가격</div>
         </EachOption>
-        <EachOption>
-          <div>
-            <input
-              type="text"
-              placeholder="옵션명 입력"
-              value={optionName}
-              onChange={(e) => setOptionName(e.target.value)}
-            />
-          </div>
-          <div>
-            <input
-              // 옆에 arrow 생기는거 싫어서 일단 type="text"로 해둠
-              type="text"
-              placeholder="가격 입력"
-              step="100"
-              value={optionPrice}
-              onChange={(e) => SetOptionPrice(e.target.value)}
-            />
-          </div>
-          <div style={{ cursor: "pointer" }}>
-            <FaXmark style={{ color: "#515151" }} />
-          </div>
-        </EachOption>
-        <AddOptionButton>
+        {options.map((option, index) => (
+          <EachOption key={index}>
+            <div>
+              <input
+                type="text"
+                placeholder="옵션명 입력"
+                value={option.optionName}
+                onChange={(e) =>
+                  setOptions((prevOptions) =>
+                    prevOptions.map((opt, i) =>
+                      i === index ? { ...opt, optionName: e.target.value } : opt
+                    )
+                  )
+                }
+              />
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="가격 입력"
+                value={option.optionPrice}
+                onChange={(e) =>
+                  setOptions((prevOptions) =>
+                    prevOptions.map((opt, i) =>
+                      i === index
+                        ? { ...opt, optionPrice: e.target.value }
+                        : opt
+                    )
+                  )
+                }
+              />
+            </div>
+            <div style={{ cursor: "pointer" }}>
+              <FaXmark style={{ color: "#515151" }} />
+            </div>
+          </EachOption>
+        ))}
+        <AddOptionButton onClick={handleAddOption}>
           <FaPlus style={{ color: "#515151" }} />
         </AddOptionButton>
       </CategoryContents>
