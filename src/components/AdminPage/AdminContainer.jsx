@@ -31,7 +31,8 @@ export default function AdminContainer({ numCategories }) {
   return (
     <>
       <AdminContainerBox>
-        {/* <div
+        {/* 모달 관련 코드 일단 주석
+         <div
           onClick={openModal}
           style={{
             padding: "10px",
@@ -42,7 +43,6 @@ export default function AdminContainer({ numCategories }) {
           옵션
         </div>
         <OptionModal isOpen={isModalOpen} onClose={closeModal} /> */}
-        <OptionModal />
         {categories}
       </AdminContainerBox>
     </>

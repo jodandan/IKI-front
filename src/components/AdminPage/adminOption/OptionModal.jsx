@@ -45,8 +45,7 @@ const OptionModal = ({ isOpen, onClose }) => {
     categories.push(<CategoryData key={i} />);
   }
 
-  // 모달 관련 코드 일단 주석
-  //if (!isOpen) return null;
+  if (!isOpen) return null;
 
   return (
     <ModalBackground>
