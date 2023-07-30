@@ -66,7 +66,7 @@ const SoldOutText=styled.div`
 `;
 
 export function MasonryMenuContainer() {
-  const cartMenu=[1,4,25,38];//장바구니 정보
+  const cartMenu=[1,4,25,38];//장바구니에 들어있는 menusId 정보
   const [modalMenusId, setModalMenusId] = useState(null);
   const handleMenuItemClick = (menusId) => {  setModalMenusId(menusId); }
   // json데이터 출력
