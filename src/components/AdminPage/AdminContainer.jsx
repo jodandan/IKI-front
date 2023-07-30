@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { styled } from "styled-components";
 import Category from "./adminItems/Category";
+import OptionModal from "./adminOption/OptionModal";
 
 const AdminContainerBox = styled.div`
   padding: 0 1.2vw;
@@ -10,18 +12,39 @@ const AdminContainerBox = styled.div`
 export default function AdminContainer({ numCategories }) {
   const categories = [];
 
+  /* 모달 관련 코드 일단 주석
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  */
+
   for (let i = 0; i < numCategories; i++) {
     categories.push(<Category key={i} />);
   }
 
   return (
     <>
-      <AdminContainerBox>{categories}</AdminContainerBox>
-      <span
-        style={{ padding: "30px", background: "pink", width: "fit-content" }}
-      >
-        카테고리 추가 버튼 누르면 컴포넌트 추가돼요!
-      </span>
+      <AdminContainerBox>
+        {/* 모달 관련 코드 일단 주석
+         <div
+          onClick={openModal}
+          style={{
+            padding: "10px",
+            background: "pink",
+            cursor: "pointer",
+          }}
+        >
+          옵션
+        </div>
+        <OptionModal isOpen={isModalOpen} onClose={closeModal} /> */}
+        {categories}
+      </AdminContainerBox>
     </>
   );
 }
