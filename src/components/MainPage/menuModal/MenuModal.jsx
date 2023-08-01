@@ -13,13 +13,13 @@ const ModalBackground = styled.div`
 const ModalContainer = styled.div`
   width: 100%;
   /* 넓이 반응형으로 고치기 */
-  max-width: 500px;
+  max-width: 40%;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   height: 70%;
-  padding: 20px;
+  padding: 0 20px;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 20px;
@@ -31,7 +31,7 @@ const ModalContainer = styled.div`
 const ModalButton = styled.button`
     all: unset;
     bottom: 0;
-    margin: 30px 0;
+    margin: 1rem 0;
     /* margin: auto; */
     padding: 10px;
     border-radius: 10px;
@@ -45,11 +45,11 @@ const OptionConainer=styled.div`
     overflow-y: scroll;
 `
 const OptionTitle=styled.h2`
-    background-color: #5977e0;
+    background-color: var(--primary-color);
     color: white;
     font-weight: bolder;
-    font-size: var(--font-big);
-    border-radius: 10px;
+    font-size: var(--font-regular);
+    border-radius: 5px;
     width: 100%;
     padding: 4px 0px;
     text-align: center;
@@ -65,7 +65,7 @@ const Option=styled.li`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: var(--font-big);
+    font-size: var(--font-regular);
     background-color: var(--third-color);
     font-weight: bold;
     height: 14vh;/*반응형으로 고치기?*/
@@ -96,7 +96,7 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
         });
     };
 
-    //메뉴 옵션 선택 후, 하단 버튼 클릭시 , 서버로 전송하는 것 추가하기++
+    //메뉴 옵션 선택 후, 하단 버튼 클릭시 , 서버로 전송하는 것 추가하기++서버로부터 장바구니 데이터 받기
     const handleSubmitButton=() =>{
         const cart= {
             menusId: menusId,
@@ -124,6 +124,7 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
         <>
             <ModalBackground/>
             <ModalContainer>
+                <h2 style={{fontSize:"var(--font-big)", fontWeight:"bold", margin:"0.8rem 0"}}>{MenuDetailData.menusName}</h2>
                 <OptionConainer>
                     {Object.entries(groupMenuOptionsByCategory(MenuDetailData.menuOptionsList)).map(([category, options]) => (
                         <div key={category} style={{paddingTop: "8px"}}>
