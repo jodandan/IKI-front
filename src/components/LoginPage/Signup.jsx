@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
+import logo from './logo.svg';
+import logoSquare from './logoSquare.svg';
 
 const LoginBox = styled.div`
   height: 100vh; /* 추후 메뉴판 길이에 맞게 수정 */
-  background: rgba(0, 82, 212, 0.70); 
+  background: rgb(0, 46, 207, 65%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,25 +17,26 @@ const LoginBox = styled.div`
 
 const Title = styled.div`
   font-size:30px;
-  margin-bottom: 50%;
+  margin-bottom: 15%;
   color:white;
 `;
 
-const Form = styled.form`
+const Display = styled.div`
   display: flex;
   flex-direction: row; /* Change flex-direction to row */
   align-items: center;
 
 `;
 
-const FormCheck = styled.form`
+const DisplayThird = styled.div`
   display: flex;
   flex-direction: row; /* Change flex-direction to row */
   align-items: center;
   margin-right: 3rem;
+
 `;
 
-const SignUpForm = styled.form`
+const SignUpForm = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,6 +46,7 @@ const FormLabel = styled.label`
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
   margin-right: 1rem;
+  color:White;
 `;
 
 const FormInput = styled.input`
@@ -50,6 +55,7 @@ const FormInput = styled.input`
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 1rem;
+  
 `;
 
 const VerificationButton = styled.button`
@@ -79,6 +85,38 @@ const SubmitButton = styled.input`
 const ErrorMessage = styled.p`
   color: red;
 `;
+
+const ButtonBox = styled.div`
+  
+`; 
+const LoginButton = styled.button`
+  background: rgb(0, 46, 207, 65%);
+  color:White;
+  border:none;
+  border-radius: 5px;
+
+  padding: 8px;
+  height: 40px;
+  font-size: var(--font-big);
+  margin: 10px;
+`;
+
+const SignUpButton = styled.button`
+  background: rgb(0, 46, 207, 65%);
+  color:White;
+  border:none;
+  margin-left: 20px;
+  border-radius: 5px;
+
+  padding: 8px;
+  height: 40px;
+  font-size: var(--font-big);
+  margin: 10px;
+
+  cursor: pointer;
+`;
+
+
 
 const SignUp = () => {
   const [nickname, setNickname] = useState('');
@@ -140,8 +178,10 @@ const SignUp = () => {
   return (
     <LoginBox>
       <SignUpForm onSubmit={handleSignUp}>
+        <img style={{ height: "6rem", width: "auto" }} src={logoSquare} alt="LogoSquare" />
+        <img style={{ height: "5rem", width: "auto", margin: "2rem 0 1.5rem 0" }} src={logo} alt="Logo" />
         <Title>회원가입</Title>
-        <Form>
+        <Display>
           <FormLabel htmlFor="nickname">사용자명</FormLabel>
           <FormInput
             type="text"
@@ -150,8 +190,8 @@ const SignUp = () => {
             onChange={(e) => setNickname(e.target.value)}
             required
           />
-        </Form>
-        <Form>
+        </Display>
+        <Display>
           <FormLabel htmlFor="password">비밀번호</FormLabel>
           <FormInput
             type="password"
@@ -160,8 +200,8 @@ const SignUp = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </Form>
-        <FormCheck>
+        </Display>
+        <DisplayThird>
           <FormLabel htmlFor="confirmPassword">비밀번호 확인</FormLabel>
           <FormInput
             type="password"
@@ -170,8 +210,8 @@ const SignUp = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-        </FormCheck>
-        <Form>
+        </DisplayThird>
+        <Display>
           <FormLabel htmlFor="shopName">가게이름</FormLabel>
           <FormInput
             type="text"
@@ -180,11 +220,15 @@ const SignUp = () => {
             onChange={(e) => setShopName(e.target.value)}
             required
           />
-        </Form>
-        <FormInput
-          type="submit"
-          value="가입하기"
-        />
+        </Display>
+        <ButtonBox>
+          <SignUpButton onClick={handleSignUp} value="가입하기">
+            가입하기
+          </SignUpButton>
+          <LoginButton>
+            <Link to={"/"}>로그인 페이지로 이동</Link>
+          </LoginButton>
+        </ButtonBox>
       </SignUpForm>
     </LoginBox>
   );
