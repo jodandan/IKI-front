@@ -14,6 +14,7 @@ const ModalBackground = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 `;
 
 const OptionModalBox = styled.div`
@@ -26,6 +27,7 @@ const OptionModalBox = styled.div`
   width: 50vw; /* FIXME!! - 추후 수정 */
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
 `;
 
 const OptionContents = styled.div`

@@ -1,9 +1,11 @@
 import { styled } from "styled-components";
 import { useState } from "react";
+import { FaPlus } from "react-icons/fa6";
 
 import MenuInput from "./MenuInput";
 import PriceInput from "./PriceInput";
 import Option from "./Option";
+
 
 const CategoryBox = styled.div`
   background-color: #efefef;
@@ -12,14 +14,24 @@ const CategoryBox = styled.div`
 `;
 
 const CategoryName = styled.div` /* 카테고리명 */ 
-  margin-bottom: 10px
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-style: normal;
+  font-weight:500;
+  line-height: normal;
 `;
 
-const CategoryInput = styled.input` /* 카테고리 적혀있을 박스 */
-  background-color: #d9d9d9;
+const CategoryInput = styled.textarea` /* 카테고리 적혀있을 박스 */
+  background-color: #FFF;
   padding: 10px 20px;
   border: none;
+  resize: none;
+  width: 90%;
 
+  font-size: 16px;
+  font-weight: bolder;
+
+  
 `;
 
 const Text = styled.div`
@@ -29,18 +41,30 @@ const Text = styled.div`
 const SoldOutText = styled.div` /* 품절 */
   margin-bottom: 10px;
   margin-top: 10px;
+  font-size: 20px;
+  font-style: normal;
+  font-weight:500;
+  line-height: normal;
 `;
 
 const MenuText = styled.div` /* 메뉴명 */
   margin-bottom: 10px;
   margin-top: 10px;
-  margin-left: 7rem;
+  margin-left: 5rem;
+  font-size: 20px;
+  font-style: normal;
+  font-weight:500;
+  line-height: normal;
 `;
 
 const PriceText = styled.div` /* 가격 */
   margin-bottom: 10px;
   margin-top: 10px;
   margin-left: 11rem;
+  font-size: 20px;
+  font-style: normal;
+  font-weight:500;
+  line-height: normal;
 `;
 
 const Box = styled.div` /* INput들 담는 박스  */
@@ -61,7 +85,7 @@ const Checkmark = styled.span` /* 체크박스 안에 표시되는 마크 */
 
 
 const SoldOutCheckBox = styled.div` /* 품절 체크박스  */
-  background-color: #D9D9D9;
+  background-color: #FFF;
   margin-left: 0.3rem;
   width: 1.5rem;
   height: 1.5rem;
@@ -70,22 +94,30 @@ const SoldOutCheckBox = styled.div` /* 품절 체크박스  */
 `;
 
 const MenuPlus = styled.div`
-  background-color: #d9d9d9;
+  background-color: #FFF;
   padding: 5px 20px;
   border-radius: 5px;
   margin: 20px;
   text-align: center;
   cursor: pointer;
+  font-weight: bold;
 
   &:active {
     background-color: #cfcfcf;
   }
+
+  .plus {
+    margin-right: 2px;
+    border-radius: 3px;
+    width: 13px;
+    height: 13px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2px;
+  }
 `;
 
-const BoxContentWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
+
 
 
 
@@ -95,7 +127,8 @@ export default function Category() {
   const [MenuName, setMenuName] = useState("");
   const [PriceName, setPriceName] = useState("");
 
-  const [isSoldOut, setIsSoldOut] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [menuItems, setMenuItems] = useState([]);
 
@@ -118,98 +151,84 @@ export default function Category() {
     setPriceName("");
   };
 
+  const handleOptionClick = () => {
+    setIsModalOpen(true);
+  };
+  
 
   return (
     <CategoryBox>
       <div>
         <CategoryName>카테고리명</CategoryName>
-        <CategoryInput 
+        <CategoryInput
           type="text"
           placeholder="카테고리 입력"
           value={categoryName}
           onChange={(e) => setCategoryName(e.target.value)}
           contentEditable
-        > 
+        >
+          {" "}
         </CategoryInput>
-        
+
         <Text>
           <SoldOutText>품절</SoldOutText>
           <MenuText>메뉴명</MenuText>
           <PriceText>가격</PriceText>
         </Text>
 
-        <Box>
-          <SoldOutCheckBox onClick={handleSoldOutToggle}>
-              <Checkmark checked={isSoldOut} />
-          </SoldOutCheckBox>
-
-          <MenuInput
-            value={MenuName}
-            onChange={(e) => setMenuName(e.target.value)}
-            onClear={() => setMenuName("")}
-          />
-
-          <PriceInput
-            value={PriceName}
-            onChange={(e) => setPriceName(e.target.value)}
-            onClear={() => setPriceName("")}
-          />
-
-          <Option/>
-        </Box>
-
         {menuItems.map((item, index) => (
           <Box key={index}>
-            <BoxContentWrapper>
             <SoldOutCheckBox onClick={() => handleSoldOutToggle(index)}>
-                <Checkmark checked={item.isSoldOut} />
-              </SoldOutCheckBox>
+              <Checkmark checked={item.isSoldOut} />
+            </SoldOutCheckBox>
+          
+            <MenuInput
+              value={item.menuName}
+              onChange={(e) =>
+                setMenuItems((prevItems) =>
+                  prevItems.map((prevItem, i) =>
+                    i === index
+                      ? { ...prevItem, menuName: e.target.value }
+                      : prevItem
+                  )
+                )
+              }
+              onClear={() =>
+                setMenuItems((prevItems) =>
+                  prevItems.map((prevItem, i) =>
+                    i === index ? { ...prevItem, menuName: "" } : prevItem
+                  )
+                )
+              }
+            />
 
-              <MenuInput
-                value={item.menuName}
-                onChange={(e) =>
-                  setMenuItems((prevItems) =>
-                    prevItems.map((prevItem, i) =>
-                      i === index
-                        ? { ...prevItem, menuName: e.target.value }
-                        : prevItem
-                    )
+            <PriceInput
+              value={item.priceName}
+              onChange={(e) =>
+                setMenuItems((prevItems) =>
+                  prevItems.map((prevItem, i) =>
+                    i === index
+                      ? { ...prevItem, priceName: e.target.value }
+                      : prevItem
                   )
-                }
-                onClear={() =>
-                  setMenuItems((prevItems) =>
-                    prevItems.map((prevItem, i) =>
-                      i === index ? { ...prevItem, menuName: "" } : prevItem
-                    )
+                )
+              }
+              onClear={() =>
+                setMenuItems((prevItems) =>
+                  prevItems.map((prevItem, i) =>
+                    i === index ? { ...prevItem, priceName: "" } : prevItem
                   )
-                }
-              />
-
-              <PriceInput
-                value={item.priceName}
-                onChange={(e) =>
-                  setMenuItems((prevItems) =>
-                    prevItems.map((prevItem, i) =>
-                      i === index
-                        ? { ...prevItem, priceName: e.target.value }
-                        : prevItem
-                    )
-                  )
-                }
-                onClear={() =>
-                  setMenuItems((prevItems) =>
-                    prevItems.map((prevItem, i) =>
-                      i === index ? { ...prevItem, priceName: "" } : prevItem
-                    )
-                  )
-                }
-              />
-              <Option />
-           </BoxContentWrapper>
+                )
+              }
+            />
+            <Option onClick={handleOptionClick} />
           </Box>
         ))}
-        <MenuPlus onClick={handleMenuPlusClick} >
-          +
+        <MenuPlus 
+          onClick={handleMenuPlusClick}>
+          <FaPlus className="plus" />
+
+          메뉴추가 
         </MenuPlus>
       </div>
     </CategoryBox>
