@@ -15,8 +15,9 @@ const LoginBox = styled.div`
 `;
 
 const Title = styled.div`
-  font-size:var(--font-big);
+  font-size:2rem;
   color:white;
+  margin: 2rem 0;
 `;
 
 const SignUpForm = styled.form`
@@ -32,7 +33,7 @@ const FormLabel = styled.label`
 `;
 
 const FormInput = styled.input`
-  padding: 0.5rem 1rem;
+  padding: 1rem 2rem;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -90,11 +91,11 @@ export default function Login() {
     <>
     <LoginBox>
       <SignUpForm onSubmit={handleLogin}>
-      <img style={{height:"100px", width:"auto"}} src={logoSquare} alt="LogoSquare"/>
-      <img style={{height:"100px", width:"auto"}} src={logo} alt="Logo"/>
+      <img style={{height:"6rem", width:"auto"}} src={logoSquare} alt="LogoSquare"/>
+      <img style={{height:"5rem", width:"auto", margin:"2rem 0 1.5rem 0"}} src={logo} alt="Logo"/>
       <Title>로그인</Title>
         <Form>
-          <FormLabel htmlFor="nickname">사용자명</FormLabel>
+          <FormLabel htmlFor="nickname"/>
           <FormInput
             type="text"
             name="nickname"
@@ -105,7 +106,7 @@ export default function Login() {
           />
         </Form>
         <Form>
-          <FormLabel htmlFor="password">비밀번호</FormLabel>
+          <FormLabel htmlFor="password"/>
           <FormInput
             type="password"
             name="password"
