@@ -65,8 +65,12 @@ const NumericKey = styled.button`
   border-radius: 5px;
   background: var(--secondary-color);
   font-size: 1.3rem;
+  
+  &:hover{
+    color: var(--primary-color);
+    outline: 2px solid var(--primary-color);
+  }
 `;
-
 
 export default function Pointpopup({ onClose, onRegister }) {
   const [enteredNumber, setEnteredNumber] = useState("");
