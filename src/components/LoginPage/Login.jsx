@@ -3,18 +3,19 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
+import logo from './logo.svg';
+import logoSquare from './logoSquare.svg';
 
 const LoginBox = styled.div`
   height: 100vh; /* 추후 메뉴판 길이에 맞게 수정 */
-  background: rgba(0, 82, 212, 0.70); 
+  background: rgb(0, 46, 207, 65%); 
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const Title = styled.div`
-  font-size:30px;
-  margin-bottom: 50%;
+  font-size:var(--font-big);
   color:white;
 `;
 
@@ -89,6 +90,8 @@ export default function Login() {
     <>
     <LoginBox>
       <SignUpForm onSubmit={handleLogin}>
+      <img style={{height:"100px", width:"auto"}} src={logoSquare} alt="LogoSquare"/>
+      <img style={{height:"100px", width:"auto"}} src={logo} alt="Logo"/>
       <Title>로그인</Title>
         <Form>
           <FormLabel htmlFor="nickname">사용자명</FormLabel>
@@ -98,6 +101,7 @@ export default function Login() {
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
             required
+            placeholder="아이디"
           />
         </Form>
         <Form>
@@ -108,6 +112,7 @@ export default function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            placeholder="비밀번호"
           />
         </Form>
           <FormInput
