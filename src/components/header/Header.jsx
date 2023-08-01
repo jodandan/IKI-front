@@ -1,21 +1,21 @@
 import { styled } from "styled-components";
+import logo from './headerLogo.svg';
 
 const HeaderBox = styled.header`
   width: 100%;
   height: 14vh;
-  /* background-color: green; */
-  background-color: var(--white);
+  background-color: white;
   display: flex;
   align-items: center;
   position: sticky;
   top: 0px;
+  z-index: 9999;
 `
-const LogoBox = styled.div`
-    width: 97px;
-    height: 55px;
+const LogoBox = styled.img`
+    width: 4rem;
+    height: auto;
     margin-left: 20px;
     position: absolute;
-    background-color: darkgray;
 `
 const TitleBox=styled.div`
     margin:auto;
@@ -37,7 +37,7 @@ const Subtitle=styled.div`
 export default function Header({title, subtitle}){
     return(
         <HeaderBox>
-          <LogoBox>로고</LogoBox>
+          <LogoBox src={logo} alt="Logo"/>
           <TitleBox>
             <Title>{title}</Title><Subtitle>{subtitle}</Subtitle>
           </TitleBox>
