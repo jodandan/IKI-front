@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import { FaPlus } from "react-icons/fa6";
+// import logo from "../../header/headerLogo.svg";
 
 const HeaderBox = styled.header`
   width: 100%;
@@ -11,11 +12,11 @@ const HeaderBox = styled.header`
   position: sticky;
   top: 0px;
 `;
-const LogoBox = styled.div`
-  width: 97px;
-  height: 55px;
+const LogoBox = styled.img`
+  width: 4rem;
+  height: auto;
   margin-left: 20px;
-  background-color: darkgray;
+  position: absolute;
 `;
 const TitleBox = styled.div`
   margin: auto;
@@ -33,7 +34,7 @@ const Title = styled.div`
 `;
 
 const AddCategoryButton = styled.div`
-  background-color: #D1DBFF;
+  background-color: #d1dbff;
   padding: 20px 10px;
   border-radius: 5px;
   margin: 20px;
@@ -61,24 +62,25 @@ const AddCategoryButton = styled.div`
 `;
 
 const StoreName = styled.div`
-  margin-right:20px;
+  margin-right: 20px;
 `;
 
 export default function AdminHeader({ title, addCategory }) {
   return (
     <>
       <HeaderBox>
-        <LogoBox>로고</LogoBox>
+        <LogoBox
+          src={`${process.env.PUBLIC_URL}/images/headerLogo.svg`}
+          alt="로고 이미지"
+        />
         <TitleBox>
           <Title>메뉴 등록</Title>
         </TitleBox>
-          <StoreName>상호명</StoreName>
+        <StoreName>상호명</StoreName>
       </HeaderBox>
-      <AddCategoryButton 
-        onClick={addCategory}>
+      <AddCategoryButton onClick={addCategory}>
         <FaPlus className="plus" />
         카테고리 추가
-    
       </AddCategoryButton>
     </>
   );
