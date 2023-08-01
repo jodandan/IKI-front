@@ -9,13 +9,15 @@ const MenuInputContainer = styled.div` /* 메뉴 박스, 메뉴 삭제버튼 담
 `;
 
 const MenuInputTextBox = styled.input` /* 메뉴명 적혀있을 박스 */
-  background-color: #C6C6C6;
-  margin-left: 7.3rem;
+  background-color: #FFF;
+  margin-left: 5.3rem;
 
   padding: 5px 20px;
 
   border: none;
   display: inline;
+  
+  
 `;
 
 const MenuNameClearButton = styled.button` /* 메뉴삭제버튼 */
@@ -23,7 +25,7 @@ const MenuNameClearButton = styled.button` /* 메뉴삭제버튼 */
   margin-top: 0.1rem;
 
   margin-left: -30px;
-  background-color: #C6C6C6;
+  background-color: #FFF;
   border: none;
   cursor: pointer;
 `;

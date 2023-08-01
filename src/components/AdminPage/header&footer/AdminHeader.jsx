@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { FaPlus } from "react-icons/fa6";
 
 const HeaderBox = styled.header`
   width: 100%;
@@ -32,15 +33,30 @@ const Title = styled.div`
 `;
 
 const AddCategoryButton = styled.div`
-  background-color: #d9d9d9;
+  background-color: #D1DBFF;
   padding: 20px 10px;
   border-radius: 5px;
   margin: 20px;
   text-align: center;
   cursor: pointer;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
 
   &:active {
     background-color: #cfcfcf;
+  }
+
+  .plus {
+    margin-top: 2px;
+    margin-right: 2px;
+    border-radius: 3px;
+    width: 13px;
+    height: 13px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2px;
   }
 `;
 
@@ -58,7 +74,12 @@ export default function AdminHeader({ title, addCategory }) {
         </TitleBox>
           <StoreName>상호명</StoreName>
       </HeaderBox>
-        <AddCategoryButton onClick={addCategory}>카테고리 추가 ➕</AddCategoryButton>
+      <AddCategoryButton 
+        onClick={addCategory}>
+        <FaPlus className="plus" />
+        카테고리 추가
+    
+      </AddCategoryButton>
     </>
   );
 }
