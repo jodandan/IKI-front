@@ -40,10 +40,21 @@ const FormInput = styled.input`
   margin-bottom: 1rem;
 `;
 
-const Form = styled.form`
+const Form = styled.div`
   display: flex;
   flex-direction: row; /* Change flex-direction to row */
   align-items: center;
+`;
+
+const FormButton = styled.button`
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  padding: 1rem 2rem;
+  border-radius:10px;
+  border: none;
+  margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 const Trash = styled.div`
@@ -66,9 +77,15 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+        // 유효성 검사: 아이디와 비밀번호가 입력되었는지 확인
+    if (!nickname || !password) {
+      alert('아이디와 비밀번호를 입력해주세요.');
+      return;
+    }
+
     try {
       // Send email and password to the server for authentication
-      const response = await axios.post('http://43.202.93.57:8080/members/login', {
+      const response = await axios.post('URL', {
         nickname,
         password,
         
@@ -84,7 +101,7 @@ export default function Login() {
       console.log('로그인성공!');
       navigate('/main'); // Redirect to the login page
     } catch (error) {
-      console.error('Login failed!', error);
+      console.error('로그인실패', error);
     }
   };
   return (
@@ -116,10 +133,9 @@ export default function Login() {
             placeholder="비밀번호"
           />
         </Form>
-          <FormInput
-          type="submit"
-          value="로그인"
-         />
+        <FormButton type="submit" onClick={handleLogin}>
+          로그인
+        </FormButton>
           <Trash>
             <Link to={"/signup"}>회원가입 페이지로 이동 </Link>
             <br/>
