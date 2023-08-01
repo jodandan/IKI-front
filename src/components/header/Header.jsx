@@ -9,7 +9,7 @@ const HeaderBox = styled.header`
   align-items: center;
   position: sticky;
   top: 0px;
-  z-index: 9999;
+  /* z-index: 9999; */
 `
 const LogoBox = styled.img`
     width: 4rem;
