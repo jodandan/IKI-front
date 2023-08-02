@@ -121,10 +121,9 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
     // console.log(MenuDetailData);
     const transformedData=transformData(MenuDetailData);
 
-    //선택된 옵션들, 옵션 선택시에 selected만 수정하고, 메뉴 제출시에 menuOptionIdList <= selected
+    //선택된 옵션들, 옵션 선택시에 selected만 수정하고, 메뉴 제출시에 menuOptionIdList <= selected된 옵션들
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [selectedRequiredOptions, setSelectedRequiredOptions] = useState({});
-    // const mandatoryOptionCategories = transformedData.filter(category => category.mandatory);
     const mandatoryOptionCategories = transformedData.filter(category => category.mandatory).map(category => category.menuOptionsCategory);
 
     //필수옵션 선택시, 수행되는 함수
@@ -148,21 +147,14 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
 
     //메뉴 옵션 선택 후, 하단 버튼 클릭시 , 서버로 전송하는 것 추가하기++서버로부터 장바구니 데이터 받기
     const handleSubmitButton=() =>{
-        console.log('일반선택');
-        console.log(selectedOptions);
-        console.log('필수선택');
-        console.log(mandatoryOptionCategories);
-        console.log(selectedRequiredOptions);
 
         //먼저 필수 카테고리를 골랐는지 확인
         if (mandatoryOptionCategories.every((value) => Object.prototype.hasOwnProperty.call(selectedRequiredOptions, value))){
-            console.log(true);
-            
 
             const cart= {
                 menusId: menusId,
                 orderUsers: orderUsers?orderUsers:null,//최초 장바구니 담기는 null
-                menuOptionsIdList: selectedOptions.join(","), // 처음에는 빈 문자열로 초기화, [옵션의 PK 스트링으로 ,로 엮어서]
+                menuOptionsIdList: [...Object.values(selectedRequiredOptions), selectedOptions].join(",")
             };
             console.log("submit");
             console.log(cart);
