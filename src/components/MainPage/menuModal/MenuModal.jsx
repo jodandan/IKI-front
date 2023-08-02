@@ -76,6 +76,43 @@ const Option=styled.li`
         background-color: var(--secondary-color);
     `}
 `
+//서버로부터 받은 데이터를 카테고리별, 필수순으로 나열해주는 함수
+function transformData(data) {
+    const menuOptionsMap = new Map();
+  
+    data.menuOptionsList.forEach((option) => {
+      const { menuOptionsCategory, mandatory, menuOptionsContents, menuOptionsPrice } = option;
+  
+      if (!menuOptionsMap.has(menuOptionsCategory)) {
+        menuOptionsMap.set(menuOptionsCategory, {
+          menuOptionsCategory,
+          mandatory,
+          menuOptionsContents: [],
+        });
+      }
+  
+      menuOptionsMap.get(menuOptionsCategory).menuOptionsContents.push({
+        menuOptionsContents: menuOptionsContents,
+        menuOptionsPrice: menuOptionsPrice,
+      });
+    });
+  
+    const transformedData = Array.from(menuOptionsMap.values());
+  
+    // mandatory: true인 것들을 배열 앞쪽으로 이동
+    const sortedData = transformedData.sort((a, b) => {
+      if (a.mandatory && !b.mandatory) {
+        return -1;
+      } else if (!a.mandatory && b.mandatory) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  
+    return sortedData;
+  }
+
 export default function MenuModal({menusId, onCloseModal, orderUsers}){
 
 
@@ -117,8 +154,11 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
           }
           groupedOptions[menuOptionsCategory].push({ contents: menuOptionsContents, price: menuOptionsPrice, id: menuOptionsId });
         });
+        console.log(groupedOptions);
         return groupedOptions;
+        
     };
+    console.log(transformData(MenuDetailData));
 
     return(
         <>
