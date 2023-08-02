@@ -45,8 +45,8 @@ const OptionConainer=styled.div`
     overflow-y: scroll;
 `
 const OptionTitle=styled.h2`
-    background-color: ${(props) => (props.mandatory==="true" ? "var(--primary-color)" : "var(--secondary-color)")};
-    color: ${(props) => (props.mandatory==="true" ? "white" : "black")};
+    background-color: ${(props) => (props.$mandatory==="true" ? "var(--primary-color)" : "var(--secondary-color)")};
+    color: ${(props) => (props.$mandatory==="true" ? "white" : "black")};
     font-weight: bolder;
     font-size: var(--font-regular);
     border-radius: 5px;
@@ -172,7 +172,7 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
                 <OptionConainer>
                     {transformedData.map((category)=>(
                         <div key={`category_${category.menuOptionsCategory}`} style={{paddingTop: "8px"}}>
-                            <OptionTitle mandatory={category.mandatory.toString()}>{category.menuOptionsCategory}({category.mandatory?"필수":"선택"})</OptionTitle>
+                            <OptionTitle $mandatory={category.mandatory.toString()}>{category.menuOptionsCategory}({category.mandatory?"필수":"선택"})</OptionTitle>
                             <Options>
                                 {category.mandatory?(<>
                                 {/* 필수 일때 */}
