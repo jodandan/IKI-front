@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import logo from './headerLogo.svg';
+import { Link } from 'react-router-dom';
 
 const HeaderBox = styled.header`
   width: 100%;
@@ -14,8 +15,6 @@ const HeaderBox = styled.header`
 const LogoBox = styled.img`
     width: 4rem;
     height: auto;
-    margin-left: 20px;
-    position: absolute;
 `
 const TitleBox=styled.div`
     margin:auto;
@@ -37,7 +36,11 @@ const Subtitle=styled.div`
 export default function Header({title, subtitle}){
     return(
         <HeaderBox>
-          <LogoBox src={logo} alt="Logo"/>
+          <Link 
+            to="/Admin" 
+            style={{ marginLeft: "20px",position: "absolute"}}>
+            <LogoBox src={logo} alt="Logo"/>
+          </Link>
           <TitleBox>
             <Title>{title}</Title><Subtitle>{subtitle}</Subtitle>
           </TitleBox>
