@@ -27,7 +27,7 @@
       "menuOptionsCategory": "샷",
       "menuOptionsContents": "샷추가",
       "menuOptionsPrice": 500,
-      "mandatory": true
+      "mandatory": false
     },
     {
       "menuOptionsId": 4,
@@ -51,7 +51,7 @@
       "menuOptionsCategory": "샷",
       "menuOptionsContents": "더블 샷 추가",
       "menuOptionsPrice": 700,
-      "mandatory": true
+      "mandatory": false
     },
     {
       "menuOptionsId": 7,
