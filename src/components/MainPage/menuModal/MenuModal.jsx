@@ -122,6 +122,13 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
 
     //선택된 옵션들, 옵션 선택시에 selected만 수정하고, 메뉴 제출시에 menuOptionIdList <= selected
     const [selectedOptions, setSelectedOptions] = useState([]);
+    const [selectedButtons, setSelectedButtons] = useState({});
+    const handleButtonClick = (groupId, buttonId) => {
+        setSelectedButtons((prevSelected) => ({
+          ...prevSelected,
+          [groupId]: buttonId,
+        }));
+    };
 
     //옵션 선택시, selected를 수정하는 함수
     const handleOptionClick = (optionId) => {
@@ -137,6 +144,8 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
     //메뉴 옵션 선택 후, 하단 버튼 클릭시 , 서버로 전송하는 것 추가하기++서버로부터 장바구니 데이터 받기
     const handleSubmitButton=() =>{
 
+        //먼저 필수 카테고리를 골랐는지 확인
+
         const cart= {
             menusId: menusId,
             orderUsers: orderUsers?orderUsers:null,//최초 장바구니 담기는 null
@@ -145,21 +154,6 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
         console.log("submit");
         console.log(cart);
     };
-
-    //서버로부터 받은 옵션데이터를 카테고리별로 나누어주는 함수
-    const groupMenuOptionsByCategory = (optionsList) => {
-        const groupedOptions = {};
-        optionsList.forEach(option => {
-          const { menuOptionsCategory, menuOptionsContents, menuOptionsPrice, menuOptionsId } = option;
-          if (!groupedOptions[menuOptionsCategory]) {
-            groupedOptions[menuOptionsCategory] = [];
-          }
-          groupedOptions[menuOptionsCategory].push({ contents: menuOptionsContents, price: menuOptionsPrice, id: menuOptionsId });
-        });
-        console.log(groupedOptions);
-        return groupedOptions; 
-    };
-    console.log(transformData(MenuDetailData));
 
     return(
         <>
@@ -171,7 +165,8 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
                         <div key={`category_${category.menuOptionsCategory}`} style={{paddingTop: "8px"}}>
                             <OptionTitle mandatory={category.mandatory.toString()}>{category.menuOptionsCategory}({category.mandatory?"필수":"선택"})</OptionTitle>
                             <Options>
-                                {category.menuOptionsContents.map((option)=>(
+                                {category.mandatory?(<>
+                                    {category.menuOptionsContents.map((option)=>(
                                     <Option
                                         key={`optionId_${option.menuOptionsId}`}
                                         onClick={() => handleOptionClick(option.menuOptionsId)}
@@ -181,6 +176,17 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
                                         <p>{(option.menuOptionsPrice===0)?null:`(${option.menuOptionsPrice})`}</p>
                                     </Option>
                                 ))}
+                                </>):(<>
+                                    {category.menuOptionsContents.map((option)=>(
+                                    <Option
+                                        key={`optionId_${option.menuOptionsId}`}
+                                        onClick={() => handleOptionClick(option.menuOptionsId)}
+                                        selected={selectedOptions.includes(option.menuOptionsId)}
+                                        >
+                                        <p style={{marginBottom:"5px"}}>{option.menuOptionsContents}</p>
+                                        <p>{(option.menuOptionsPrice===0)?null:`(${option.menuOptionsPrice})`}</p>
+                                    </Option>
+                                ))}</>)}
                             </Options>
                         </div>
                     ))}
