@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import logo from "./logo.svg";
 import logoSquare from "./logoSquare.svg";
@@ -81,6 +80,10 @@ export default function Login() {
       return;
     }
 
+    
+    //서버와 연결되기 전엔 ID&PW 입력만 되면 main으로 이동
+    navigate('/main');
+
     try {
       // Send email and password to the server for authentication
       const response = await axios.post("URL", {
@@ -100,6 +103,9 @@ export default function Login() {
     } catch (error) {
       console.error("로그인실패", error);
     }
+
+    
+
   };
   return (
     <>
@@ -143,9 +149,6 @@ export default function Login() {
           </FormButton>
           <Trash>
             <Link to={"/signup"}>회원가입 페이지로 이동 </Link>
-            <br />
-            <Link to={"/main"}>메인 페이지로 이동</Link> <br />
-            <Link to={"/admin"}>관리자 페이지로 이동</Link>
           </Trash>
         </SignUpForm>
       </LoginBox>

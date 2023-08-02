@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 import { styled } from "styled-components";
 import { FaPlus } from "react-icons/fa6";
 // import logo from "../../header/headerLogo.svg";
@@ -15,8 +16,6 @@ const HeaderBox = styled.header`
 const LogoBox = styled.img`
   width: 4rem;
   height: auto;
-  margin-left: 20px;
-  position: absolute;
 `;
 const TitleBox = styled.div`
   margin: auto;
@@ -69,10 +68,12 @@ export default function AdminHeader({ title, addCategory }) {
   return (
     <>
       <HeaderBox>
+        <Link to="/main" style={{ marginLeft: "20px",position: "absolute"}}>
         <LogoBox
           src={`${process.env.PUBLIC_URL}/images/headerLogo.svg`}
           alt="로고 이미지"
         />
+        </Link>
         <TitleBox>
           <Title>메뉴 등록</Title>
         </TitleBox>
