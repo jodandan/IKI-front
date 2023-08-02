@@ -45,16 +45,14 @@ const OptionConainer=styled.div`
     overflow-y: scroll;
 `
 const OptionTitle=styled.h2`
-    background-color: ${(props) => (props.mandatory ? "var(--primary-color)" : "var(--secondary-color)")};
-    color: white;
-    color: ${(props) => (props.mandatory ? "white" : "black")};
+    background-color: ${(props) => (props.mandatory==="true" ? "var(--primary-color)" : "var(--secondary-color)")};
+    color: ${(props) => (props.mandatory==="true" ? "white" : "black")};
     font-weight: bolder;
     font-size: var(--font-regular);
     border-radius: 5px;
     width: 100%;
     padding: 4px 0px;
     text-align: center;
-
 `
 const Options=styled.ul`
     display: grid;
@@ -83,7 +81,7 @@ function transformData(data) {
     const menuOptionsMap = new Map();
   
     data.menuOptionsList.forEach((option) => {
-      const { menuOptionsCategory, mandatory, menuOptionsContents, menuOptionsPrice } = option;
+      const { menuOptionsCategory, mandatory, menuOptionsContents, menuOptionsPrice, menuOptionsId } = option;
   
       if (!menuOptionsMap.has(menuOptionsCategory)) {
         menuOptionsMap.set(menuOptionsCategory, {
@@ -96,6 +94,7 @@ function transformData(data) {
       menuOptionsMap.get(menuOptionsCategory).menuOptionsContents.push({
         menuOptionsContents: menuOptionsContents,
         menuOptionsPrice: menuOptionsPrice,
+        menuOptionsId:menuOptionsId,
       });
     });
   
@@ -137,6 +136,7 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
 
     //메뉴 옵션 선택 후, 하단 버튼 클릭시 , 서버로 전송하는 것 추가하기++서버로부터 장바구니 데이터 받기
     const handleSubmitButton=() =>{
+
         const cart= {
             menusId: menusId,
             orderUsers: orderUsers?orderUsers:null,//최초 장바구니 담기는 null
@@ -167,28 +167,15 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
             <ModalContainer>
                 <h2 style={{fontSize:"var(--font-big)", fontWeight:"bold", margin:"0.8rem 0"}}>{MenuDetailData.menusName}</h2>
                 <OptionConainer>
-                    {Object.entries(groupMenuOptionsByCategory(MenuDetailData.menuOptionsList)).map(([category, options]) => (
-                        <div key={category} style={{paddingTop: "8px"}}>
-                            <OptionTitle>{category}</OptionTitle>
-                            <Options>
-                                {options.map(option => (
-                                <Option 
-                                    key={option.id} 
-                                    // onClick={() => addMenuOptionId(option.id)}
-                                    onClick={() => handleOptionClick(option.id)}
-                                    selected={selectedOptions.includes(option.id)}>
-                                    <p style={{marginBottom:"5px"}}>{option.contents}</p><p>{(option.price===0)?null:`(${option.price})`}</p>
-                                </Option>))}
-                            </Options>
-                        </div>
-                    ))}
                     {transformData(MenuDetailData).map((category)=>(
-                        <div key={category} style={{paddingTop: "8px"}}>
-                            <OptionTitle mandatory={category.mandatory}>{category.menuOptionsCategory}({category.mandatory?"필수":"선택"})</OptionTitle>
+                        <div key={`category_${category.menuOptionsCategory}`} style={{paddingTop: "8px"}}>
+                            <OptionTitle mandatory={category.mandatory.toString()}>{category.menuOptionsCategory}({category.mandatory?"필수":"선택"})</OptionTitle>
                             <Options>
                                 {category.menuOptionsContents.map((option)=>(
                                     <Option
-                                        key={option.menuOptionsCategory}
+                                        key={`optionId_${option.menuOptionsId}`}
+                                        onClick={() => handleOptionClick(option.menuOptionsId)}
+                                        selected={selectedOptions.includes(option.menuOptionsId)}
                                         >
                                         <p style={{marginBottom:"5px"}}>{option.menuOptionsContents}</p>
                                         <p>{(option.menuOptionsPrice===0)?null:`(${option.menuOptionsPrice})`}</p>
