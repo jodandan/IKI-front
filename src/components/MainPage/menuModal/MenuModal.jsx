@@ -45,14 +45,16 @@ const OptionConainer=styled.div`
     overflow-y: scroll;
 `
 const OptionTitle=styled.h2`
-    background-color: var(--primary-color);
+    background-color: ${(props) => (props.mandatory ? "var(--primary-color)" : "var(--secondary-color)")};
     color: white;
+    color: ${(props) => (props.mandatory ? "white" : "black")};
     font-weight: bolder;
     font-size: var(--font-regular);
     border-radius: 5px;
     width: 100%;
     padding: 4px 0px;
     text-align: center;
+
 `
 const Options=styled.ul`
     display: grid;
@@ -155,8 +157,7 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
           groupedOptions[menuOptionsCategory].push({ contents: menuOptionsContents, price: menuOptionsPrice, id: menuOptionsId });
         });
         console.log(groupedOptions);
-        return groupedOptions;
-        
+        return groupedOptions; 
     };
     console.log(transformData(MenuDetailData));
 
@@ -178,6 +179,21 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
                                     selected={selectedOptions.includes(option.id)}>
                                     <p style={{marginBottom:"5px"}}>{option.contents}</p><p>{(option.price===0)?null:`(${option.price})`}</p>
                                 </Option>))}
+                            </Options>
+                        </div>
+                    ))}
+                    {transformData(MenuDetailData).map((category)=>(
+                        <div key={category} style={{paddingTop: "8px"}}>
+                            <OptionTitle mandatory={category.mandatory}>{category.menuOptionsCategory}({category.mandatory?"필수":"선택"})</OptionTitle>
+                            <Options>
+                                {category.menuOptionsContents.map((option)=>(
+                                    <Option
+                                        key={option.menuOptionsCategory}
+                                        >
+                                        <p style={{marginBottom:"5px"}}>{option.menuOptionsContents}</p>
+                                        <p>{(option.menuOptionsPrice===0)?null:`(${option.menuOptionsPrice})`}</p>
+                                    </Option>
+                                ))}
                             </Options>
                         </div>
                     ))}
