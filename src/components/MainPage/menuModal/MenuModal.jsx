@@ -119,18 +119,23 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
 
     //menusId에 따라 모든 정보를 조회하는 api/v1/menuOptions/all/{menusId} 사용하여 json받기
     // console.log(MenuDetailData);
+    const transformedData=transformData(MenuDetailData);
 
     //선택된 옵션들, 옵션 선택시에 selected만 수정하고, 메뉴 제출시에 menuOptionIdList <= selected
     const [selectedOptions, setSelectedOptions] = useState([]);
-    const [selectedButtons, setSelectedButtons] = useState({});
-    const handleButtonClick = (groupId, buttonId) => {
-        setSelectedButtons((prevSelected) => ({
+    const [selectedRequiredOptions, setSelectedRequiredOptions] = useState({});
+    // const mandatoryOptionCategories = transformedData.filter(category => category.mandatory);
+    const mandatoryOptionCategories = transformedData.filter(category => category.mandatory).map(category => category.menuOptionsCategory);
+
+    //필수옵션 선택시, 수행되는 함수
+    const handleRequiredOptionsClick = (groupId, buttonId) => {
+        setSelectedRequiredOptions((prevSelected) => ({
           ...prevSelected,
           [groupId]: buttonId,
         }));
     };
 
-    //옵션 선택시, selected를 수정하는 함수
+    //선택옵션 선택시, selected를 수정하는 함수
     const handleOptionClick = (optionId) => {
         setSelectedOptions(prevOptions => {
           if (prevOptions.includes(optionId)) {
@@ -143,16 +148,28 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
 
     //메뉴 옵션 선택 후, 하단 버튼 클릭시 , 서버로 전송하는 것 추가하기++서버로부터 장바구니 데이터 받기
     const handleSubmitButton=() =>{
+        console.log('일반선택');
+        console.log(selectedOptions);
+        console.log('필수선택');
+        console.log(mandatoryOptionCategories);
+        console.log(selectedRequiredOptions);
 
         //먼저 필수 카테고리를 골랐는지 확인
+        if (mandatoryOptionCategories.every((value) => Object.prototype.hasOwnProperty.call(selectedRequiredOptions, value))){
+            console.log(true);
+            
 
-        const cart= {
-            menusId: menusId,
-            orderUsers: orderUsers?orderUsers:null,//최초 장바구니 담기는 null
-            menuOptionsIdList: selectedOptions.join(","), // 처음에는 빈 문자열로 초기화, [옵션의 PK 스트링으로 ,로 엮어서]
-        };
-        console.log("submit");
-        console.log(cart);
+            const cart= {
+                menusId: menusId,
+                orderUsers: orderUsers?orderUsers:null,//최초 장바구니 담기는 null
+                menuOptionsIdList: selectedOptions.join(","), // 처음에는 빈 문자열로 초기화, [옵션의 PK 스트링으로 ,로 엮어서]
+            };
+            console.log("submit");
+            console.log(cart);
+            onCloseModal();
+        }else{
+            console.log("필수 선택을 골라주세요");
+        }
     };
 
     return(
@@ -161,22 +178,24 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
             <ModalContainer>
                 <h2 style={{fontSize:"var(--font-big)", fontWeight:"bold", margin:"0.8rem 0"}}>{MenuDetailData.menusName}</h2>
                 <OptionConainer>
-                    {transformData(MenuDetailData).map((category)=>(
+                    {transformedData.map((category)=>(
                         <div key={`category_${category.menuOptionsCategory}`} style={{paddingTop: "8px"}}>
                             <OptionTitle mandatory={category.mandatory.toString()}>{category.menuOptionsCategory}({category.mandatory?"필수":"선택"})</OptionTitle>
                             <Options>
                                 {category.mandatory?(<>
+                                {/* 필수 일때 */}
                                     {category.menuOptionsContents.map((option)=>(
                                     <Option
                                         key={`optionId_${option.menuOptionsId}`}
-                                        onClick={() => handleOptionClick(option.menuOptionsId)}
-                                        selected={selectedOptions.includes(option.menuOptionsId)}
+                                        onClick={() => handleRequiredOptionsClick(category.menuOptionsCategory, option.menuOptionsId)}
+                                        selected={selectedRequiredOptions[category.menuOptionsCategory] === option.menuOptionsId}
                                         >
                                         <p style={{marginBottom:"5px"}}>{option.menuOptionsContents}</p>
                                         <p>{(option.menuOptionsPrice===0)?null:`(${option.menuOptionsPrice})`}</p>
                                     </Option>
                                 ))}
                                 </>):(<>
+                                {/* 선택일때 */}
                                     {category.menuOptionsContents.map((option)=>(
                                     <Option
                                         key={`optionId_${option.menuOptionsId}`}
@@ -192,7 +211,7 @@ export default function MenuModal({menusId, onCloseModal, orderUsers}){
                     ))}
                 </OptionConainer>
                 <div style={{backgroundColor: "white", width: "100%", position: "sticky", borderRadius: "20px", display: "flex", justifyContent: "center"}}>
-                    <ModalButton  onClick={()=>{onCloseModal(); handleSubmitButton();}}>선택 완료</ModalButton>
+                    <ModalButton  onClick={()=>{ handleSubmitButton();}}>선택 완료</ModalButton>
                 </div>
             </ModalContainer>
         </>
