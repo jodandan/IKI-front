@@ -1,20 +1,27 @@
 import { styled } from "styled-components";
 import {Link} from 'react-router-dom';
 
-export const CategoryBox = styled.div`
-    height: 200px;
-    width: 200px;
+export const Box = styled.div`
+    height: 100px;
+    width: 100%;
     background-color: lightblue;
     margin: 1px;
+`
+export const PlusBtn=styled.button`
+    height: 50px;
+    width: 200px;
+    background-color: var(--secondary-color);
 `
 
 export default function AdminCategoryPage(){
     const categoryId=[1,2,3,4,5];//백으로부터 전달 받음
     return(
         <>
+        <h2>모든 카테고리</h2>
+        <PlusBtn>카테고리 추가</PlusBtn>
             {categoryId.map(id => ( // 여기서 중괄호가 아닌 괄호로 수정
-                <CategoryBox key={id}>
-                    <div>카테고리id: {id}</div>
+                <Box key={id}>
+                    <div>카테고리(id:{id})에 대한 정보 나열</div>
                     <button>카테고리 삭제</button>
                     <button>카테고리명 수정</button>
                     <Link 
@@ -23,7 +30,7 @@ export default function AdminCategoryPage(){
                         {/* 카테고리 삭제 */}
                         <button>카테고리 내 메뉴 관리하기</button>
                     </Link>
-                </CategoryBox> // key prop 추가하여 각 항목에 고유 키 부여
+                </Box> // key prop 추가하여 각 항목에 고유 키 부여
             ))}
         </>
     )
