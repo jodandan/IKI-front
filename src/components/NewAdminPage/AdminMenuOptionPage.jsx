@@ -1,5 +1,5 @@
 import { useParams} from "react-router-dom";
-import { Box, PlusBtn } from "./AdminPageStyleComponent";
+import { Box, PlusBtn, Btn, DeleteBtn } from "./AdminPageStyleComponent";
 
 export default function AdminMenuOptionPage(){
 
@@ -17,8 +17,8 @@ export default function AdminMenuOptionPage(){
             {optionId.map(optionid => ( // 여기서 중괄호가 아닌 괄호로 수정
                 <Box key={optionid}>
                     <div>옵션(id:{optionid})에 대한 정보 나열</div>
-                    <button>옵션 삭제</button>
-                    <button>옵션 정보 수정</button>
+                    <DeleteBtn>옵션 삭제</DeleteBtn>
+                    <Btn>옵션 정보 수정</Btn>
                 </Box> // key prop 추가하여 각 항목에 고유 키 부여
             ))}
             </div>

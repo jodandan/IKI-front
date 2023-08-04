@@ -1,6 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { Box, PlusBtn } from "./AdminPageStyleComponent";
-
+import { Box, PlusBtn, Btn, DeleteBtn } from "./AdminPageStyleComponent";
 
 
 export default function AdminMenuPage(){
@@ -18,13 +17,13 @@ export default function AdminMenuPage(){
             {menuId.map(menuid => ( // 여기서 중괄호가 아닌 괄호로 수정
                 <Box key={menuid}>
                     <div>메뉴(id:{menuid})에 대한 정보 나열</div>
-                    <button>메뉴 삭제</button>
-                    <button>메뉴 정보 수정</button>
+                    <DeleteBtn>메뉴 삭제</DeleteBtn>
+                    <Btn>메뉴 정보 수정</Btn>
                     <Link 
                         to={`/admin/${category_id}/${menuid}`} 
                         style={{textDecoration:'none', color:'black'}}>
                         {/* 카테고리 삭제 */}
-                        <button>메뉴 옵션 관리하기</button>
+                        <Btn>메뉴 옵션 관리하기</Btn>
                     </Link>
                 </Box> // key prop 추가하여 각 항목에 고유 키 부여
             ))}
