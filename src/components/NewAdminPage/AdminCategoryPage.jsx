@@ -21,6 +21,7 @@ export default function AdminCategoryPage() {
     const handleCloseModal = () => {
         setIsAddModalOpen(false);
         setIsEditModalOpen(false);
+        setSelectedCategoryId(null);
         //창이 닫히면 새로고침하기. 
     };
 
