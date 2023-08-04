@@ -1,17 +1,6 @@
 import { styled } from "styled-components";
 import {Link} from 'react-router-dom';
-
-export const Box = styled.div`
-    height: 100px;
-    width: 100%;
-    background-color: lightblue;
-    margin: 1px;
-`
-export const PlusBtn=styled.button`
-    height: 50px;
-    width: 200px;
-    background-color: var(--secondary-color);
-`
+import { Box, PlusBtn } from "./AdminPageStyleComponent";
 
 export default function AdminCategoryPage(){
     const categoryId=[1,2,3,4,5];//백으로부터 전달 받음

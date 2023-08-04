@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { Box, PlusBtn } from "./AdminCategoryPage";
+import { Box, PlusBtn } from "./AdminPageStyleComponent";
 
 
 
