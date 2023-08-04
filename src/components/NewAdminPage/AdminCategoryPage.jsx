@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, PlusBtn, Btn, DeleteBtn, PopupBox } from "./AdminPageStyleComponent";
+import AllCategory from "./DummyData/AllCategory.json";
 
 export default function AdminCategoryPage() {
-    const categoryId = [1, 2, 3, 4, 5];//백으로부터 전달 받음
+    const allCategotyData=AllCategory;//백으로부터 get하기
 
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedCategoryId, setSelectedCategoryId] = useState();
+    const [selectedCategoryName, setSelectedCategoryName] = useState("");
+
 
     const handleAddCategoryButtonClick = () => {
         setIsAddModalOpen(true);
     };
 
-    const handleEditCategoryButtonClick = (category_id) => {
+    const handleEditCategoryButtonClick = (category_id, categoryName) => {
         setSelectedCategoryId(category_id);
+        setSelectedCategoryName(categoryName);
         setIsEditModalOpen(true);
     };
 
@@ -29,13 +33,13 @@ export default function AdminCategoryPage() {
         <>
             <h2>모든 카테고리</h2>
             <PlusBtn onClick={handleAddCategoryButtonClick}>카테고리 추가</PlusBtn>
-            {categoryId.map(id => ( // 여기서 중괄호가 아닌 괄호로 수정
-                <Box key={id}>
-                    <div>카테고리(id:{id})에 대한 정보 나열</div>
+            {allCategotyData.responseData.map(item => ( // 여기서 중괄호가 아닌 괄호로 수정
+                <Box key={item.categoryId}>
+                    <div>{item.categoryName}(id:{item.categoryId})</div>
                     <DeleteBtn>카테고리 삭제</DeleteBtn>
-                    <Btn onClick={() => handleEditCategoryButtonClick(id)}>카테고리명 수정</Btn>
+                    <Btn onClick={() => handleEditCategoryButtonClick(item.categoryId, item.categoryName)}>카테고리명 수정</Btn>
                     <Link
-                        to={`/admin/${id}`}
+                        to={`/admin/${item}`}
                         style={{ textDecoration: 'none', color: 'black' }}>
                         {/* 카테고리 삭제 */}
                         <Btn>카테고리 내 메뉴 관리하기</Btn>
@@ -43,7 +47,7 @@ export default function AdminCategoryPage() {
                 </Box> // key prop 추가하여 각 항목에 고유 키 부여
             ))}
             {isAddModalOpen && <AddCategoryModal onClose={handleCloseModal} />}
-            {isEditModalOpen && <EditCategoryModal selectedCategoryId={selectedCategoryId} onClose={handleCloseModal} />}
+            {isEditModalOpen && <EditCategoryModal selectedCategoryId={selectedCategoryId} selectedCategoryName={selectedCategoryName} onClose={handleCloseModal} />}
         </>
     )
 }
@@ -73,8 +77,8 @@ const AddCategoryModal = ({ onClose }) => {
 };
 
 
-const EditCategoryModal = ({ selectedCategoryId, onClose }) => {
-  const [newCategoryName, setNewCategoryName] = useState(selectedCategoryId);
+const EditCategoryModal = ({ selectedCategoryId, selectedCategoryName, onClose }) => {
+  const [newCategoryName, setNewCategoryName] = useState(selectedCategoryName);
 
   const handleNewCategoryNameChange = (e) => {
     setNewCategoryName(e.target.value);
@@ -84,7 +88,7 @@ const EditCategoryModal = ({ selectedCategoryId, onClose }) => {
     // TODO: 카테고리명을 수정하는 기능을 수행하는 코드 작성
 
     // 모달 창 닫기
-    console.log(`카테고리id=${selectedCategoryId}가 ${newCategoryName}으로 작명?`);
+    console.log(`${selectedCategoryName}(id=${selectedCategoryId})를 ${newCategoryName}으로 update`);
     onClose();
   };
 
