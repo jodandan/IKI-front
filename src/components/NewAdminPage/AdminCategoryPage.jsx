@@ -39,7 +39,7 @@ export default function AdminCategoryPage() {
                     <DeleteBtn>카테고리 삭제</DeleteBtn>
                     <Btn onClick={() => handleEditCategoryButtonClick(item.categoryId, item.categoryName)}>카테고리명 수정</Btn>
                     <Link
-                        to={`/admin/${item}`}
+                        to={`/admin/${item.categoryId}`}
                         style={{ textDecoration: 'none', color: 'black' }}>
                         {/* 카테고리 삭제 */}
                         <Btn>카테고리 내 메뉴 관리하기</Btn>

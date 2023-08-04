@@ -1,27 +1,31 @@
 import { useParams, Link } from "react-router-dom";
 import React, { useState } from 'react';
 import { Box, PlusBtn, Btn, DeleteBtn, PopupBox } from "./AdminPageStyleComponent";
-
+import menuData from './DummyData/MenusByCategoryId.json';
 
 export default function AdminMenuPage() {
 
     const { category_id } = useParams();//url주소 얻기
     console.log(`현재 카테고리id:${category_id}의 메뉴들`)
     //서버로부터 category_id의 메뉴들 받기
-    const menuId = [1, 2, 3, 4, 5];
+
+    const menuDatas = menuData;//category_id로 서버로부터 정보 get
 
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedMenuId, setSelectedMenuId] = useState(null); // 수정 대상 메뉴의 ID
-
+    const [selectedMenuData, setSelectedMenuData] = useState({
+        name: "",
+        price: null,
+        soldOut: null,
+    })
     const handleAddMenuButtonClick = () => {
         setIsAddModalOpen(true);
     };
 
-    const handleEditMenuButtonClick = (menuId) => {
-        // TODO: menuId에 해당하는 메뉴 정보를 가져와서 수정 모달에 뿌려주는 코드 작성
-
+    const handleEditMenuButtonClick = (menuId, menuData) => {
         setSelectedMenuId(menuId);
+        setSelectedMenuData(menuData);
         setIsEditModalOpen(true);
     };
 
@@ -35,16 +39,16 @@ export default function AdminMenuPage() {
 
     return (
         <div>
-            현재 카테고리 (ID: {category_id})에 대한 모든 메뉴
+            {menuDatas.responseData.categoryName} (ID: {category_id})에 대한 모든 메뉴
             <PlusBtn onClick={handleAddMenuButtonClick}>메뉴 추가</PlusBtn>
             <div>
-                {menuId.map(menuid => ( // 여기서 중괄호가 아닌 괄호로 수정
-                    <Box key={menuid}>
-                        <div>메뉴(id:{menuid})에 대한 정보 나열</div>
+                {menuDatas.responseData.menusList.map(item => ( // 여기서 중괄호가 아닌 괄호로 수정
+                    <Box key={item.menusId}>
+                        <div>{item.menusName}(id:{item.menusId}) 가격:{item.menusPrice} 품절여부: {item.soldOut ? "품절" : "재고있음"}</div>
                         <DeleteBtn>메뉴 삭제</DeleteBtn>
-                        <Btn onClick={() => handleEditMenuButtonClick({menuid})}>메뉴 정보 수정</Btn>
+                        <Btn onClick={() => handleEditMenuButtonClick(item.menusId, {name: item.menusName, price: item.menusPrice, soldOut: item.soldOut})}>메뉴 정보 수정</Btn>
                         <Link
-                            to={`/admin/${category_id}/${menuid}`}
+                            to={`/admin/${category_id}/${item.menusId}`}
                             style={{ textDecoration: 'none', color: 'black' }}>
                             {/* 카테고리 삭제 */}
                             <Btn>메뉴 옵션 관리하기</Btn>
@@ -54,7 +58,7 @@ export default function AdminMenuPage() {
             </div>
             {isAddModalOpen && <AddMenuModal onClose={handleCloseModal} />}
             {isEditModalOpen && selectedMenuId && (
-                <EditMenuModal menuId={selectedMenuId} menuName="Menu Name" menuPrice={5000} menuSoldOut={false} onClose={handleCloseModal} />
+                <EditMenuModal menuId={selectedMenuId} selectedMenuData={selectedMenuData} onClose={handleCloseModal} />
             )}
         </div>
     )
@@ -91,46 +95,47 @@ const AddMenuModal = ({ onClose }) => {
     );
 };
 
-const EditMenuModal = ({ menuId, menuName, menuPrice, menuSoldOut, onClose }) => {
-  const [menuData, setMenuData] = useState({
-    name: menuName,
-    price: menuPrice,
-    soldOut: menuSoldOut,
-  });
+const EditMenuModal = ({ selectedMenuId, selectedMenuData, onClose }) => {
+    console.log(selectedMenuData);
+    const [menuData, setMenuData] = useState({
+        name: selectedMenuData.name,
+        price: selectedMenuData.price,
+        soldOut: selectedMenuData.soldOut,
+    });
 
-  const handleMenuDataChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    const newValue = type === 'checkbox' ? checked : value;
-    setMenuData((prevData) => ({
-      ...prevData,
-      [name]: newValue,
-    }));
-  };
+    const handleMenuDataChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        const newValue = type === 'checkbox' ? checked : value;
+        setMenuData((prevData) => ({
+            ...prevData,
+            [name]: newValue,
+        }));
+    };
 
-  const handleEditMenu = () => {
-    // TODO: 메뉴를 수정하는 기능을 수행하는 코드 작성
-    console.log(menuData); // 예시: 수정된 메뉴 정보를 콘솔에 출력
+    const handleEditMenu = () => {
+        // TODO: 메뉴를 수정하는 기능을 수행하는 코드 작성
+        console.log(menuData); // 예시: 수정된 메뉴 정보를 콘솔에 출력
 
-    // 모달 창 닫기
-    onClose();
-  };
+        // 모달 창 닫기
+        onClose();
+    };
 
-  return (
-    <PopupBox>
-      <h2>Edit Menu</h2>
-      <input type="text" name="name" value={menuData.name} onChange={handleMenuDataChange} />
-      <input type="number" name="price" value={menuData.price} onChange={handleMenuDataChange} />
-      <label>
-        Sold Out:
-        <input
-          type="checkbox"
-          name="soldOut"
-          checked={menuData.soldOut}
-          onChange={handleMenuDataChange}
-        />
-      </label>
-      <button onClick={handleEditMenu}>Save</button>
-      <button onClick={onClose}>Cancel</button>
-    </PopupBox>
-  );
+    return (
+        <PopupBox>
+            <h2>Edit Menu</h2>
+            <input type="text" name="name" value={menuData.name} onChange={handleMenuDataChange} />
+            <input type="number" name="price" value={menuData.price} onChange={handleMenuDataChange} />
+            <label>
+                Sold Out:
+                <input
+                    type="checkbox"
+                    name="soldOut"
+                    checked={menuData.soldOut}
+                    onChange={handleMenuDataChange}
+                />
+            </label>
+            <button onClick={handleEditMenu}>Save</button>
+            <button onClick={onClose}>Cancel</button>
+        </PopupBox>
+    );
 };
