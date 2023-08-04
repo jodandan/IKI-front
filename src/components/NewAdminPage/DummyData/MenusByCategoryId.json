@@ -1,0 +1,46 @@
+{
+    "httpStatus": 200,
+    "message": "Category loaded. CATEGORY_ID=1",
+    "responseData": {
+      "categoryId": 1,
+      "categoryName": "커피",
+      "menusList": [
+        {
+          "menusId": 1,
+          "menusName": "아메리카노",
+          "menusPrice": 3000,
+          "soldOut": true,
+          "menuOptionsList": null
+        },
+        {
+          "menusId": 2,
+          "menusName": "카페라떼",
+          "menusPrice": 3500,
+          "soldOut": false,
+          "menuOptionsList": null
+        },
+        {
+          "menusId": 3,
+          "menusName": "카푸치노",
+          "menusPrice": 3800,
+          "soldOut": false,
+          "menuOptionsList": null
+        },
+        {
+          "menusId": 4,
+          "menusName": "카페모카",
+          "menusPrice": 3800,
+          "soldOut": true,
+          "menuOptionsList": null
+        },
+        {
+          "menusId": 5,
+          "menusName": "바닐라라떼",
+          "menusPrice": 4000,
+          "soldOut": false,
+          "menuOptionsList": null
+        }
+      ]
+    }
+  }
+  
