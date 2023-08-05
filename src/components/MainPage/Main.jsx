@@ -14,7 +14,10 @@ export default function Main() {
   return (
     <>
       <MainBox>
-        <Header title="주문하기" subtitle="주문하실 메뉴를 선택해주세요" />
+        <Header
+          title="주문하기"
+          subtitle="주문하실 메뉴를 선택해주세요"
+          link="/admin" />
         <MasonryMenuContainer />
         <FooterCart />
       </MainBox>
