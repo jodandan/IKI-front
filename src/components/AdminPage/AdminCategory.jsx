@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { PlusBtn, Btn, DeleteBtn } from "./adminItems/AdminButtonCSS";
 import { Box } from "./adminItems/AdminContainerCSS";
 import AllCategory from "./DummyData/AllCategory.json";
-import AddCategoryModal from "./adminItems/AddCategory";
-import EditCategoryModal from "./adminItems/EditCategory";
+import {
+  AddCategoryModal,
+  EditCategoryModal,
+} from "./adminItems/ModalForCategory";
 
 export default function AdminCategory() {
   const allCategotyData = AllCategory; //백으로부터 get하기
