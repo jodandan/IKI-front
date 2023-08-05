@@ -20,11 +20,12 @@ export default function AdminMenu() {
     price: null,
     soldOut: null,
   });
-  const handleAddMenuButtonClick = () => {
+  const handleAdd = () => {
+    // 기존 handleAddMenuButtonClick
     setIsAddModalOpen(true);
   };
 
-  const handleEditMenuButtonClick = (menuId, menuData) => {
+  const handleEdit = (menuId, menuData) => {
     setSelectedMenuId(menuId);
     setSelectedMenuData(menuData);
     setIsEditModalOpen(true);
@@ -40,7 +41,7 @@ export default function AdminMenu() {
   return (
     <div>
       {menuDatas.responseData.categoryName} (ID: {category_id})에 대한 모든 메뉴
-      <PlusBtn onClick={handleAddMenuButtonClick}>메뉴 추가</PlusBtn>
+      <PlusBtn onClick={handleAdd}>메뉴 추가</PlusBtn>
       <div>
         {menuDatas.responseData.menusList.map(
           (
@@ -54,7 +55,7 @@ export default function AdminMenu() {
               <DeleteBtn>메뉴 삭제</DeleteBtn>
               <Btn
                 onClick={() =>
-                  handleEditMenuButtonClick(item.menusId, {
+                  handleEdit(item.menusId, {
                     name: item.menusName,
                     price: item.menusPrice,
                     soldOut: item.soldOut,

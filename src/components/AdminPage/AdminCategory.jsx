@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { PlusBtn, Btn, DeleteBtn } from "./adminItems/AdminButtonCSS";
-import { Box } from "./adminItems/AdminContainerCSS";
+import { PlusButton, Btn, DeleteBtn } from "./adminItems/AdminButtonCSS";
+import { PageBox, EachBox } from "./adminItems/AdminContainerCSS";
 import AllCategory from "./DummyData/AllCategory.json";
 import {
   AddCategoryModal,
@@ -16,11 +16,13 @@ export default function AdminCategory() {
   const [selectedCategoryId, setSelectedCategoryId] = useState();
   const [selectedCategoryName, setSelectedCategoryName] = useState("");
 
-  const handleAddCategoryButtonClick = () => {
+  const handleAdd = () => {
+    // 기존 handleAddCategoryButtonClick
     setIsAddModalOpen(true);
   };
 
-  const handleEditCategoryButtonClick = (category_id, categoryName) => {
+  const handleEdit = (category_id, categoryName) => {
+    // 기존 handleEditCategoryButtonClick
     setSelectedCategoryId(category_id);
     setSelectedCategoryName(categoryName);
     setIsEditModalOpen(true);
@@ -34,26 +36,19 @@ export default function AdminCategory() {
   };
 
   return (
-    <>
-      <h2>모든 카테고리</h2>
-      <PlusBtn onClick={handleAddCategoryButtonClick}>카테고리 추가</PlusBtn>
+    <PageBox>
+      <PlusButton onClick={handleAdd}>카테고리 추가</PlusButton>
       {allCategotyData.responseData.map(
         (
           item // 여기서 중괄호가 아닌 괄호로 수정
         ) => (
-          <Box key={item.categoryId}>
+          <EachBox key={item.categoryId}>
+            <div>카테고리명</div>
             <div>
               {item.categoryName}(id:{item.categoryId})
             </div>
             <DeleteBtn>카테고리 삭제</DeleteBtn>
-            <Btn
-              onClick={() =>
-                handleEditCategoryButtonClick(
-                  item.categoryId,
-                  item.categoryName
-                )
-              }
-            >
+            <Btn onClick={() => handleEdit(item.categoryId, item.categoryName)}>
               카테고리명 수정
             </Btn>
             <Link
@@ -63,7 +58,7 @@ export default function AdminCategory() {
               {/* 카테고리 삭제 */}
               <Btn>카테고리 내 메뉴 관리하기</Btn>
             </Link>
-          </Box> // key prop 추가하여 각 항목에 고유 키 부여
+          </EachBox> // key prop 추가하여 각 항목에 고유 키 부여
         )
       )}
       {isAddModalOpen && <AddCategoryModal onClose={handleCloseModal} />}
@@ -74,6 +69,6 @@ export default function AdminCategory() {
           onClose={handleCloseModal}
         />
       )}
-    </>
+    </PageBox>
   );
 }
