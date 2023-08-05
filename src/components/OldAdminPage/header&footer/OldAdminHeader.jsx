@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import { FaPlus } from "react-icons/fa6";
 // import logo from "../../header/headerLogo.svg";
@@ -64,15 +64,15 @@ const StoreName = styled.div`
   margin-right: 20px;
 `;
 
-export default function AdminHeader({ title, addCategory }) {
+export default function OldAdminHeader({ title, addCategory }) {
   return (
     <>
       <HeaderBox>
-        <Link to="/main" style={{ marginLeft: "20px",position: "absolute"}}>
-        <LogoBox
-          src={`${process.env.PUBLIC_URL}/images/headerLogo.svg`}
-          alt="로고 이미지"
-        />
+        <Link to="/main" style={{ marginLeft: "20px", position: "absolute" }}>
+          <LogoBox
+            src={`${process.env.PUBLIC_URL}/images/headerLogo.svg`}
+            alt="로고 이미지"
+          />
         </Link>
         <TitleBox>
           <Title>메뉴 등록</Title>

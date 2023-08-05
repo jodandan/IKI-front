@@ -26,7 +26,7 @@ const CheckIcon = styled(FaCheck)`
   color: white;
 `;
 
-const Checkbox = ({ className, checked, onChange, ...props }) => {
+const OldCheckbox = ({ className, checked, onChange, ...props }) => {
   const handleCheckbox = () => {
     onChange((prev) => !prev);
   };
@@ -41,4 +41,4 @@ const Checkbox = ({ className, checked, onChange, ...props }) => {
   );
 };
 
-export default Checkbox;
+export default OldCheckbox;

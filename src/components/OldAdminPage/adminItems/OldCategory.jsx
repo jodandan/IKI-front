@@ -1,11 +1,10 @@
 import { styled } from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaPlus } from "react-icons/fa6";
 
-import MenuInput from "./MenuInput";
-import PriceInput from "./PriceInput";
-import Option from "./Option";
-
+import OldMenuInput from "./OldMenuInput";
+import OldPriceInput from "./OldPriceInput";
+import OldOption from "./OldOption";
 
 const CategoryBox = styled.div`
   background-color: #efefef;
@@ -13,16 +12,18 @@ const CategoryBox = styled.div`
   margin-bottom: 16px;
 `;
 
-const CategoryName = styled.div` /* 카테고리명 */ 
+const CategoryName = styled.div`
+  /* 카테고리명 */
   margin-bottom: 10px;
   font-size: 20px;
   font-style: normal;
-  font-weight:500;
+  font-weight: 500;
   line-height: normal;
 `;
 
-const CategoryInput = styled.textarea` /* 카테고리 적혀있을 박스 */
-  background-color: #FFF;
+const CategoryInput = styled.input`
+  /* 카테고리 적혀있을 박스 */
+  background-color: #fff;
   padding: 10px 20px;
   border: none;
   resize: none;
@@ -30,48 +31,51 @@ const CategoryInput = styled.textarea` /* 카테고리 적혀있을 박스 */
 
   font-size: 16px;
   font-weight: bolder;
-
-  
 `;
 
 const Text = styled.div`
   display: flex;
 `;
 
-const SoldOutText = styled.div` /* 품절 */
+const SoldOutText = styled.div`
+  /* 품절 */
   margin-bottom: 10px;
   margin-top: 10px;
   font-size: 20px;
   font-style: normal;
-  font-weight:500;
+  font-weight: 500;
   line-height: normal;
 `;
 
-const MenuText = styled.div` /* 메뉴명 */
+const MenuText = styled.div`
+  /* 메뉴명 */
   margin-bottom: 10px;
   margin-top: 10px;
   margin-left: 5rem;
   font-size: 20px;
   font-style: normal;
-  font-weight:500;
+  font-weight: 500;
   line-height: normal;
 `;
 
-const PriceText = styled.div` /* 가격 */
+const PriceText = styled.div`
+  /* 가격 */
   margin-bottom: 10px;
   margin-top: 10px;
   margin-left: 11rem;
   font-size: 20px;
   font-style: normal;
-  font-weight:500;
+  font-weight: 500;
   line-height: normal;
 `;
 
-const Box = styled.div` /* INput들 담는 박스  */
+const Box = styled.div`
+  /* INput들 담는 박스  */
   display: flex;
 `;
 
-const Checkmark = styled.span` /* 체크박스 안에 표시되는 마크 */
+const Checkmark = styled.span`
+  /* 체크박스 안에 표시되는 마크 */
   position: absolute;
   top: 2px;
   left: 0.5rem;
@@ -83,9 +87,9 @@ const Checkmark = styled.span` /* 체크박스 안에 표시되는 마크 */
   display: ${(props) => (props.checked ? "block" : "none")};
 `;
 
-
-const SoldOutCheckBox = styled.div` /* 품절 체크박스  */
-  background-color: #FFF;
+const SoldOutCheckBox = styled.div`
+  /* 품절 체크박스  */
+  background-color: #fff;
   margin-left: 0.3rem;
   width: 1.5rem;
   height: 1.5rem;
@@ -94,7 +98,7 @@ const SoldOutCheckBox = styled.div` /* 품절 체크박스  */
 `;
 
 const MenuPlus = styled.div`
-  background-color: #FFF;
+  background-color: #fff;
   padding: 5px 20px;
   border-radius: 5px;
   margin: 20px;
@@ -117,19 +121,16 @@ const MenuPlus = styled.div`
   }
 `;
 
-
-
-
-
-export default function Category() {
-
-  const [categoryName, setCategoryName] = useState("");
+export default function OldCategory({
+  categoryId,
+  categoryName,
+  menusList,
+  setCategories,
+  getMenuData,
+}) {
+  //const [categoryName, setCategoryName] = useState("");
   const [MenuName, setMenuName] = useState("");
   const [PriceName, setPriceName] = useState("");
-
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [menuItems, setMenuItems] = useState([]);
 
   const handleSoldOutToggle = (index) => {
@@ -145,16 +146,38 @@ export default function Category() {
       isSoldOut: false, // Initialize the isSoldOut status to false for the new item
       menuName: MenuName,
       priceName: PriceName,
+      menuOptionsList: [],
     };
     setMenuItems([...menuItems, newItem]);
     setMenuName("");
     setPriceName("");
   };
 
-  const handleOptionClick = () => {
-    setIsModalOpen(true);
-  };
-  
+  // const getMenuData = () => {
+  //   const menusList = menuItems.map((item) => ({
+  //     menusCategory: categoryName,
+  //     menusName: item.menuName,
+  //     menusPrice: item.priceName,
+  //     menuOptionsList: item.menuOptionsList,
+  //   }));
+  //   return menusList;
+  // };
+
+  useEffect(() => {
+    setCategories((prevCategories) => {
+      const newCategories = prevCategories.map((category) => {
+        if (category.categoryId === categoryId) {
+          return {
+            ...category,
+            categoryName: categoryName,
+            menusList: menuItems,
+          };
+        }
+        return category;
+      });
+      return newCategories;
+    });
+  }, [categoryName, menuItems]);
 
   return (
     <CategoryBox>
@@ -164,11 +187,22 @@ export default function Category() {
           type="text"
           placeholder="카테고리 입력"
           value={categoryName}
-          onChange={(e) => setCategoryName(e.target.value)}
+          onChange={(e) =>
+            setCategories((prevCategories) => {
+              const newCategories = prevCategories.map((category) => {
+                if (category.categoryId === categoryId) {
+                  return {
+                    ...category,
+                    categoryName: e.target.value,
+                  };
+                }
+                return category;
+              });
+              return newCategories;
+            })
+          }
           contentEditable
-        >
-          {" "}
-        </CategoryInput>
+        ></CategoryInput>
 
         <Text>
           <SoldOutText>품절</SoldOutText>
@@ -181,8 +215,8 @@ export default function Category() {
             <SoldOutCheckBox onClick={() => handleSoldOutToggle(index)}>
               <Checkmark checked={item.isSoldOut} />
             </SoldOutCheckBox>
-          
-            <MenuInput
+
+            <OldMenuInput
               value={item.menuName}
               onChange={(e) =>
                 setMenuItems((prevItems) =>
@@ -202,7 +236,7 @@ export default function Category() {
               }
             />
 
-            <PriceInput
+            <OldPriceInput
               value={item.priceName}
               onChange={(e) =>
                 setMenuItems((prevItems) =>
@@ -221,16 +255,19 @@ export default function Category() {
                 )
               }
             />
-            <Option onClick={handleOptionClick} />
+            <OldOption
+              menuOptionsList={item.menuOptionsList}
+              setMenuItems={setMenuItems}
+              index={index}
+            />
           </Box>
         ))}
-        <MenuPlus 
-          onClick={handleMenuPlusClick}>
+        <MenuPlus onClick={handleMenuPlusClick}>
           <FaPlus className="plus" />
-
-          메뉴추가 
+          메뉴추가
         </MenuPlus>
       </div>
+      <button onClick={() => console.log(getMenuData())}>GetMenuData</button>
     </CategoryBox>
   );
 }

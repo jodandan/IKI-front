@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { styled } from "styled-components";
-import CategoryName from "./CategoryName";
-import { AddOptionButton } from "./ButtonCSS";
+import OldCategoryName from "./OldCategoryName";
+import { OldAddOptionButton } from "./OldButtonCSS";
 import { FaPlus, FaXmark } from "react-icons/fa6";
 
 const CategoryBox = styled.div`
@@ -47,7 +47,7 @@ const EachOption = styled.div`
   }
 `;
 
-export default function CategoryData() {
+export default function OldCategoryData() {
   const [optionName, setOptionName] = useState("");
   const [optionPrice, SetOptionPrice] = useState("");
   const [isChecked, setIsChecked] = useState(false); // '필수' 체크 관리
@@ -80,7 +80,7 @@ export default function CategoryData() {
 
   return (
     <CategoryBox>
-      <CategoryName isChecked={isChecked} handleCheckbox={handleCheckbox} />
+      <OldCategoryName isChecked={isChecked} handleCheckbox={handleCheckbox} />
       <CategoryContents>
         <EachOption className="fixed">
           <div className="fixed">옵션 이름</div>
@@ -126,9 +126,9 @@ export default function CategoryData() {
             </div>
           </EachOption>
         ))}
-        <AddOptionButton onClick={handleAddOption}>
+        <OldAddOptionButton onClick={handleAddOption}>
           <FaPlus style={{ color: "#515151" }} />
-        </AddOptionButton>
+        </OldAddOptionButton>
       </CategoryContents>
     </CategoryBox>
   );

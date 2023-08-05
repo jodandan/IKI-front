@@ -15,6 +15,6 @@ const SaveButtonBox = styled.button`
   }
 `;
 
-export default function SaveButton({ buttonText }) {
+export default function OldSaveButton({ buttonText }) {
   return <SaveButtonBox>{buttonText}</SaveButtonBox>;
 }
