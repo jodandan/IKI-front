@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { PlusButton, Btn } from "./adminItems/AdminButtonCSS";
-import { PageBox, EachBox, NameBox } from "./adminItems/AdminContainerCSS";
+import {
+  PageBox,
+  EachBox,
+  Name,
+  Buttons,
+} from "./adminItems/AdminContainerCSS";
 import AllCategory from "./DummyData/AllCategory.json";
 import {
   AddCategoryModal,
@@ -43,21 +48,25 @@ export default function AdminCategory() {
           item // 여기서 중괄호가 아닌 괄호로 수정
         ) => (
           <EachBox key={item.categoryId}>
-            <div>카테고리명</div>
-            <NameBox>
+            <div style={{ fontSize: "0.8rem" }}>카테고리명</div>
+            <Name>
               {item.categoryName}(id:{item.categoryId})
-            </NameBox>
-            <Btn onClick={() => handleEdit(item.categoryId, item.categoryName)}>
-              카테고리명 수정
-            </Btn>
-            <Btn>카테고리 삭제</Btn>
-            <Link
-              to={`/admin/${item.categoryId}`}
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              {/* 카테고리 삭제 */}
-              <Btn>메뉴 조회</Btn>
-            </Link>
+            </Name>
+            <Buttons>
+              <Btn
+                onClick={() => handleEdit(item.categoryId, item.categoryName)}
+              >
+                카테고리명 수정
+              </Btn>
+              <Btn>카테고리 삭제</Btn>
+              <Link
+                to={`/admin/${item.categoryId}`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                {/* 카테고리 삭제 */}
+                <Btn>메뉴 조회</Btn>
+              </Link>
+            </Buttons>
           </EachBox> // key prop 추가하여 각 항목에 고유 키 부여
         )
       )}

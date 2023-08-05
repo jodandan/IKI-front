@@ -26,13 +26,23 @@ export const PageBox = styled.div`
 `;
 
 export const EachBox = styled.div`
+  display: flex;
+  flex-direction: column;
   margin: 10px 0;
+  gap: 8px;
+  padding-top: 22px;
 `;
 
-export const NameBox = styled.div`
-  margin: 4px 0;
+export const Name = styled.div`
+  padding: 9px;
+  border-radius: 6px;
   font-size: var(--font-big);
   font-weight: 500; // bold해야할수도..
-  padding: 6px;
   background-color: var(--third-color);
+`;
+
+export const Buttons = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 7px;
 `;

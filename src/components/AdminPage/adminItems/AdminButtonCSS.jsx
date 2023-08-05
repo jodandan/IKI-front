@@ -14,7 +14,7 @@ export const AddButton = styled.div`
   align-items: center;
   height: 40px;
   gap: 8px;
-  border-radius: 3px;
+  border-radius: 5px;
   font-weight: bold;
   background: var(--secondary-color);
   margin: 12px 0;
@@ -37,12 +37,12 @@ export const PlusButton = ({ children, addCategory }) => (
   </AddButton>
 );
 
-export const Btn = styled.button`
-  border: 0;
-  border-radius: 10px;
-  padding: 10px 20px;
-  margin: 10px;
+export const Btn = styled.div`
+  text-align: center;
+  border-radius: 6px;
+  padding: 10px;
   background-color: var(--secondary-color);
   color: var(--primary-color);
   font-weight: bolder;
+  white-space: nowrap;
 `;
