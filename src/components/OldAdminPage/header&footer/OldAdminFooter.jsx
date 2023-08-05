@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import SaveButton from "../adminItems/SaveButton";
+import OldSaveButton from "../adminItems/OldSaveButton";
 
 const FooterBox = styled.div`
   position: sticky;
@@ -13,10 +13,10 @@ const FooterBox = styled.div`
   font-size: var(--font-big);
 `;
 
-export default function AdminFooter() {
+export default function OldAdminFooter() {
   return (
     <FooterBox>
-      <SaveButton buttonText={"메뉴 저장"} />
+      <OldSaveButton buttonText={"메뉴 저장"} />
     </FooterBox>
   );
 }

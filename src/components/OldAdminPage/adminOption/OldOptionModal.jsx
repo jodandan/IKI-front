@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { PlusButton, CloseButton } from "./ButtonCSS";
-import CategoryData from "./CategoryData";
+import { OldPlusButton, OldCloseButton } from "./OldButtonCSS";
+import OldCategoryData from "./OldCategoryData";
 
 /* FIXME!! - 추후 fit in body하게 수정*/
 const ModalBackground = styled.div`
@@ -36,7 +36,7 @@ const OptionContents = styled.div`
   overflow-y: auto;
 `;
 
-const OptionModal = ({ isOpen, onClose }) => {
+const OldOptionModal = ({ isOpen, onClose }) => {
   const menuName = "아메리카노";
   const [numCategories, setNumCategories] = useState(1);
   const addCategory = () => {
@@ -44,7 +44,7 @@ const OptionModal = ({ isOpen, onClose }) => {
   };
   const categories = [];
   for (let i = 0; i < numCategories; i++) {
-    categories.push(<CategoryData key={i} />);
+    categories.push(<OldCategoryData key={i} />);
   }
 
   if (!isOpen) return null;
@@ -63,12 +63,12 @@ const OptionModal = ({ isOpen, onClose }) => {
         </div>
         <OptionContents>
           {categories}
-          <PlusButton addCategory={addCategory}>카테고리 추가</PlusButton>
+          <OldPlusButton addCategory={addCategory}>카테고리 추가</OldPlusButton>
         </OptionContents>
-        <CloseButton onClick={onClose}>입력 완료</CloseButton>
+        <OldCloseButton onClick={onClose}>입력 완료</OldCloseButton>
       </OptionModalBox>
     </ModalBackground>
   );
 };
 
-export default OptionModal;
+export default OldOptionModal;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
-import OptionModal from "../adminOption/OptionModal";
-import Category from "./Category";
+import OldOptionModal from "../adminOption/OldOptionModal";
+import OldCategory from "./OldCategory";
 
 const AdminContainerBox = styled.div`
   padding: 0 1.2vw;
@@ -9,9 +9,7 @@ const AdminContainerBox = styled.div`
   height: 100%;
 `;
 
-
-export default function Option(numCategories) {
-
+export default function OldOption(numCategories) {
   const categories = [];
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -24,15 +22,13 @@ export default function Option(numCategories) {
   };
 
   for (let i = 0; i < numCategories; i++) {
-    categories.push(<Category key={i} />);
+    categories.push(<OldCategory key={i} />);
   }
-
 
   return (
     <>
       <AdminContainerBox>
-
-         <div
+        <div
           onClick={openModal}
           style={{
             padding: "5px 25px",
@@ -47,7 +43,7 @@ export default function Option(numCategories) {
         >
           옵션
         </div>
-        <OptionModal isOpen={isModalOpen} onClose={closeModal} /> 
+        <OldOptionModal isOpen={isModalOpen} onClose={closeModal} />
         {categories}
       </AdminContainerBox>
     </>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { styled } from "styled-components";
-import Checkbox from "./Checkbox";
+import OldCheckbox from "./OldCheckbox";
 
 const CategoryNameBox = styled.div`
   display: flex;
@@ -28,7 +28,7 @@ const CheckArea = styled.div`
   width: 30px; // 위 input padding-left랑 동일하게
 `;
 
-const CategoryName = ({ isChecked, handleCheckbox }) => {
+const OldCategoryName = ({ isChecked, handleCheckbox }) => {
   const [optionCatName, setOptionCatName] = useState("");
 
   return (
@@ -40,7 +40,7 @@ const CategoryName = ({ isChecked, handleCheckbox }) => {
         onChange={(e) => setOptionCatName(e.target.value)}
       />
       <CheckArea>
-        <Checkbox checked={isChecked} onChange={handleCheckbox} id="cb1" />
+        <OldCheckbox checked={isChecked} onChange={handleCheckbox} id="cb1" />
         <label htmlFor="cb1"></label>
         <div style={{ fontSize: "9px", marginTop: "2px" }}>필수</div>
       </CheckArea>
@@ -48,4 +48,4 @@ const CategoryName = ({ isChecked, handleCheckbox }) => {
   );
 };
 
-export default CategoryName;
+export default OldCategoryName;

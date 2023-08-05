@@ -1,7 +1,6 @@
-import { useState } from "react";
 import { styled } from "styled-components";
-import Category from "./adminItems/Category";
-import OptionModal from "./adminOption/OptionModal";
+import OldCategory from "./adminItems/Category";
+// import OptionModal from "./adminOption/OptionModal";
 
 const AdminContainerBox = styled.div`
   padding: 0 1.2vw;
@@ -9,7 +8,7 @@ const AdminContainerBox = styled.div`
   height: 100%;
 `;
 
-export default function AdminContainer({ numCategories }) {
+export default function OldAdminContainer({ numCategories }) {
   const categories = [];
 
   /* 모달 관련 코드 일단 주석
@@ -25,7 +24,7 @@ export default function AdminContainer({ numCategories }) {
   */
 
   for (let i = 0; i < numCategories; i++) {
-    categories.push(<Category key={i} />);
+    categories.push(<OldCategory key={i} />);
   }
 
   return (
