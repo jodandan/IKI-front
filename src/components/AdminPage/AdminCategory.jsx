@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { PlusButton, Btn } from "./adminItems/AdminButtonCSS";
 import {
   PageBox,
-  EachBox,
+  EachCategory,
   Name,
   Buttons,
 } from "./adminItems/AdminContainerCSS";
@@ -47,12 +47,12 @@ export default function AdminCategory() {
         (
           item // 여기서 중괄호가 아닌 괄호로 수정
         ) => (
-          <EachBox key={item.categoryId}>
+          <EachCategory key={item.categoryId}>
             <div style={{ fontSize: "0.8rem" }}>카테고리명</div>
             <Name>
               {item.categoryName}(id:{item.categoryId})
             </Name>
-            <Buttons>
+            <Buttons /*num={3}*/>
               <Btn
                 onClick={() => handleEdit(item.categoryId, item.categoryName)}
               >
@@ -67,7 +67,7 @@ export default function AdminCategory() {
                 <Btn>메뉴 조회</Btn>
               </Link>
             </Buttons>
-          </EachBox> // key prop 추가하여 각 항목에 고유 키 부여
+          </EachCategory> // key prop 추가하여 각 항목에 고유 키 부여
         )
       )}
       {isAddModalOpen && <AddCategoryModal onClose={handleCloseModal} />}

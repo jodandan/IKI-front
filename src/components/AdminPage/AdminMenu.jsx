@@ -1,9 +1,10 @@
 import { useParams, Link } from "react-router-dom";
 import React, { useState } from "react";
 import { PlusBtn, Btn } from "./adminItems/AdminButtonCSS";
-import { Box } from "./adminItems/AdminContainerCSS";
+import { PageBox, EachMenu, Buttons } from "./adminItems/AdminContainerCSS";
 import menuData from "./DummyData/MenusByCategoryId.json";
 import { AddMenuModal, EditMenuModal } from "./adminItems/ModalForMenu";
+import { FaXmark } from "react-icons/fa6";
 
 export default function AdminMenu() {
   const { category_id } = useParams(); //url주소 얻기
@@ -39,7 +40,7 @@ export default function AdminMenu() {
   };
 
   return (
-    <div>
+    <PageBox>
       {menuDatas.responseData.categoryName} (ID: {category_id})에 대한 모든 메뉴
       <PlusBtn onClick={handleAdd}>메뉴 추가</PlusBtn>
       <div>
@@ -47,12 +48,11 @@ export default function AdminMenu() {
           (
             item // 여기서 중괄호가 아닌 괄호로 수정
           ) => (
-            <Box key={item.menusId}>
+            <EachMenu key={item.menusId}>
               <div>
                 {item.menusName}(id:{item.menusId}) 가격:{item.menusPrice}{" "}
                 품절여부: {item.soldOut ? "품절" : "재고있음"}
               </div>
-              <Btn>메뉴 삭제</Btn>
               <Btn
                 onClick={() =>
                   handleEdit(item.menusId, {
@@ -69,9 +69,12 @@ export default function AdminMenu() {
                 style={{ textDecoration: "none", color: "black" }}
               >
                 {/* 카테고리 삭제 */}
-                <Btn>메뉴 옵션 관리하기</Btn>
+                <Btn>메뉴 옵션 </Btn>
               </Link>
-            </Box> // key prop 추가하여 각 항목에 고유 키 부여
+              <div>
+                <FaXmark />
+              </div>
+            </EachMenu> // key prop 추가하여 각 항목에 고유 키 부여
           )
         )}
       </div>
@@ -83,6 +86,6 @@ export default function AdminMenu() {
           onClose={handleCloseModal}
         />
       )}
-    </div>
+    </PageBox>
   );
 }

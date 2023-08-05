@@ -17,20 +17,34 @@ export const PopupBox = styled.div`
 `;
 
 /*
-위: 기존코드
-아래: 수정코드
+위: 기존코드(혹시 몰라서 남겨둠)
+아래: 추가된코드(현재 반영)
 */
 
 export const PageBox = styled.div`
   padding: 0 20px;
 `;
 
-export const EachBox = styled.div`
+export const EachCategory = styled.div`
   display: flex;
   flex-direction: column;
   margin: 10px 0;
   gap: 8px;
   padding-top: 22px;
+`;
+
+export const EachMenu = styled.div`
+  display: flex;
+  margin: 10px 0;
+  gap: 8px;
+  padding-top: 10px;
+`;
+
+export const EachOption = styled.div`
+  display: flex;
+  margin: 10px 0;
+  gap: 8px;
+  padding-top: 10px;
 `;
 
 export const Name = styled.div`
@@ -44,5 +58,6 @@ export const Name = styled.div`
 export const Buttons = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  //grid-template-columns: ${(props) => `repeat(${props.num}, 1fr)`};
   gap: 7px;
 `;
