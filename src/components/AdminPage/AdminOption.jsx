@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
-import { Box, PlusBtn, Btn, DeleteBtn } from "./adminItems/AdminButtonCSS";
+import { PlusBtn, Btn, DeleteBtn } from "./adminItems/AdminButtonCSS";
+import { Box } from "./adminItems/AdminContainerCSS";
 
 export default function AdminOption() {
   const { category_id, menu_id } = useParams(); //url주소 얻기

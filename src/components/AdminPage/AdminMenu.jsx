@@ -1,12 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import React, { useState } from "react";
-import {
-  Box,
-  PlusBtn,
-  Btn,
-  DeleteBtn,
-  PopupBox,
-} from "./adminItems/AdminButtonCSS";
+import { PlusBtn, Btn, DeleteBtn } from "./adminItems/AdminButtonCSS";
+import { Box, PopupBox } from "./adminItems/AdminContainerCSS";
 import menuData from "./DummyData/MenusByCategoryId.json";
 
 export default function AdminMenu() {
