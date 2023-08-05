@@ -8,15 +8,15 @@ const AdminBox = styled.div`
   position: relative;
 `;
 
-const Header=styled.div`
-    background-color: orange;
-`
+const Header = styled.div`
+  background-color: orange;
+`;
 
-export default function NewAdmin() {
-    return (
-        <AdminBox>
-            <Header>해더</Header>
-            <Outlet/>
-        </AdminBox>
-    )
+export default function Admin() {
+  return (
+    <AdminBox>
+      <Header>해더</Header>
+      <Outlet />
+    </AdminBox>
+  );
 }
