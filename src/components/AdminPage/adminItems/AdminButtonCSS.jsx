@@ -46,7 +46,3 @@ export const Btn = styled.button`
   color: var(--primary-color);
   font-weight: bolder;
 `;
-export const DeleteBtn = styled(Btn)`
-  background-color: #ff4949;
-  color: white;
-`;

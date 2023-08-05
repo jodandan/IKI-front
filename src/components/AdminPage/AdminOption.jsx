@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { PlusBtn, Btn, DeleteBtn } from "./adminItems/AdminButtonCSS";
+import { PlusBtn, Btn } from "./adminItems/AdminButtonCSS";
 import { Box } from "./adminItems/AdminContainerCSS";
 
 export default function AdminOption() {
@@ -20,7 +20,7 @@ export default function AdminOption() {
           ) => (
             <Box key={optionid}>
               <div>옵션(id:{optionid})에 대한 정보 나열</div>
-              <DeleteBtn>옵션 삭제</DeleteBtn>
+              <Btn>옵션 삭제</Btn>
               <Btn>옵션 정보 수정</Btn>
             </Box> // key prop 추가하여 각 항목에 고유 키 부여
           )

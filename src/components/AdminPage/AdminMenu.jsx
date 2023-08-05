@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import React, { useState } from "react";
-import { PlusBtn, Btn, DeleteBtn } from "./adminItems/AdminButtonCSS";
+import { PlusBtn, Btn } from "./adminItems/AdminButtonCSS";
 import { Box } from "./adminItems/AdminContainerCSS";
 import menuData from "./DummyData/MenusByCategoryId.json";
 import { AddMenuModal, EditMenuModal } from "./adminItems/ModalForMenu";
@@ -52,7 +52,7 @@ export default function AdminMenu() {
                 {item.menusName}(id:{item.menusId}) 가격:{item.menusPrice}{" "}
                 품절여부: {item.soldOut ? "품절" : "재고있음"}
               </div>
-              <DeleteBtn>메뉴 삭제</DeleteBtn>
+              <Btn>메뉴 삭제</Btn>
               <Btn
                 onClick={() =>
                   handleEdit(item.menusId, {
