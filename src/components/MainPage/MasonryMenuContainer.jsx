@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import menuDataJson from "./MenuItemData.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MenuModal from "./menuModal/MenuModal";
 
 const ListBox = styled.div`
@@ -71,7 +71,7 @@ export function MasonryMenuContainer() {
   const handleMenuItemClick = (menusId) => {  setModalMenusId(menusId); }
   // json데이터 출력
   console.log(menuDataJson);
-
+  useEffect(()=>{console.log('gkgkg')});
   // 서버에서부터 데이터 받기
   // useEffect(() => {
   //   // ownerId에 해당하는 데이터를 백엔드로부터 GET 요청으로 받아옵니다.
