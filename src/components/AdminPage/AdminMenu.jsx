@@ -1,15 +1,19 @@
 import { useParams, Link } from "react-router-dom";
 import React, { useState } from "react";
-import { PlusButton, SmallBtn, Btn } from "./adminItems/AdminButtonCSS";
+import convertPrice from "../../utils/convertPrice";
+import { PlusButton, SmallBtn, Btn, XBtn } from "./adminItems/AdminButtonCSS";
 import {
   PageBox,
   GroupName,
   EachMenu,
+  OneRow,
   Buttons,
+  NameAndPrice,
+  Name,
+  Price,
 } from "./adminItems/AdminContainerCSS";
 import menuData from "./DummyData/MenusByCategoryId.json";
 import { AddMenuModal, EditMenuModal } from "./adminItems/ModalForMenu";
-import { FaXmark } from "react-icons/fa6";
 
 export default function AdminMenu() {
   const { category_id } = useParams(); //url주소 얻기
@@ -61,31 +65,34 @@ export default function AdminMenu() {
             item // 여기서 중괄호가 아닌 괄호로 수정
           ) => (
             <EachMenu key={item.menusId}>
-              <div>
-                {item.menusName}(id:{item.menusId}) 가격:{item.menusPrice}{" "}
-                품절여부: {item.soldOut ? "품절" : "재고있음"}
-              </div>
-              <Btn
-                onClick={() =>
-                  handleEdit(item.menusId, {
-                    name: item.menusName,
-                    price: item.menusPrice,
-                    soldOut: item.soldOut,
-                  })
-                }
-              >
-                메뉴 정보 수정
-              </Btn>
-              <Link
-                to={`/admin/${category_id}/${item.menusId}`}
-                style={{ textDecoration: "none", color: "black" }}
-              >
-                {/* 카테고리 삭제 */}
-                <Btn>메뉴 옵션 </Btn>
-              </Link>
-              <div>
-                <FaXmark />
-              </div>
+              <OneRow>
+                <NameAndPrice>
+                  <Name>
+                    {item.menusName}({item.menusId})
+                  </Name>
+                  <Price>{convertPrice(item.menusPrice)}</Price>
+                </NameAndPrice>
+                <Buttons>
+                  <Btn
+                    onClick={() =>
+                      handleEdit(item.menusId, {
+                        name: item.menusName,
+                        price: item.menusPrice,
+                        soldOut: item.soldOut,
+                      })
+                    }
+                  >
+                    수정/품절관리
+                  </Btn>
+                  <Link
+                    to={`/admin/${category_id}/${item.menusId}`}
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    <Btn>옵션</Btn>
+                  </Link>
+                </Buttons>
+                <XBtn />
+              </OneRow>
             </EachMenu> // key prop 추가하여 각 항목에 고유 키 부여
           )
         )}
