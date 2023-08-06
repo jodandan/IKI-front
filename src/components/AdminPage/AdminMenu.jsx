@@ -1,7 +1,12 @@
 import { useParams, Link } from "react-router-dom";
 import React, { useState } from "react";
-import { PlusBtn, Btn } from "./adminItems/AdminButtonCSS";
-import { PageBox, EachMenu, Buttons } from "./adminItems/AdminContainerCSS";
+import { PlusButton, SmallBtn, Btn } from "./adminItems/AdminButtonCSS";
+import {
+  PageBox,
+  GroupName,
+  EachMenu,
+  Buttons,
+} from "./adminItems/AdminContainerCSS";
 import menuData from "./DummyData/MenusByCategoryId.json";
 import { AddMenuModal, EditMenuModal } from "./adminItems/ModalForMenu";
 import { FaXmark } from "react-icons/fa6";
@@ -41,8 +46,15 @@ export default function AdminMenu() {
 
   return (
     <PageBox>
-      {menuDatas.responseData.categoryName} (ID: {category_id})에 대한 모든 메뉴
-      <PlusBtn onClick={handleAdd}>메뉴 추가</PlusBtn>
+      {/*{menuDatas.responseData.categoryName} (ID: {category_id})에 대한 모든 메뉴*/}
+      <PlusButton onClick={handleAdd}>메뉴 추가</PlusButton>
+      <div style={{ padding: "8px 0", fontWeight: "bold" }}>카테고리명</div>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <GroupName>
+          {menuDatas.responseData.categoryName}(ID: {category_id})
+        </GroupName>
+        <SmallBtn>수정</SmallBtn>
+      </div>
       <div>
         {menuDatas.responseData.menusList.map(
           (

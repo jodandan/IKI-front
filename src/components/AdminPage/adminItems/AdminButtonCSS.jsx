@@ -47,3 +47,18 @@ export const Btn = styled.div`
   font-weight: bolder;
   white-space: nowrap;
 `;
+
+export const SmallBtn = styled.div`
+  height: fit-content;
+  width: fit-content;
+  margin-left: 8px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 18px;
+  padding: 6px 10px;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  font-size: var(--font-small);
+  font-weight: bolder;
+  white-space: nowrap;
+`;

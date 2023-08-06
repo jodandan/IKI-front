@@ -53,6 +53,16 @@ export const OneRow = styled.div`
   gap: 7px;
 `;
 
+export const GroupName = styled.div`
+  width: fit-content;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: var(--font-medium);
+  font-weight: bolder;
+  background-color: var(--primary-color);
+  color: white;
+`;
+
 export const Name = styled.div`
   flex: 1;
   padding: 8px 10px;

@@ -50,7 +50,9 @@ export default function AdminCategory() {
           item // 여기서 중괄호가 아닌 괄호로 수정
         ) => (
           <EachCategory key={item.categoryId}>
-            <div style={{ fontSize: "0.8rem" }}>카테고리명</div>
+            <div style={{ fontSize: "0.8rem", fontWeight: "bold" }}>
+              카테고리명
+            </div>
             <OneRow>
               <Name>
                 {item.categoryName}(id:{item.categoryId})
