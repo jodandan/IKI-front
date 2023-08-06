@@ -1,30 +1,68 @@
 import { useParams } from "react-router-dom";
-import { PlusBtn, Btn } from "./adminItems/AdminButtonCSS";
-import { PageBox, EachOption, Buttons } from "./adminItems/AdminContainerCSS";
+import convertPrice from "../../utils/convertPrice";
+import { PlusButton, Btn, SmallBtn, XBtn } from "./adminItems/AdminButtonCSS";
+import {
+  PageBox,
+  EachOption,
+  GroupName,
+  OneRow,
+  NameAndPrice,
+  Name,
+  Price,
+} from "./adminItems/AdminContainerCSS";
 
 export default function AdminOption() {
   const { category_id, menu_id } = useParams(); //url주소 얻기
   console.log(`현재 카테고리(${category_id}), 메뉴(${menu_id}의 옵션들)`);
 
   const optionId = [1, 2, 3, 4, 5];
+  const optionList = [
+    {
+      optionId: 1,
+      optionName: "차갑게",
+      optionPrice: 1000,
+    },
+    {
+      optionId: 2,
+      optionName: "뜨겁게",
+      optionPrice: 0,
+    },
+    {
+      optionId: 3,
+      optionName: "샷추가",
+      optionPrice: 500,
+    },
+    {
+      optionId: 4,
+      optionName: "연하게",
+      optionPrice: -300,
+    },
+  ];
 
   return (
     <PageBox>
-      카테고리 ID: {category_id}
-      메뉴 ID: {menu_id}에 대한 모든 옵션
-      <PlusBtn>옵션 추가</PlusBtn>
+      {/*카테고리 ID: {category_id} 메뉴 ID: {menu_id}에 대한 모든 옵션*/}
+      <PlusButton>옵션 추가</PlusButton>
+      <div style={{ padding: "8px 0", fontWeight: "bold" }}>
+        옵션 카테고리명
+      </div>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <GroupName>온도?? 이거맞나여</GroupName>
+        <SmallBtn>수정</SmallBtn>
+      </div>
       <div>
-        {optionId.map(
-          (
-            optionid // 여기서 중괄호가 아닌 괄호로 수정
-          ) => (
-            <EachOption key={optionid}>
-              <div>옵션(id:{optionid})에 대한 정보 나열</div>
-              <Btn>옵션 삭제</Btn>
-              <Btn>옵션 정보 수정</Btn>
-            </EachOption> // key prop 추가하여 각 항목에 고유 키 부여
-          )
-        )}
+        {optionList.map((option) => (
+          <EachOption key={option.optionId}>
+            <OneRow>
+              <NameAndPrice>
+                <Name>옵션(id:{option.optionId})</Name>
+                <Price>{convertPrice(option.optionPrice)}</Price>
+              </NameAndPrice>
+              <Btn>수정하기</Btn>
+              <XBtn />
+            </OneRow>
+          </EachOption>
+        ))}
       </div>
     </PageBox>
   );

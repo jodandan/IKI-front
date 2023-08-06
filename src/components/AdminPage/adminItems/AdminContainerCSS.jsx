@@ -43,6 +43,7 @@ export const EachMenu = styled.div`
 
 export const EachOption = styled.div`
   display: flex;
+  flex-direction: column;
   margin: 10px 0;
   gap: 8px;
   padding-top: 10px;
