@@ -3,6 +3,7 @@ import { PopupBox } from "./AdminContainerCSS";
 
 export const AddCategoryModal = ({ onClose }) => {
   const [categoryName, setCategoryName] = useState("");
+  console.log("!!!!!!!!!!!!");
 
   const handleCategoryNameChange = (e) => {
     setCategoryName(e.target.value);

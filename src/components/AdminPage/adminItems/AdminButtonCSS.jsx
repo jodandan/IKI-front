@@ -30,8 +30,8 @@ export const AddButton = styled.div`
     padding: 2px;
   }
 `;
-export const PlusButton = ({ children, addCategory }) => (
-  <AddButton>
+export const PlusButton = ({ children, onClick }) => (
+  <AddButton onClick={onClick}>
     <FaPlus className="plus" />
     {children}
   </AddButton>

@@ -24,6 +24,7 @@ export default function AdminCategory() {
   const handleAdd = () => {
     // 기존 handleAddCategoryButtonClick
     setIsAddModalOpen(true);
+    console.log(isAddModalOpen);
   };
 
   const handleEdit = (category_id, categoryName) => {
@@ -52,7 +53,7 @@ export default function AdminCategory() {
             <Name>
               {item.categoryName}(id:{item.categoryId})
             </Name>
-            <Buttons /*num={3}*/>
+            <Buttons>
               <Btn
                 onClick={() => handleEdit(item.categoryId, item.categoryName)}
               >

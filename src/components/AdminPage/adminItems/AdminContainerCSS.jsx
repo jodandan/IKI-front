@@ -9,11 +9,11 @@ export const Box = styled.div`
 export const PopupBox = styled.div`
   background-color: white;
   border: 1px solid var(--primary-color);
-  width: 40%;
-  height: 20%;
+  width: 300px;
+  height: 300px;
   position: fixed;
-  left: 0;
-  right: 0;
+  top: 100px;
+  left: 100px;
 `;
 
 /*
@@ -23,6 +23,7 @@ export const PopupBox = styled.div`
 
 export const PageBox = styled.div`
   padding: 0 20px;
+  overflow: auto;
 `;
 
 export const EachCategory = styled.div`
