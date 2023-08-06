@@ -43,6 +43,7 @@ export const Btn = styled.div`
   padding: 10px;
   background-color: var(--secondary-color);
   color: var(--primary-color);
+  font-size: var(--font-medium);
   font-weight: bolder;
   white-space: nowrap;
 `;

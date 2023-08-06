@@ -4,6 +4,7 @@ import { PlusButton, Btn } from "./adminItems/AdminButtonCSS";
 import {
   PageBox,
   EachCategory,
+  OneRow,
   Name,
   Buttons,
 } from "./adminItems/AdminContainerCSS";
@@ -50,24 +51,26 @@ export default function AdminCategory() {
         ) => (
           <EachCategory key={item.categoryId}>
             <div style={{ fontSize: "0.8rem" }}>카테고리명</div>
-            <Name>
-              {item.categoryName}(id:{item.categoryId})
-            </Name>
-            <Buttons>
-              <Btn
-                onClick={() => handleEdit(item.categoryId, item.categoryName)}
-              >
-                카테고리명 수정
-              </Btn>
-              <Btn>카테고리 삭제</Btn>
-              <Link
-                to={`/admin/${item.categoryId}`}
-                style={{ textDecoration: "none", color: "black" }}
-              >
-                {/* 카테고리 삭제 */}
-                <Btn>메뉴 조회</Btn>
-              </Link>
-            </Buttons>
+            <OneRow>
+              <Name>
+                {item.categoryName}(id:{item.categoryId})
+              </Name>
+              <Buttons>
+                <Btn
+                  onClick={() => handleEdit(item.categoryId, item.categoryName)}
+                >
+                  수정하기
+                </Btn>
+                <Btn>삭제하기</Btn>
+              </Buttons>
+            </OneRow>
+            <Link
+              to={`/admin/${item.categoryId}`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              {/* 카테고리 삭제 */}
+              <Btn>메뉴 조회</Btn>
+            </Link>
           </EachCategory> // key prop 추가하여 각 항목에 고유 키 부여
         )
       )}

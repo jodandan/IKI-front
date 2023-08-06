@@ -30,7 +30,7 @@ export const EachCategory = styled.div`
   display: flex;
   flex-direction: column;
   margin: 10px 0;
-  gap: 8px;
+  gap: 9px;
   padding-top: 22px;
 `;
 
@@ -48,17 +48,22 @@ export const EachOption = styled.div`
   padding-top: 10px;
 `;
 
+export const OneRow = styled.div`
+  display: flex;
+  gap: 7px;
+`;
+
 export const Name = styled.div`
-  padding: 9px;
-  border-radius: 6px;
-  font-size: var(--font-big);
-  font-weight: 500; // bold해야할수도..
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: bolder;
   background-color: var(--third-color);
 `;
 
 export const Buttons = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  //grid-template-columns: ${(props) => `repeat(${props.num}, 1fr)`};
+  grid-template-columns: 1fr 1fr;
   gap: 7px;
 `;
