@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
 :root{ 
     --primary-color: #002ecf;   /* background-color: var(--primary-color); 이런식으로 사용*/
     --secondary-color: #d1dbff;  /*계속 주문하기 버튼 색*/
-    --third-color: #f7f7f7;
+    --third-color: #f2f2f2;
     --white: #ffffff  /* 사실 white는 그냥 white로 쓰는게 더...ㅎ */
 
     --font-regular: 1rem;
