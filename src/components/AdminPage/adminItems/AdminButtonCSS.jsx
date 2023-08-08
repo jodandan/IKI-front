@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { FaPlus } from "react-icons/fa6";
+import { FaPlus, FaXmark } from "react-icons/fa6";
 
 export const PlusBtn = styled.button`
   border: 0;
@@ -30,19 +30,49 @@ export const AddButton = styled.div`
     padding: 2px;
   }
 `;
-export const PlusButton = ({ children, addCategory }) => (
-  <AddButton>
+export const PlusButton = ({ children, onClick }) => (
+  <AddButton onClick={onClick}>
     <FaPlus className="plus" />
     {children}
   </AddButton>
 );
 
 export const Btn = styled.div`
+  height: fit-content;
   text-align: center;
   border-radius: 6px;
-  padding: 10px;
+  padding: 10px 7px;
   background-color: var(--secondary-color);
   color: var(--primary-color);
+  font-size: var(--font-small);
   font-weight: bolder;
   white-space: nowrap;
 `;
+
+export const SmallBtn = styled.div`
+  height: fit-content;
+  width: fit-content;
+  margin-left: 8px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 18px;
+  padding: 6px 10px;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  font-size: var(--font-small);
+  font-weight: bolder;
+  white-space: nowrap;
+`;
+
+export const XButton = styled.div`
+  background: var(--third-color);
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+`;
+
+export const XBtn = () => (
+  <XButton>
+    <FaXmark />
+  </XButton>
+);
