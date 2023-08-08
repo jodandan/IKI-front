@@ -43,13 +43,13 @@ export default function AdminOption() {
 
   return (
     <PageBox>
+      <Header
+          title="옵션 등록"
+          link="/main" />
       <div style={{display: "flex"}}>
         <Link to="/admin"><BackBtn str="카테고리 등록"></BackBtn></Link>
         <Link to={`/admin/${category_id}`}><BackBtn str="메뉴 등록"></BackBtn></Link>
       </div>
-      <Header
-          title="옵션 등록"
-          link="/main" />
       {/*카테고리 ID: {category_id} 메뉴 ID: {menu_id}에 대한 모든 옵션*/}
       <PlusButton>옵션 추가</PlusButton>
       <div style={{ padding: "8px 0", fontWeight: "bold" }}>

@@ -51,10 +51,11 @@ export default function AdminMenu() {
 
   return (
     <PageBox>
-      <Link to="/admin"><BackBtn str="카테고리 등록"></BackBtn></Link>
+      
       <Header
           title="메뉴 등록"
           link="/main" />
+      <Link to="/admin"><BackBtn str="카테고리 등록"></BackBtn></Link>
       {/*{menuDatas.responseData.categoryName} (ID: {category_id})에 대한 모든 메뉴*/}
       <PlusButton onClick={handleAdd}>메뉴 추가</PlusButton>
       <div style={{ padding: "8px 0", fontWeight: "bold" }}>카테고리명</div>
