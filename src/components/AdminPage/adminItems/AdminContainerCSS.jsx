@@ -27,6 +27,7 @@ export const PageBox = styled.div`
 `;
 
 export const EachCategory = styled.div`
+  white-space: nowrap;
   display: flex;
   flex-direction: column;
   margin: 10px 0;
@@ -35,6 +36,7 @@ export const EachCategory = styled.div`
 `;
 
 export const EachMenu = styled.div`
+  white-space: nowrap;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -44,6 +46,7 @@ export const EachMenu = styled.div`
 `;
 
 export const EachOption = styled.div`
+  white-space: nowrap;
   display: flex;
   flex-direction: column;
   margin: 10px 0;
@@ -71,12 +74,13 @@ export const GroupName = styled.div`
 export const NameAndPrice = styled.div`
   flex: 1;
   display: grid;
-  grid-template-columns: 4fr 3fr;
+  grid-template-columns: 5fr 3fr;
   gap: 8px;
 `;
 
 export const Name = styled.div`
   flex: 1;
+  overflow-x: hidden;
   padding: 8px 10px;
   border-radius: 5px;
   font-size: 1rem;
@@ -85,10 +89,19 @@ export const Name = styled.div`
 `;
 
 export const Price = styled.div`
+  overflow-x: hidden;
   padding: 8px 10px;
   border-radius: 5px;
   font-size: 1rem;
   background-color: ${(props) => (props.hide ? "none" : "var(--third-color)")};
+`;
+
+export const Type = styled.div`
+  padding: 8px 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: ${(props) => (props.hide ? "none" : "var(--third-color)")};
+  overflow-x: hidden;
 `;
 
 export const Buttons = styled.div`
@@ -98,7 +111,15 @@ export const Buttons = styled.div`
 `;
 
 export const PilSoo = styled.div`
-  text-align: center;
-  width: 3rem;
+  display: flex;
+  align-items: center;
+  width: 2.8rem;
   font-size: 1rem;
+`;
+
+export const OptionFields = styled.div`
+  flex: 1;
+  display: grid;
+  grid-template-columns: 2fr 5fr 2.8fr;
+  gap: 8px;
 `;

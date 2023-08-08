@@ -14,9 +14,10 @@ import {
   EachOption,
   GroupName,
   OneRow,
-  NameAndPrice,
+  OptionFields,
   Name,
   Price,
+  Type,
   PilSoo,
 } from "./adminItems/AdminContainerCSS";
 
@@ -27,21 +28,25 @@ export default function AdminOption() {
   const optionId = [1, 2, 3, 4, 5];
   const optionList = [
     {
+      optionCategory: "온도",
       optionId: 1,
       optionName: "차갑게",
       optionPrice: 1000,
     },
     {
+      optionCategory: "온도",
       optionId: 2,
       optionName: "뜨겁게",
       optionPrice: 0,
     },
     {
+      optionCategory: "샷",
       optionId: 3,
       optionName: "샷추가",
       optionPrice: 500,
     },
     {
+      optionCategory: "샷",
       optionId: 4,
       optionName: "연하게",
       optionPrice: -300,
@@ -72,10 +77,11 @@ export default function AdminOption() {
         <EachOption hide={"true"}>
           <OneRow>
             <PilSoo>필수</PilSoo>
-            <NameAndPrice>
+            <OptionFields>
+              <Type hide={"true"}>종류</Type>
               <Name hide={"true"}>옵션명</Name>
               <Price hide={"true"}>가격</Price>
-            </NameAndPrice>
+            </OptionFields>
             <Btn hide={"true"}>수정하기</Btn>
             <XBtn hide={"true"} />
           </OneRow>
@@ -88,10 +94,11 @@ export default function AdminOption() {
               <PilSoo>
                 <input type="checkbox" />
               </PilSoo>
-              <NameAndPrice>
+              <OptionFields>
+                <Type>{option.optionCategory}</Type>
                 <Name>옵션(id:{option.optionId})</Name>
                 <Price>{convertPrice(option.optionPrice)}</Price>
-              </NameAndPrice>
+              </OptionFields>
               <Btn>수정하기</Btn>
               <XBtn />
             </OneRow>
