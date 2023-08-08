@@ -1,10 +1,12 @@
 import React from "react";
 import { PopUpButton, PopUpContent, IndentedContainer, TransParentBackGournd } from "./PopupStyleComponents";
+import { FaXmark } from "react-icons/fa6";
 
-export default function ShowTakeoutPopUp({ onShowFirstPopUp }) {
+export default function ShowTakeoutPopUp({ onShowFirstPopUp, PaymentCancel }) {
   return (
     <TransParentBackGournd>
       <PopUpContent>
+        <FaXmark onClick={PaymentCancel}/>
         <IndentedContainer>
           <span style={{lineHeight: 1.5}}>
             포장여부를 선택하면
