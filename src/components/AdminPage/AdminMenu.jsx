@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import React, { useState } from "react";
 import Header from "../header/Header";
 import convertPrice from "../../utils/convertPrice";
-import { PlusButton, SmallBtn, Btn, XBtn } from "./adminItems/AdminButtonCSS";
+import { PlusButton, SmallBtn, Btn, XBtn, BackBtn } from "./adminItems/AdminButtonCSS";
 import {
   PageBox,
   GroupName,
@@ -51,6 +51,7 @@ export default function AdminMenu() {
 
   return (
     <PageBox>
+      <Link to="/admin"><BackBtn str="카테고리 등록"></BackBtn></Link>
       <Header
           title="메뉴 등록"
           link="/main" />
