@@ -4,58 +4,12 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
-import logo from './logo.svg';
-import logoSquare from './logoSquare.svg';
-
-const LoginBox = styled.div`
-  height: 100vh; /* 추후 메뉴판 길이에 맞게 수정 */
-  background: rgb(0, 46, 207, 65%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Title = styled.div`
-  font-size:30px;
-  margin-bottom: 15%;
-  color:white;
-`;
-
-const Display = styled.div`
-  display: flex;
-  flex-direction: row; /* Change flex-direction to row */
-  align-items: center;
-
-`;
-
-const DisplayThird = styled.div`
-  display: flex;
-  flex-direction: row; /* Change flex-direction to row */
-  align-items: center;
-  margin-right: 3rem;
-
-`;
+import { LoginBox, Logos, FormInput, FormLabel, SubmitBtn, Trash } from './loginItems/loginItemCSS';
 
 const SignUpForm = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const FormLabel = styled.label`
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  margin-right: 1rem;
-  color:White;
-`;
-
-const FormInput = styled.input`
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 1rem;
-  
 `;
 
 const VerificationButton = styled.button`
@@ -85,37 +39,6 @@ const SubmitButton = styled.input`
 const ErrorMessage = styled.p`
   color: red;
 `;
-
-const ButtonBox = styled.div`
-  
-`; 
-const LoginButton = styled.button`
-  background: rgb(0, 46, 207, 65%);
-  color:White;
-  border:none;
-  border-radius: 5px;
-
-  padding: 8px;
-  height: 40px;
-  font-size: var(--font-big);
-  margin: 10px;
-`;
-
-const SignUpButton = styled.button`
-  background: rgb(0, 46, 207, 65%);
-  color:White;
-  border:none;
-  margin-left: 20px;
-  border-radius: 5px;
-
-  padding: 8px;
-  height: 40px;
-  font-size: var(--font-big);
-  margin: 10px;
-
-  cursor: pointer;
-`;
-
 
 
 const SignUp = () => {
@@ -178,57 +101,56 @@ const SignUp = () => {
   return (
     <LoginBox>
       <SignUpForm onSubmit={handleSignUp}>
-        <img style={{ height: "6rem", width: "auto" }} src={logoSquare} alt="LogoSquare" />
-        <img style={{ height: "5rem", width: "auto", margin: "2rem 0 1.5rem 0" }} src={logo} alt="Logo" />
-        <Title>회원가입</Title>
-        <Display>
-          <FormLabel htmlFor="nickname">사용자명</FormLabel>
-          <FormInput
-            type="text"
-            name="nickname"
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-            required
-          />
-        </Display>
-        <Display>
-          <FormLabel htmlFor="password">비밀번호</FormLabel>
-          <FormInput
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </Display>
-        <DisplayThird>
-          <FormLabel htmlFor="confirmPassword">비밀번호 확인</FormLabel>
-          <FormInput
-            type="password"
-            name="confirmPassword"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </DisplayThird>
-        <Display>
-          <FormLabel htmlFor="shopName">가게이름</FormLabel>
-          <FormInput
-            type="text"
-            name="shopName"
-            value={shopName}
-            onChange={(e) => setShopName(e.target.value)}
-            required
-          />
-        </Display>
-        <ButtonBox>
-          <SignUpButton onClick={handleSignUp} value="가입하기">
-            가입하기
-          </SignUpButton>
-          <LoginButton>
-            <Link to={"/"}>로그인 페이지로 이동</Link>
-          </LoginButton>
-        </ButtonBox>
+        <Logos />
+
+        {/* <FormLabel htmlFor="nickname">사용자명</FormLabel> */}
+        <FormInput
+          type="text"
+          name="nickname"
+          value={nickname}
+          onChange={(e) => setNickname(e.target.value)}
+          required
+          placeholder='아이디'
+        />
+
+
+        {/* <FormLabel htmlFor="password">비밀번호</FormLabel> */}
+        <FormInput
+          type="password"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          placeholder='비밀번호'
+        />
+        {/* <FormLabel htmlFor="confirmPassword">비밀번호 확인</FormLabel> */}
+        <FormInput
+          type="password"
+          name="confirmPassword"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+          placeholder='비밀번호 확인'
+        />
+
+        {/* <FormLabel htmlFor="shopName">가게이름</FormLabel> */}
+        <FormInput
+          type="text"
+          name="shopName"
+          value={shopName}
+          onChange={(e) => setShopName(e.target.value)}
+          required
+          placeholder='상호명'
+        />
+
+        <>
+          <SubmitBtn onClick={handleSignUp} value="가입하기">
+            회원가입하기
+          </SubmitBtn>
+          <Trash>
+            <Link to={"/"}>로그인 페이지로 이동 </Link>
+          </Trash>
+        </>
       </SignUpForm>
     </LoginBox>
   );
