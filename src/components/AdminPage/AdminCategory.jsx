@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Header from "../header/Header";
 import { PlusButton, Btn } from "./adminItems/AdminButtonCSS";
 import {
   PageBox,
@@ -44,6 +45,9 @@ export default function AdminCategory() {
 
   return (
     <PageBox>
+      <Header
+          title="카테고리 등록"
+          link="/main" />
       <PlusButton onClick={handleAdd}>카테고리 추가</PlusButton>
       {allCategotyData.responseData.map(
         (
