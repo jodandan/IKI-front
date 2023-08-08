@@ -1,6 +1,14 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import convertPrice from "../../utils/convertPrice";
-import { PlusButton, Btn, SmallBtn, XBtn } from "./adminItems/AdminButtonCSS";
+import {
+  PlusButton,
+  Btn,
+  SmallBtn,
+  XBtn,
+  BackBtn,
+} from "./adminItems/AdminButtonCSS";
+import Header from "../header/Header";
+
 import {
   PageBox,
   EachOption,
@@ -41,6 +49,15 @@ export default function AdminOption() {
 
   return (
     <PageBox>
+      <Header title="옵션 등록" link="/main" />
+      <div style={{ display: "flex" }}>
+        <Link to="/admin">
+          <BackBtn str="카테고리 등록"></BackBtn>
+        </Link>
+        <Link to={`/admin/${category_id}`}>
+          <BackBtn str="메뉴 등록"></BackBtn>
+        </Link>
+      </div>
       {/*카테고리 ID: {category_id} 메뉴 ID: {menu_id}에 대한 모든 옵션*/}
       <PlusButton>옵션 추가</PlusButton>
       <div style={{ padding: "8px 0", fontWeight: "bold" }}>
@@ -50,6 +67,16 @@ export default function AdminOption() {
         <GroupName>온도?? 이거맞나여</GroupName>
         <SmallBtn>수정</SmallBtn>
       </div>
+      <EachOption hide>
+        <OneRow>
+          <NameAndPrice>
+            <Name hide>옵션명</Name>
+            <Price hide>가격</Price>
+          </NameAndPrice>
+          <Btn hide>수정하기</Btn>
+          <XBtn hide />
+        </OneRow>
+      </EachOption>
       <div>
         {optionList.map((option) => (
           <EachOption key={option.optionId}>

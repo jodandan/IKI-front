@@ -1,7 +1,14 @@
 import { useParams, Link } from "react-router-dom";
 import React, { useState } from "react";
+import Header from "../header/Header";
 import convertPrice from "../../utils/convertPrice";
-import { PlusButton, SmallBtn, Btn, XBtn } from "./adminItems/AdminButtonCSS";
+import {
+  PlusButton,
+  SmallBtn,
+  Btn,
+  XBtn,
+  BackBtn,
+} from "./adminItems/AdminButtonCSS";
 import {
   PageBox,
   GroupName,
@@ -50,6 +57,10 @@ export default function AdminMenu() {
 
   return (
     <PageBox>
+      <Header title="메뉴 등록" link="/main" />
+      <Link to="/admin">
+        <BackBtn str="카테고리 등록"></BackBtn>
+      </Link>
       {/*{menuDatas.responseData.categoryName} (ID: {category_id})에 대한 모든 메뉴*/}
       <PlusButton onClick={handleAdd}>메뉴 추가</PlusButton>
       <div style={{ padding: "8px 0", fontWeight: "bold" }}>카테고리명</div>
@@ -59,6 +70,19 @@ export default function AdminMenu() {
         </GroupName>
         <SmallBtn>수정</SmallBtn>
       </div>
+      <EachMenu hide>
+        <OneRow>
+          <NameAndPrice>
+            <Name hide>메뉴명</Name>
+            <Price hide>가격</Price>
+          </NameAndPrice>
+          <Buttons>
+            <Btn hide>수정/품절관리</Btn>
+            <Btn hide>옵션</Btn>
+          </Buttons>
+          <XBtn hide />
+        </OneRow>
+      </EachMenu>
       <div>
         {menuDatas.responseData.menusList.map(
           (

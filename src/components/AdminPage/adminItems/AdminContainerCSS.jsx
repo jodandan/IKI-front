@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { styled, css } from "styled-components";
 
 export const Box = styled.div`
   height: 100px;
@@ -39,6 +39,13 @@ export const EachMenu = styled.div`
   flex-direction: column;
   gap: 8px;
   padding-top: 20px;
+
+  ${(props) =>
+    props.hide &&
+    css`
+      margin-bottom: -18px;
+      font-weight: bold;
+    `}
 `;
 
 export const EachOption = styled.div`
@@ -47,6 +54,13 @@ export const EachOption = styled.div`
   margin: 10px 0;
   gap: 8px;
   padding-top: 10px;
+
+  ${(props) =>
+    props.hide &&
+    css`
+      margin-bottom: -18px;
+      font-weight: bold;
+    `}
 `;
 
 export const OneRow = styled.div`
@@ -71,6 +85,12 @@ export const Name = styled.div`
   font-size: 1rem;
   font-weight: bolder;
   background-color: var(--third-color);
+
+  ${(props) =>
+    props.hide &&
+    css`
+      background: none;
+    `}
 `;
 
 export const Price = styled.div`
@@ -78,6 +98,12 @@ export const Price = styled.div`
   border-radius: 5px;
   font-size: 1rem;
   background-color: var(--third-color);
+
+  ${(props) =>
+    props.hide &&
+    css`
+      background: none;
+    `}
 `;
 
 export const NameAndPrice = styled.div`
