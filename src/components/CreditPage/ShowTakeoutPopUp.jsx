@@ -1,12 +1,20 @@
 import React from "react";
 import { PopUpButton, PopUpContent, IndentedContainer, TransParentBackGournd } from "./PopupStyleComponents";
 import { FaXmark } from "react-icons/fa6";
+import { styled } from "styled-components";
+
+const CancleBtnBox=styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 2rem;
+`
 
 export default function ShowTakeoutPopUp({ onShowFirstPopUp, PaymentCancel }) {
   return (
     <TransParentBackGournd>
       <PopUpContent>
-        <FaXmark onClick={PaymentCancel}/>
+        <CancleBtnBox onClick={PaymentCancel}><FaXmark size={50}/></CancleBtnBox>
         <IndentedContainer>
           <span style={{lineHeight: 1.5}}>
             포장여부를 선택하면
