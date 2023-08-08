@@ -17,6 +17,7 @@ import {
   NameAndPrice,
   Name,
   Price,
+  PilSoo,
 } from "./adminItems/AdminContainerCSS";
 
 export default function AdminOption() {
@@ -69,6 +70,7 @@ export default function AdminOption() {
       </div>
       <EachOption hide>
         <OneRow>
+          <PilSoo>필수</PilSoo>
           <NameAndPrice>
             <Name hide>옵션명</Name>
             <Price hide>가격</Price>
@@ -81,6 +83,9 @@ export default function AdminOption() {
         {optionList.map((option) => (
           <EachOption key={option.optionId}>
             <OneRow>
+              <PilSoo>
+                <input type="checkbox" />
+              </PilSoo>
               <NameAndPrice>
                 <Name>옵션(id:{option.optionId})</Name>
                 <Price>{convertPrice(option.optionPrice)}</Price>

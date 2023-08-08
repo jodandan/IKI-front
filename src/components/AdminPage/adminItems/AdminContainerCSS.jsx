@@ -78,6 +78,13 @@ export const GroupName = styled.div`
   color: white;
 `;
 
+export const NameAndPrice = styled.div`
+  flex: 1;
+  display: grid;
+  grid-template-columns: 4fr 3fr;
+  gap: 8px;
+`;
+
 export const Name = styled.div`
   flex: 1;
   padding: 8px 10px;
@@ -106,15 +113,14 @@ export const Price = styled.div`
     `}
 `;
 
-export const NameAndPrice = styled.div`
-  flex: 1;
-  display: grid;
-  grid-template-columns: 4fr 3fr;
-  gap: 8px;
-`;
-
 export const Buttons = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 7px;
+`;
+
+export const PilSoo = styled.div`
+  text-align: center;
+  width: 3rem;
+  font-size: 1rem;
 `;
