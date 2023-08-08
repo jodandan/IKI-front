@@ -47,12 +47,7 @@ export const Btn = styled.div`
   font-size: var(--font-small);
   font-weight: bolder;
   white-space: nowrap;
-
-  ${(props) =>
-    props.hide &&
-    css`
-      visibility: hidden;
-    `}
+  visibility: ${(props) => (props.hide ? "hidden" : "visible")};
 `;
 
 export const SmallBtn = styled.div`
@@ -76,6 +71,7 @@ export const XButton = styled.div`
   align-items: center;
   border-radius: 5px;
 
+  // visibility: ${(props) => (props.hide ? "hidden" : "visible")};
   ${(props) =>
     props.hide &&
     css`
