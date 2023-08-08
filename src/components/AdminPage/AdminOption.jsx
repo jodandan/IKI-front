@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import convertPrice from "../../utils/convertPrice";
-import { PlusButton, Btn, SmallBtn, XBtn } from "./adminItems/AdminButtonCSS";
+import { PlusButton, Btn, SmallBtn, XBtn, BackBtn } from "./adminItems/AdminButtonCSS";
 import {
   PageBox,
   EachOption,
@@ -41,6 +41,11 @@ export default function AdminOption() {
 
   return (
     <PageBox>
+      <div style={{display: "flex"}}>
+        <Link to="/admin"><BackBtn str="카테고리 등록"></BackBtn></Link>
+        <Link to={`/admin/${category_id}`}><BackBtn str="메뉴 등록"></BackBtn></Link>
+      </div>
+
       {/*카테고리 ID: {category_id} 메뉴 ID: {menu_id}에 대한 모든 옵션*/}
       <PlusButton>옵션 추가</PlusButton>
       <div style={{ padding: "8px 0", fontWeight: "bold" }}>

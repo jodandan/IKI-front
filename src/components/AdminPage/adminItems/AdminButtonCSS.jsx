@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { FaPlus, FaXmark } from "react-icons/fa6";
+import { FaPlus, FaXmark, FaAngleLeft } from "react-icons/fa6";
 
 export const PlusBtn = styled.button`
   border: 0;
@@ -76,3 +76,19 @@ export const XBtn = () => (
     <FaXmark />
   </XButton>
 );
+
+export const BackBtnBg = styled.div`
+  width: fit-content;
+  padding: 8px;
+  border-radius: 9999px;
+  font-size: var(--font-small);
+  background-color: var(--primary-color);
+  color: white;
+  margin-left: 8px;
+`;
+
+export function BackBtn({str}){
+  return (
+    <BackBtnBg><FaAngleLeft/>{str}</BackBtnBg>
+  )
+}
