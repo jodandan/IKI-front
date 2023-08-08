@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import React, { useState } from "react";
 import Header from "../header/Header";
+import { StyleSheetManager } from "styled-components"; // 다음 warning 제거하려 추가: StyledComponent.ts:139 styled-components: it looks like an unknown prop "hide" is being sent through to the DOM, which will likely trigger a React console error.
 import convertPrice from "../../utils/convertPrice";
 import {
   PlusButton,
@@ -70,19 +71,21 @@ export default function AdminMenu() {
         </GroupName>
         <SmallBtn>수정</SmallBtn>
       </div>
-      <EachMenu hide>
-        <OneRow>
-          <NameAndPrice>
-            <Name hide>메뉴명</Name>
-            <Price hide>가격</Price>
-          </NameAndPrice>
-          <Buttons>
-            <Btn hide>수정/품절관리</Btn>
-            <Btn hide>옵션</Btn>
-          </Buttons>
-          <XBtn hide />
-        </OneRow>
-      </EachMenu>
+      <StyleSheetManager shouldForwardProp={(prop) => prop !== "hide"}>
+        <EachMenu hide="true">
+          <OneRow>
+            <NameAndPrice>
+              <Name hide="true">메뉴명</Name>
+              <Price hide="true">가격</Price>
+            </NameAndPrice>
+            <Buttons>
+              <Btn hide="true">수정/품절관리</Btn>
+              <Btn hide="true">옵션</Btn>
+            </Buttons>
+            <XBtn hide="true" />
+          </OneRow>
+        </EachMenu>
+      </StyleSheetManager>
       <div>
         {menuDatas.responseData.menusList.map(
           (

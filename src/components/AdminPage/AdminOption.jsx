@@ -1,5 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import convertPrice from "../../utils/convertPrice";
+import Header from "../header/Header";
+import { StyleSheetManager } from "styled-components"; // 다음 warning 제거하려 추가: StyledComponent.ts:139 styled-components: it looks like an unknown prop "hide" is being sent through to the DOM, which will likely trigger a React console error.
 import {
   PlusButton,
   Btn,
@@ -7,8 +9,6 @@ import {
   XBtn,
   BackBtn,
 } from "./adminItems/AdminButtonCSS";
-import Header from "../header/Header";
-
 import {
   PageBox,
   EachOption,
@@ -68,17 +68,19 @@ export default function AdminOption() {
         <GroupName>온도?? 이거맞나여</GroupName>
         <SmallBtn>수정</SmallBtn>
       </div>
-      <EachOption hide>
-        <OneRow>
-          <PilSoo>필수</PilSoo>
-          <NameAndPrice>
-            <Name hide>옵션명</Name>
-            <Price hide>가격</Price>
-          </NameAndPrice>
-          <Btn hide>수정하기</Btn>
-          <XBtn hide />
-        </OneRow>
-      </EachOption>
+      <StyleSheetManager shouldForwardProp={(prop) => prop !== "hide"}>
+        <EachOption hide={"true"}>
+          <OneRow>
+            <PilSoo>필수</PilSoo>
+            <NameAndPrice>
+              <Name hide={"true"}>옵션명</Name>
+              <Price hide={"true"}>가격</Price>
+            </NameAndPrice>
+            <Btn hide={"true"}>수정하기</Btn>
+            <XBtn hide={"true"} />
+          </OneRow>
+        </EachOption>
+      </StyleSheetManager>
       <div>
         {optionList.map((option) => (
           <EachOption key={option.optionId}>
