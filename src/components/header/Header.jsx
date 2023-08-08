@@ -33,16 +33,17 @@ const Subtitle=styled.div`
     font-weight: bold;
 `
 
-export default function Header({title, subtitle}){
+export default function Header({title, subtitle, link}){
     return(
         <HeaderBox>
           <Link 
-            to="/Admin" 
+            to={link} 
             style={{ marginLeft: "20px",position: "absolute"}}>
             <LogoBox src={logo} alt="Logo"/>
           </Link>
           <TitleBox>
-            <Title>{title}</Title><Subtitle>{subtitle}</Subtitle>
+            <Title>{title}</Title>
+            {subtitle && <Subtitle>{subtitle}</Subtitle>}
           </TitleBox>
         </HeaderBox>
     )

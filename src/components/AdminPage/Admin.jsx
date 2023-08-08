@@ -8,14 +8,9 @@ const AdminBox = styled.div`
   position: relative;
 `;
 
-const Header = styled.div`
-  background-color: orange;
-`;
-
 export default function Admin() {
   return (
     <AdminBox>
-      <Header>해더</Header>
       <Outlet />
     </AdminBox>
   );
