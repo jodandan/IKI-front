@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import React, { useState } from "react";
+import Header from "../header/Header";
 import convertPrice from "../../utils/convertPrice";
 import { PlusButton, SmallBtn, Btn, XBtn } from "./adminItems/AdminButtonCSS";
 import {
@@ -50,6 +51,9 @@ export default function AdminMenu() {
 
   return (
     <PageBox>
+      <Header
+          title="메뉴 등록"
+          link="/main" />
       {/*{menuDatas.responseData.categoryName} (ID: {category_id})에 대한 모든 메뉴*/}
       <PlusButton onClick={handleAdd}>메뉴 추가</PlusButton>
       <div style={{ padding: "8px 0", fontWeight: "bold" }}>카테고리명</div>
