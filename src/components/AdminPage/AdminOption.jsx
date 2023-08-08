@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import convertPrice from "../../utils/convertPrice";
+import Header from "../header/Header";
 import { PlusButton, Btn, SmallBtn, XBtn } from "./adminItems/AdminButtonCSS";
 import {
   PageBox,
@@ -41,6 +42,9 @@ export default function AdminOption() {
 
   return (
     <PageBox>
+      <Header
+          title="옵션 등록"
+          link="/main" />
       {/*카테고리 ID: {category_id} 메뉴 ID: {menu_id}에 대한 모든 옵션*/}
       <PlusButton>옵션 추가</PlusButton>
       <div style={{ padding: "8px 0", fontWeight: "bold" }}>
