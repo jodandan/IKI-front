@@ -27,30 +27,34 @@ export default function Login() {
     }
 
     
-    //서버와 연결되기 전엔 ID&PW 입력만 되면 main으로 이동
-    navigate('/main');
-
     try {
-      // Send email and password to the server for authentication
-      const response = await axios.post("URL", {
-        nickname,
+      const response = await axios.post("https://iki.digital:8080/api/v1/owner/login", {
+        ownerName: nickname,
         password,
       });
 
-      // Assuming the server responds with a token upon successful authentication
-      console.log(response.data.result.jwt);
-      const token = response.data.result.jwt;
+      const { httpStatus, message, responseData } = response.data;
 
-      // Store the token in local storage or state for further use
-      localStorage.setItem("token", token);
-      console.log(token);
-      console.log("로그인성공!");
-      navigate("/main"); // Redirect to the login page
+      if (httpStatus === 200) {
+        // 로그인 성공
+        console.log("로그인 성공:", message);
+        const { ownerId, ownerName, shopName } = responseData;
+
+        // 토큰 등의 처리를 추가할 수 있습니다.
+        // localStorage.setItem("token", token);
+
+        // 로그인 후 이동
+        navigate("/main");
+      } else {
+        // 로그인 실패
+        console.error("로그인 실패:", message);
+        alert(message);
+      }
     } catch (error) {
-      console.error("로그인실패", error);
+      console.error("로그인 오류:", error);
     }
-
   };
+  
   return (
     <>
       <LoginBox>
