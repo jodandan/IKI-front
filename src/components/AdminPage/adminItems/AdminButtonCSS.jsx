@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { styled, css } from "styled-components";
 import { FaPlus, FaXmark, FaAngleLeft } from "react-icons/fa6";
 
 export const PlusBtn = styled.button`
@@ -47,6 +47,7 @@ export const Btn = styled.div`
   font-size: var(--font-small);
   font-weight: bolder;
   white-space: nowrap;
+  visibility: ${(props) => (props.hide ? "hidden" : "visible")};
 `;
 
 export const SmallBtn = styled.div`
@@ -69,10 +70,17 @@ export const XButton = styled.div`
   display: flex;
   align-items: center;
   border-radius: 5px;
+
+  // visibility: ${(props) => (props.hide ? "hidden" : "visible")};
+  ${(props) =>
+    props.hide &&
+    css`
+      visibility: hidden;
+    `}
 `;
 
-export const XBtn = () => (
-  <XButton>
+export const XBtn = ({ hide }) => (
+  <XButton hide={hide}>
     <FaXmark />
   </XButton>
 );
@@ -87,8 +95,12 @@ export const BackBtnBg = styled.div`
   margin-left: 8px;
 `;
 
-export function BackBtn({str}){
+export function BackBtn({ str }) {
   return (
-    <BackBtnBg><FaAngleLeft/>{str}</BackBtnBg>
-  )
+    <BackBtnBg>
+      <FaAngleLeft />
+      {str}
+    </BackBtnBg>
+  );
 }
+
