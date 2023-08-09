@@ -1,7 +1,9 @@
 import { useParams, Link } from "react-router-dom";
+import React, { useState } from "react";
 import convertPrice from "../../utils/convertPrice";
 import { PlusButton, Btn, SmallBtn, XBtn, BackBtn } from "./adminItems/AdminButtonCSS";
 import Header from "../header/Header";
+import { EditOptionCategoryModal, AddOptionModal, EditOptionModal } from "./adminItems/ModalForOption";
 
 import {
   PageBox,
@@ -41,6 +43,37 @@ export default function AdminOption() {
     },
   ];
 
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedOptionId, setSelectedOptionId] = useState(null);
+  const [selectedOptionData, setSelectedOptionData] = useState({
+    optionName: "",
+    optionPrice: 0,
+  });
+
+  const [isEditOptionCategoryModalOpen, setIsEditOptionCategoryModalOpen] = useState(false);
+
+  const handleEditOptionCategory = () => {
+    setIsEditOptionCategoryModalOpen(true);
+  };
+  
+
+  const handleAdd = () => {
+    setIsAddModalOpen(true);
+  };
+
+  const handleEdit = (optionId, optionData) => {
+    setSelectedOptionId(optionId);
+    setSelectedOptionData(optionData);
+    setIsEditModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsAddModalOpen(false);
+    setIsEditModalOpen(false);
+    setSelectedOptionId(null);
+  };
+
   return (
     <PageBox>
       <div style={{display: "flex"}}>
@@ -51,13 +84,14 @@ export default function AdminOption() {
           title="옵션 등록"
           link="/main" />
       {/*카테고리 ID: {category_id} 메뉴 ID: {menu_id}에 대한 모든 옵션*/}
-      <PlusButton>옵션 추가</PlusButton>
+      <PlusButton onClick={handleAdd}>옵션 추가</PlusButton>
       <div style={{ padding: "8px 0", fontWeight: "bold" }}>
         옵션 카테고리명
       </div>
       <div style={{ display: "flex", alignItems: "center" }}>
         <GroupName>온도?? 이거맞나여</GroupName>
-        <SmallBtn>수정</SmallBtn>
+        <SmallBtn onClick={handleEditOptionCategory}>수정</SmallBtn>
+
       </div>
       <div>
         {optionList.map((option) => (
@@ -67,12 +101,24 @@ export default function AdminOption() {
                 <Name>옵션(id:{option.optionId})</Name>
                 <Price>{convertPrice(option.optionPrice)}</Price>
               </NameAndPrice>
-              <Btn>수정하기</Btn>
+              <Btn onClick={() => handleEdit(option.optionId, option)}>수정하기</Btn>
               <XBtn />
             </OneRow>
           </EachOption>
         ))}
       </div>
+      {isAddModalOpen && <AddOptionModal onClose={handleCloseModal} />}
+      {isEditModalOpen && selectedOptionId && (
+        <EditOptionModal
+          selectedOptionId={selectedOptionId}
+          selectedOptionData={selectedOptionData}
+          onClose={handleCloseModal}
+        />
+      )}
+      {isEditOptionCategoryModalOpen && (
+        <EditOptionCategoryModal onClose={() => setIsEditOptionCategoryModalOpen(false)} />
+      )}
+
     </PageBox>
   );
 }

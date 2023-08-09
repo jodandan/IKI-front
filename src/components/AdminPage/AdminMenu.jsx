@@ -14,7 +14,7 @@ import {
   Price,
 } from "./adminItems/AdminContainerCSS";
 import menuData from "./DummyData/MenusByCategoryId.json";
-import { AddMenuModal, EditMenuModal } from "./adminItems/ModalForMenu";
+import { EditCategoryModal, AddMenuModal, EditMenuModal } from "./adminItems/ModalForMenu";
 
 export default function AdminMenu() {
   const { category_id } = useParams(); //url주소 얻기
@@ -31,6 +31,21 @@ export default function AdminMenu() {
     price: null,
     soldOut: null,
   });
+
+  const [isEditCategoryModalOpen, setIsEditCategoryModalOpen] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState("");
+
+  const handleEditCategory = () => {
+    setIsEditCategoryModalOpen(true);
+  };
+
+  const handleEditCategoryName = (newName) => {
+    // TODO: 백엔드에서 카테고리 이름 업데이트
+    console.log(`카테고리 이름 업데이트됨: ${newName}`);
+    // 선택 사항으로 UI를 업데이트하여 변경 사항을 반영할 수 있습니다.
+    setNewCategoryName(newName);
+  };
+
   const handleAdd = () => {
     // 기존 handleAddMenuButtonClick
     setIsAddModalOpen(true);
@@ -62,7 +77,7 @@ export default function AdminMenu() {
         <GroupName>
           {menuDatas.responseData.categoryName}(ID: {category_id})
         </GroupName>
-        <SmallBtn>수정</SmallBtn>
+        <SmallBtn onClick={handleEditCategory}>수정</SmallBtn>
       </div>
       <div>
         {menuDatas.responseData.menusList.map(
@@ -103,6 +118,13 @@ export default function AdminMenu() {
         )}
       </div>
       {isAddModalOpen && <AddMenuModal onClose={handleCloseModal} />}
+      {isEditCategoryModalOpen && (
+        <EditCategoryModal
+          currentCategoryName={menuDatas.responseData.categoryName}
+          onClose={() => setIsEditCategoryModalOpen(false)}
+          onSave={handleEditCategoryName}
+        />
+      )}
       {isEditModalOpen && selectedMenuId && (
         <EditMenuModal
           menuId={selectedMenuId}

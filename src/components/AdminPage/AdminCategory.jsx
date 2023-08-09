@@ -23,6 +23,8 @@ export default function AdminCategory() {
   const [selectedCategoryId, setSelectedCategoryId] = useState();
   const [selectedCategoryName, setSelectedCategoryName] = useState("");
 
+  const [newCategoryName, setNewCategoryName] = useState(""); // 새로운 카테고리명 상태 추가
+  const [categories, setCategories] = useState(allCategotyData.responseData);
   const handleAdd = () => {
     // 기존 handleAddCategoryButtonClick
     setIsAddModalOpen(true);
@@ -40,8 +42,25 @@ export default function AdminCategory() {
     setIsAddModalOpen(false);
     setIsEditModalOpen(false);
     setSelectedCategoryId(null);
+    setNewCategoryName(""); // 팝업 창이 닫힐 때 새로운 카테고리명 상태 초기화
     //창이 닫히면 새로고침하기.
   };
+
+  const handleNewCategoryNameChange = (e) => {
+    setNewCategoryName(e.target.value);
+  };
+
+  const handleAddCategory = () => {
+    console.log(`${newCategoryName} 카테고리가 추가 됨`);
+    // TODO: 서버로 새 카테고리를 추가하는 로직을 여기에 구현
+    const newCategory = {
+      categoryId: categories.length + 1,
+      categoryName: newCategoryName,
+    };
+    setCategories([...categories, newCategory]);
+    handleCloseModal();
+  };
+
 
   return (
     <PageBox>
@@ -80,7 +99,14 @@ export default function AdminCategory() {
           </EachCategory> // key prop 추가하여 각 항목에 고유 키 부여
         )
       )}
-      {isAddModalOpen && <AddCategoryModal onClose={handleCloseModal} />}
+      {isAddModalOpen && (
+        <AddCategoryModal
+          onClose={handleCloseModal}
+          newName={newCategoryName}
+          onChangeNewName={handleNewCategoryNameChange}
+          onAddCategory={handleAddCategory}
+        />
+      )}
       {isEditModalOpen && (
         <EditCategoryModal
           selectedCategoryId={selectedCategoryId}
