@@ -42,7 +42,7 @@ const ErrorMessage = styled.p`
 
 
 const SignUp = () => {
-  const [nickname, setNickname] = useState('');
+  const [ownerName, setOwnerName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [shopName, setShopName] = useState('');
@@ -51,52 +51,27 @@ const SignUp = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-
+  
     // 비밀번호 일치 체크
-    if (password !== confirmPassword) {
-      alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
-      return;
-    }
-
+    // if (password !== confirmPassword) {
+    //   alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
+    //   return;
+    // }
+  
     try {
-      // 여기에 회원가입 로직을 수행합니다.
-      const response = await axios.post('URL', {
-        nickname: 'Jodan',
-        password: '1111',
-        shopName: '스타벅스'
-      }, {
-
+      const response = await axios.post('https://iki.digital:8080/api/v1/owner', {
+        ownerName,
+        password,
+        shopName,
       });
-      console.log(response)
+  
       console.log('회원가입이 성공하였습니다!', response.data);
-      navigate('/signin'); // Redirect to the login page
-
+      navigate('/'); // 로그인 페이지로 리다이렉트
+  
     } catch (error) {
       console.error('회원가입에 실패하였습니다!', error);
     }
   };
-
-  //   const handleDuplicateCheck = async () => {
-  //     try {
-  //       // 여기에 가게명 중복 확인 로직을 수행합니다.
-  //       const shopNameResponse = await axios.get('http://43.202.93.57:8080', {
-  //         params: {
-  //           shopName,
-  //         },
-
-  //       });
-
-  //       if (shopNameResponse.data.isDuplicate) {
-  //         setIsshopNameDuplicate(true);
-  //       } else {
-  //         setIsshopNameDuplicate(false);
-  //       }
-
-  //       console.log('닉네임 중복 확인이 성공하였습니다!', shopNameResponse.data);
-  //     } catch (error) {
-  //       console.error('닉네임 중복 확인에 실패하였습니다!', error);
-  //     }
-  //   };
 
   return (
     <LoginBox>
@@ -106,9 +81,9 @@ const SignUp = () => {
         {/* <FormLabel htmlFor="nickname">사용자명</FormLabel> */}
         <FormInput
           type="text"
-          name="nickname"
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
+          name="ownerName"
+          value={ownerName}
+          onChange={(e) => setOwnerName(e.target.value)}
           required
           placeholder='아이디'
         />
@@ -124,14 +99,14 @@ const SignUp = () => {
           placeholder='비밀번호'
         />
         {/* <FormLabel htmlFor="confirmPassword">비밀번호 확인</FormLabel> */}
-        <FormInput
+        {/* <FormInput
           type="password"
           name="confirmPassword"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
           placeholder='비밀번호 확인'
-        />
+        /> */}
 
         {/* <FormLabel htmlFor="shopName">가게이름</FormLabel> */}
         <FormInput
