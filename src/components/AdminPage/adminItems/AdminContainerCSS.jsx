@@ -9,11 +9,11 @@ export const Box = styled.div`
 export const PopupBox = styled.div`
   background-color: white;
   border: 1px solid var(--primary-color);
-  width: 300px;
-  height: 300px;
+  width: 60%;
+  height: 55%;
   position: fixed;
   top: 100px;
-  left: 100px;
+
 `;
 
 /*
