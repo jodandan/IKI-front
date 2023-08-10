@@ -1,7 +1,8 @@
 import { styled } from "styled-components";
-import menuDataJson from "./MenuItemData.json";
+// import menuDataJson from "./MenuItemData.json";
 import { useEffect, useState } from "react";
 import MenuModal from "./menuModal/MenuModal";
+import axios from "axios";
 
 const ListBox = styled.div`
   padding: 0 1.2vw; /* 위아래 패딩 0으로 수정 */
@@ -68,26 +69,27 @@ const SoldOutText=styled.div`
 export function MasonryMenuContainer() {
   const cartMenu=[1,4,25,38];//장바구니에 들어있는 menusId 정보
   const [modalMenusId, setModalMenusId] = useState(null);
+  const [menuData, setMenuData]=useState([]);
   const handleMenuItemClick = (menusId) => {  setModalMenusId(menusId); }
   // json데이터 출력
-  console.log(menuDataJson);
-  useEffect(()=>{console.log('gkgkg')});
-  // 서버에서부터 데이터 받기
-  // useEffect(() => {
-  //   // ownerId에 해당하는 데이터를 백엔드로부터 GET 요청으로 받아옵니다.
-  //   const ownerId = 'yourOwnerId'; // ownerId 값을 적절히 변경해주세요.
+  // console.log(menuDataJson);
 
-  //   axios.get(`/api/v1/menus/all/${ownerId}`)
-  //     .then(response => {
-  //       // 요청이 성공적으로 완료되었을 때 실행되는 코드
-  //       console.log(response.data); // 서버로부터 받은 데이터 출력
-  //       setMenuData(response.data.responseData); // 받은 데이터를 menuData에 저장
-  //     })
-  //     .catch(error => {
-  //       // 요청이 실패했을 때 실행되는 코드
-  //       console.error(error);
-  //     });
-  // }, []);
+  // 서버에서부터 데이터 받기
+  useEffect(() => {
+    // ownerId에 해당하는 데이터를 백엔드로부터 GET 요청으로 받아옵니다.
+    const ownerId = 1; // ownerId 값을 적절히 변경해주세요.
+//api/v1/category/all/{ownerId}
+    axios.get(`https://iki.digital:8080/api/v1/category/all/${ownerId}`)
+      .then(response => {
+        // 요청이 성공적으로 완료되었을 때 실행되는 코드
+        console.log(response.data); // 서버로부터 받은 데이터 출력
+        setMenuData(response.data.responseData); // 받은 데이터를 menuData에 저장
+      })
+      .catch(error => {
+        // 요청이 실패했을 때 실행되는 코드
+        console.error(error);
+      });
+  }, []);
 
   
   const handleCloseModal = () => {
@@ -98,7 +100,7 @@ export function MasonryMenuContainer() {
     <ListBox id="listBox">
       <List id="list">
         {/* 데이터 받기 */}
-        {menuDataJson.responseData.map((category) => (
+        {menuData.map((category) => (
           <Item key={category.categoryId}>
             <div style={{padding: "10px 0"}}>
             <CategoryTltleStyle>{category.categoryName}</CategoryTltleStyle>
