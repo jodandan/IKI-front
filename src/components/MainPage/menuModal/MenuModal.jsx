@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
-import { useState } from "react";
-import MenuDetailData from "./MenuDetail.json"//더미데이터(서버로 받은 데이터)
+import { useState, useEffect } from "react";
+import axios from "axios";
+// import MenuDetailData from "./MenuDetail.json"//더미데이터(서버로 받은 데이터)
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -40,13 +41,13 @@ const ModalButton = styled.button`
     font-size: var(--font-big);
     font-weight: bold;
 `
-const OptionConainer=styled.div`
+const OptionConainer = styled.div`
     width: 100%;
     overflow-y: scroll;
 `
-const OptionTitle=styled.h2`
-    background-color: ${(props) => (props.$mandatory==="true" ? "var(--primary-color)" : "var(--secondary-color)")};
-    color: ${(props) => (props.$mandatory==="true" ? "white" : "black")};
+const OptionTitle = styled.h2`
+    background-color: ${(props) => (props.$mandatory === "true" ? "var(--primary-color)" : "var(--secondary-color)")};
+    color: ${(props) => (props.$mandatory === "true" ? "white" : "black")};
     font-weight: bolder;
     font-size: var(--font-regular);
     border-radius: 5px;
@@ -54,13 +55,13 @@ const OptionTitle=styled.h2`
     padding: 4px 0px;
     text-align: center;
 `
-const Options=styled.ul`
+const Options = styled.ul`
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     margin: 10px 0;
 `
-const Option=styled.li`
+const Option = styled.li`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -71,141 +72,162 @@ const Option=styled.li`
     height: 14vh;/*반응형으로 고치기?*/
     border-radius: 10px;
     /* 선택된 메뉴 블록의 스타일*/
-    ${({ selected}) =>
-        selected && `
+    ${({ selected }) =>
+    selected && `
         background-color: var(--secondary-color);
     `}
 `
 //서버로부터 받은 데이터를 카테고리별, 필수순으로 나열해주는 함수
 function transformData(data) {
-    const menuOptionsMap = new Map();
-  
-    data.menuOptionsList.forEach((option) => {
-      const { menuOptionsCategory, mandatory, menuOptionsContents, menuOptionsPrice, menuOptionsId } = option;
-  
-      if (!menuOptionsMap.has(menuOptionsCategory)) {
-        menuOptionsMap.set(menuOptionsCategory, {
-          menuOptionsCategory,
-          mandatory,
-          menuOptionsContents: [],
-        });
-      }
-  
-      menuOptionsMap.get(menuOptionsCategory).menuOptionsContents.push({
-        menuOptionsContents: menuOptionsContents,
-        menuOptionsPrice: menuOptionsPrice,
-        menuOptionsId:menuOptionsId,
+  const menuOptionsMap = new Map();
+  console.log("transformData함수")
+  console.log(data);
+  data.menuOptionsList.forEach((option) => {
+    const { menuOptionsCategory, mandatory, menuOptionsContents, menuOptionsPrice, menuOptionsId } = option;
+
+    if (!menuOptionsMap.has(menuOptionsCategory)) {
+      menuOptionsMap.set(menuOptionsCategory, {
+        menuOptionsCategory,
+        mandatory,
+        menuOptionsContents: [],
       });
+    }
+
+    menuOptionsMap.get(menuOptionsCategory).menuOptionsContents.push({
+      menuOptionsContents: menuOptionsContents,
+      menuOptionsPrice: menuOptionsPrice,
+      menuOptionsId: menuOptionsId,
     });
-  
-    const transformedData = Array.from(menuOptionsMap.values());
-  
-    // mandatory: true인 것들을 배열 앞쪽으로 이동
-    const sortedData = transformedData.sort((a, b) => {
-      if (a.mandatory && !b.mandatory) {
-        return -1;
-      } else if (!a.mandatory && b.mandatory) {
-        return 1;
+  });
+
+  const transformedData = Array.from(menuOptionsMap.values());
+
+  // mandatory: true인 것들을 배열 앞쪽으로 이동
+  const sortedData = transformedData.sort((a, b) => {
+    if (a.mandatory && !b.mandatory) {
+      return -1;
+    } else if (!a.mandatory && b.mandatory) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+
+  return sortedData;
+}
+
+export default function MenuModal({ menusId, onCloseModal, orderUsers }) {
+
+  const [menuOptionData, setMenuOptionData] = useState([]);
+  const [transformedData, setTransformedData] = useState([]);
+  useEffect(() => {
+    //api/v1/menus/{menusId}
+    axios.get(`https://iki.digital:8080/api/v1/menus/${menusId}`)
+      .then(response => {
+        // 요청이 성공적으로 완료되었을 때 실행되는 코드
+        console.log(response.data); // 서버로부터 받은 데이터 출력
+        // setMenuOptionData(response.data.responseData); // 받은 데이터를 menuData에 저장
+        // setTransformedData(transformData(menuOptionData));
+        const menuOptionData = response.data.responseData;
+        const transformedData = transformData(menuOptionData);
+        setMenuOptionData(menuOptionData);
+        setTransformedData(transformedData);
+      })
+      .catch(error => {
+        // 요청이 실패했을 때 실행되는 코드
+        console.error(error);
+      });
+  }, [menusId]);
+
+  //menusId에 따라 모든 정보를 조회하는 api/v1/menuOptions/all/{menusId} 사용하여 json받기
+  // console.log(MenuDetailData);
+
+
+  //선택된 옵션들, 옵션 선택시에 selected만 수정하고, 메뉴 제출시에 menuOptionIdList <= selected된 옵션들
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedRequiredOptions, setSelectedRequiredOptions] = useState({});
+  const mandatoryOptionCategories = transformedData.filter(category => category.mandatory).map(category => category.menuOptionsCategory);
+
+  //필수옵션 선택시, 수행되는 함수
+  const handleRequiredOptionsClick = (groupId, buttonId) => {
+    setSelectedRequiredOptions((prevSelected) => ({
+      ...prevSelected,
+      [groupId]: buttonId,
+    }));
+  };
+
+  //선택옵션 선택시, selected를 수정하는 함수
+  const handleOptionClick = (optionId) => {
+    setSelectedOptions(prevOptions => {
+      if (prevOptions.includes(optionId)) {
+        return prevOptions.filter(id => id !== optionId); // 선택 해제
       } else {
-        return 0;
+        return [...prevOptions, optionId]; // 선택 추가
       }
     });
-  
-    return sortedData;
-  }
+  };
 
-export default function MenuModal({menusId, onCloseModal, orderUsers}){
+  //메뉴 옵션 선택 후, 하단 버튼 클릭시 , 서버로 전송하는 것 추가하기++서버로부터 장바구니 데이터 받기
+  const handleSubmitButton = () => {
 
+    //먼저 필수 카테고리를 골랐는지 확인
+    if (mandatoryOptionCategories.every((value) => Object.prototype.hasOwnProperty.call(selectedRequiredOptions, value))) {
 
-    //menusId에 따라 모든 정보를 조회하는 api/v1/menuOptions/all/{menusId} 사용하여 json받기
-    // console.log(MenuDetailData);
-    const transformedData=transformData(MenuDetailData);
+      const cart = {
+        menusId: menusId,
+        orderUsers: orderUsers ? orderUsers : null,//최초 장바구니 담기는 null
+        menuOptionsIdList: [...Object.values(selectedRequiredOptions), selectedOptions].join(",")
+      };
+      console.log("submit");
+      console.log(cart);
+      onCloseModal();
+    } else {
+      console.log("필수 선택을 골라주세요");
+    }
+  };
 
-    //선택된 옵션들, 옵션 선택시에 selected만 수정하고, 메뉴 제출시에 menuOptionIdList <= selected된 옵션들
-    const [selectedOptions, setSelectedOptions] = useState([]);
-    const [selectedRequiredOptions, setSelectedRequiredOptions] = useState({});
-    const mandatoryOptionCategories = transformedData.filter(category => category.mandatory).map(category => category.menuOptionsCategory);
-
-    //필수옵션 선택시, 수행되는 함수
-    const handleRequiredOptionsClick = (groupId, buttonId) => {
-        setSelectedRequiredOptions((prevSelected) => ({
-          ...prevSelected,
-          [groupId]: buttonId,
-        }));
-    };
-
-    //선택옵션 선택시, selected를 수정하는 함수
-    const handleOptionClick = (optionId) => {
-        setSelectedOptions(prevOptions => {
-          if (prevOptions.includes(optionId)) {
-            return prevOptions.filter(id => id !== optionId); // 선택 해제
-          } else {
-            return [...prevOptions, optionId]; // 선택 추가
-          }
-        });
-    };
-
-    //메뉴 옵션 선택 후, 하단 버튼 클릭시 , 서버로 전송하는 것 추가하기++서버로부터 장바구니 데이터 받기
-    const handleSubmitButton=() =>{
-
-        //먼저 필수 카테고리를 골랐는지 확인
-        if (mandatoryOptionCategories.every((value) => Object.prototype.hasOwnProperty.call(selectedRequiredOptions, value))){
-
-            const cart= {
-                menusId: menusId,
-                orderUsers: orderUsers?orderUsers:null,//최초 장바구니 담기는 null
-                menuOptionsIdList: [...Object.values(selectedRequiredOptions), selectedOptions].join(",")
-            };
-            console.log("submit");
-            console.log(cart);
-            onCloseModal();
-        }else{
-            console.log("필수 선택을 골라주세요");
-        }
-    };
-
-    return(
-        <>
-            <ModalBackground/>
-            <ModalContainer>
-                <h2 style={{fontSize:"var(--font-big)", fontWeight:"bold", margin:"0.8rem 0"}}>{MenuDetailData.menusName}</h2>
-                <OptionConainer>
-                    {transformedData.map((category)=>(
-                        <div key={`category_${category.menuOptionsCategory}`} style={{paddingTop: "8px"}}>
-                            <OptionTitle $mandatory={category.mandatory.toString()}>{category.menuOptionsCategory}({category.mandatory?"필수":"선택"})</OptionTitle>
-                            <Options>
-                                {category.mandatory?(<>
-                                {/* 필수 일때 */}
-                                    {category.menuOptionsContents.map((option)=>(
-                                    <Option
-                                        key={`optionId_${option.menuOptionsId}`}
-                                        onClick={() => handleRequiredOptionsClick(category.menuOptionsCategory, option.menuOptionsId)}
-                                        selected={selectedRequiredOptions[category.menuOptionsCategory] === option.menuOptionsId}
-                                        >
-                                        <p style={{marginBottom:"5px"}}>{option.menuOptionsContents}</p>
-                                        <p>{(option.menuOptionsPrice===0)?null:`(${option.menuOptionsPrice})`}</p>
-                                    </Option>
-                                ))}
-                                </>):(<>
-                                {/* 선택일때 */}
-                                    {category.menuOptionsContents.map((option)=>(
-                                    <Option
-                                        key={`optionId_${option.menuOptionsId}`}
-                                        onClick={() => handleOptionClick(option.menuOptionsId)}
-                                        selected={selectedOptions.includes(option.menuOptionsId)}
-                                        >
-                                        <p style={{marginBottom:"5px"}}>{option.menuOptionsContents}</p>
-                                        <p>{(option.menuOptionsPrice===0)?null:`(${option.menuOptionsPrice})`}</p>
-                                    </Option>
-                                ))}</>)}
-                            </Options>
-                        </div>
-                    ))}
-                </OptionConainer>
-                <div style={{backgroundColor: "white", width: "100%", position: "sticky", borderRadius: "20px", display: "flex", justifyContent: "center"}}>
-                    <ModalButton  onClick={()=>{ handleSubmitButton();}}>선택 완료</ModalButton>
-                </div>
-            </ModalContainer>
-        </>
-    )
+  return (
+    <>
+      <ModalBackground />
+      <ModalContainer>
+        <h2 style={{ fontSize: "var(--font-big)", fontWeight: "bold", margin: "0.8rem 0" }}>{menuOptionData.menusName}</h2>
+        <OptionConainer>
+          {transformedData.map((category) => (
+            <div key={`category_${category.menuOptionsCategory}`} style={{ paddingTop: "8px" }}>
+              <OptionTitle $mandatory={category.mandatory.toString()}>{category.menuOptionsCategory}({category.mandatory ? "필수" : "선택"})</OptionTitle>
+              <Options>
+                {category.mandatory ? (<>
+                  {/* 필수 일때 */}
+                  {category.menuOptionsContents.map((option) => (
+                    <Option
+                      key={`optionId_${option.menuOptionsId}`}
+                      onClick={() => handleRequiredOptionsClick(category.menuOptionsCategory, option.menuOptionsId)}
+                      selected={selectedRequiredOptions[category.menuOptionsCategory] === option.menuOptionsId}
+                    >
+                      <p style={{ marginBottom: "5px" }}>{option.menuOptionsContents}</p>
+                      <p>{(option.menuOptionsPrice === 0) ? null : `(${option.menuOptionsPrice})`}</p>
+                    </Option>
+                  ))}
+                </>) : (<>
+                  {/* 선택일때 */}
+                  {category.menuOptionsContents.map((option) => (
+                    <Option
+                      key={`optionId_${option.menuOptionsId}`}
+                      onClick={() => handleOptionClick(option.menuOptionsId)}
+                      selected={selectedOptions.includes(option.menuOptionsId)}
+                    >
+                      <p style={{ marginBottom: "5px" }}>{option.menuOptionsContents}</p>
+                      <p>{(option.menuOptionsPrice === 0) ? null : `(${option.menuOptionsPrice})`}</p>
+                    </Option>
+                  ))}</>)}
+              </Options>
+            </div>
+          ))}
+        </OptionConainer>
+        <div style={{ backgroundColor: "white", width: "100%", position: "sticky", borderRadius: "20px", display: "flex", justifyContent: "center" }}>
+          <ModalButton onClick={() => { handleSubmitButton(); }}>선택 완료</ModalButton>
+        </div>
+      </ModalContainer>
+    </>
+  )
 }
