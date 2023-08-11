@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import convertPrice from "../../utils/convertPrice";
 import Header from "../header/Header";
 import {
@@ -25,37 +26,11 @@ import {
   Price,
   Type,
   PilSoo,
+  Footer,
 } from "./adminItems/AdminContainerCSS";
 
 export default function AdminOption() {
   const { categoryId, menusId } = useParams(); //url주소 얻기
-
-  const optionList = [
-    {
-      optionCategory: "온도",
-      optionId: 1,
-      optionName: "차갑게",
-      optionPrice: 1000,
-    },
-    {
-      optionCategory: "온도",
-      optionId: 2,
-      optionName: "뜨겁게",
-      optionPrice: 0,
-    },
-    {
-      optionCategory: "샷",
-      optionId: 3,
-      optionName: "샷추가",
-      optionPrice: 500,
-    },
-    {
-      optionCategory: "샷",
-      optionId: 4,
-      optionName: "연하게",
-      optionPrice: -300,
-    },
-  ];
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -64,9 +39,35 @@ export default function AdminOption() {
     optionName: "",
     optionPrice: 0,
   });
-
   const [isEditOptionCategoryModalOpen, setIsEditOptionCategoryModalOpen] =
     useState(false);
+  const [options, setOptions] = useState([]);
+
+  const getOptions = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_IP}/api/v1/menus/${menusId}`
+      );
+      console.log("Options API Response:", response.data.responseData); // Log the API response
+      return response.data.responseData;
+    } catch (error) {
+      console.error("옵션 불러오기 실패", error);
+      return [];
+    }
+  };
+
+  const fetchUpdatedOptions = async () => {
+    const options = await getOptions();
+    getOptions(options);
+  };
+
+  useEffect(() => {
+    async function fetchOptions() {
+      const options = await getOptions();
+      setOptions(options);
+    }
+    fetchOptions();
+  }, []);
 
   const handleEditOptionCategory = () => {
     setIsEditOptionCategoryModalOpen(true);
@@ -99,13 +100,10 @@ export default function AdminOption() {
           <BackBtn str="메뉴 등록"></BackBtn>
         </Link>
       </div>
-      {/*카테고리 ID: {categoryId} 메뉴 ID: {menusId}에 대한 모든 옵션*/}
       <PlusButton onClick={handleAdd}>옵션 추가</PlusButton>
-      <div style={{ padding: "8px 0", fontWeight: "bold" }}>
-        옵션 카테고리명
-      </div>
+      <div style={{ padding: "8px 0", fontWeight: "bold" }}>메뉴명</div>
       <div style={{ display: "flex", alignItems: "center" }}>
-        <GroupName>온도?? 이거맞나여</GroupName>
+        <GroupName>{options.menusName}</GroupName>
         <SmallBtn onClick={handleEditOptionCategory}>수정</SmallBtn>
       </div>
       <StyleSheetManager shouldForwardProp={(prop) => prop !== "hide"}>
@@ -123,27 +121,32 @@ export default function AdminOption() {
         </EachOption>
       </StyleSheetManager>
       <div>
-        {optionList.map((option) => (
-          <EachOption key={option.optionId}>
-            <OneRow>
-              <PilSoo>
-                <input type="checkbox" />
-              </PilSoo>
-              <OptionFields>
-                <Type>{option.optionCategory}</Type>
-                <Name>옵션(id:{option.optionId})</Name>
-                <Price>{convertPrice(option.optionPrice)}</Price>
-              </OptionFields>
-              <Btn onClick={() => handleEdit(option.optionId, option)}>
-                수정하기
-              </Btn>
-              <XBtn />
-            </OneRow>
-          </EachOption>
-        ))}
+        {options.menuOptionsList &&
+          options.menuOptionsList.map((option) => (
+            <EachOption key={option.menuOptionsId}>
+              <OneRow>
+                <PilSoo>
+                  <input type="checkbox" />
+                </PilSoo>
+                <OptionFields>
+                  <Type>{option.menuOptionsCategory}</Type>
+                  <Name>{option.menuOptionsContents}</Name>
+                  <Price>{convertPrice(option.menuOptionsPrice)}</Price>
+                </OptionFields>
+                <Btn onClick={() => handleEdit(option.menuOptionsId, option)}>
+                  수정하기
+                </Btn>
+                <XBtn />
+              </OneRow>
+            </EachOption>
+          ))}
       </div>
       {isAddModalOpen && (
-        <AddOptionModal onClose={handleCloseModal} menusId={menusId} />
+        <AddOptionModal
+          onClose={handleCloseModal}
+          menusId={menusId}
+          onAddOption={fetchUpdatedOptions}
+        />
       )}
       {isEditModalOpen && selectedOptionId && (
         <EditOptionModal
@@ -157,6 +160,7 @@ export default function AdminOption() {
           onClose={() => setIsEditOptionCategoryModalOpen(false)}
         />
       )}
+      <Footer />
     </PageBox>
   );
 }

@@ -40,7 +40,6 @@ export default function AdminMenu() {
     price: null,
     soldOut: null,
   });
-
   const [isEditCategoryModalOpen, setIsEditCategoryModalOpen] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState("");
   const [menus, setMenus] = useState([]);

@@ -11,7 +11,7 @@ import {
   TitlePlusInput,
 } from "./AdminModalCSS";
 
-export const AddOptionModal = ({ onClose, menusId }) => {
+export const AddOptionModal = ({ onClose, menusId, onAddOption }) => {
   const [optionGroup, setOptionGroup] = useState("");
   const [optionName, setOptionName] = useState("");
   const [optionPrice, setOptionPrice] = useState("");
@@ -42,8 +42,8 @@ export const AddOptionModal = ({ onClose, menusId }) => {
       );
       console.log(response);
       console.log(`${optionGroup}, ${optionName}, ${optionPrice} 추가 성공`);
+      onAddOption();
       onClose();
-      // onAddOption();
     } catch (error) {
       console.error("옵션 추가 실패: ", error);
     }
