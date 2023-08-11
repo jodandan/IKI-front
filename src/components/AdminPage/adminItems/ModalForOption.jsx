@@ -42,8 +42,8 @@ export const AddOptionModal = ({ onClose, menusId, onAddOption }) => {
       );
       console.log(response);
       console.log(`${optionGroup}, ${optionName}, ${optionPrice} 추가 성공`);
-      onAddOption();
       onClose();
+      onAddOption();
     } catch (error) {
       console.error("옵션 추가 실패: ", error);
     }

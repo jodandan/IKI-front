@@ -48,7 +48,7 @@ export default function AdminOption() {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_IP}/api/v1/menus/${menusId}`
       );
-      console.log("Options API Response:", response.data.responseData); // Log the API response
+      console.log(response);
       return response.data.responseData;
     } catch (error) {
       console.error("옵션 불러오기 실패", error);
@@ -58,12 +58,13 @@ export default function AdminOption() {
 
   const fetchUpdatedOptions = async () => {
     const options = await getOptions();
-    getOptions(options);
+    setOptions(options);
   };
 
   useEffect(() => {
     async function fetchOptions() {
       const options = await getOptions();
+      console.log("옵션", options);
       setOptions(options);
     }
     fetchOptions();
@@ -122,18 +123,18 @@ export default function AdminOption() {
       </StyleSheetManager>
       <div>
         {options.menuOptionsList &&
-          options.menuOptionsList.map((option) => (
-            <EachOption key={option.menuOptionsId}>
+          options.menuOptionsList.map((item) => (
+            <EachOption key={item.menuOptionsId}>
               <OneRow>
                 <PilSoo>
                   <input type="checkbox" />
                 </PilSoo>
                 <OptionFields>
-                  <Type>{option.menuOptionsCategory}</Type>
-                  <Name>{option.menuOptionsContents}</Name>
-                  <Price>{convertPrice(option.menuOptionsPrice)}</Price>
+                  <Type>{item.menuOptionsCategory}</Type>
+                  <Name>{item.menuOptionsContents}</Name>
+                  <Price>{convertPrice(item.menuOptionsPrice)}</Price>
                 </OptionFields>
-                <Btn onClick={() => handleEdit(option.menuOptionsId, option)}>
+                <Btn onClick={() => handleEdit(item.menuOptionsId, item)}>
                   수정하기
                 </Btn>
                 <XBtn />
