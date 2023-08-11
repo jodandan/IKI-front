@@ -2,6 +2,7 @@ import { Link, useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { useState } from "react";
+import Select from "./Select";
 
 import { LoginBox, Logos, SubmitBtn, FormInput, FormLabel, Trash} from './loginItems/loginItemCSS';
 
@@ -33,18 +34,19 @@ export default function Login() {
         password,
       });
 
+      
       const { httpStatus, message, responseData } = response.data;
 
       if (httpStatus === 200) {
         // 로그인 성공
-        console.log("로그인 성공:", message);
-        const { ownerId, ownerName, shopName } = responseData;
+        console.log('로그인이 성공하였습니다!', response.data);
+      
 
-        // 토큰 등의 처리를 추가할 수 있습니다.
-        // localStorage.setItem("token", token);
+        // 토큰 가져오기.
+
 
         // 로그인 후 이동
-        navigate("/main");
+        navigate('/select');
       } else {
         // 로그인 실패
         console.error("로그인 실패:", message);
