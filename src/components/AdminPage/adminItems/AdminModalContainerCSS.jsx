@@ -1,0 +1,69 @@
+import { styled } from "styled-components";
+import { FaXmark } from "react-icons/fa6";
+
+export const PopupBox = styled.div`
+  background-color: white;
+  border: 1px solid var(--primary-color);
+  border-radius: 15px;  
+  position: fixed;
+  padding: 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+//Header 없애기
+export const Header = styled.div`
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-top: 5%;
+margin-left: 2%;
+`;
+
+export const ModalTitle = styled.div`
+  font-weight: bold;
+  font-size: var(--font-regular);
+  text-align: center; /* 가운데 정렬 추가 */
+`;
+
+export const CloseButtonContainer = styled.button`
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin-right: 3%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 1rem;
+`;
+export const CloseButton = () => {
+    return (
+        <CloseButtonContainer>
+            <FaXmark />
+        </CloseButtonContainer>
+    );
+}
+
+export const Input = styled.input`
+padding: 10px;
+border-radius: 13px;
+border: none;
+margin: 1.5rem 0;
+background: var(--third-color);
+display: flex;
+`;
+
+export const InputButton = styled.button`
+padding: 0.5rem 0.8rem;
+border: none;
+cursor: pointer;
+background: var(--secondary-color);
+/* flex-shrink: 0; */
+color: var(--primary-color);
+font-weight: 700;
+border-radius: 13px;
+`;

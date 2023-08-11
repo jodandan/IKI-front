@@ -1,68 +1,6 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
-
-const PopupBox = styled.div`
-  background-color: white;
-  border: 1px solid var(--primary-color);
-  border-radius: 15px;  
-  width: 60%;
-  height: 55%;
-  position: fixed;
-  top: 100px;
-  text-align: center;
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 5%;
-  margin-left: 2%;
-`;
-
-const ModalTitle = styled.div`
-  font-weight: bold;
-  font-size: 20px;
-  text-align: center; /* 가운데 정렬 추가 */
-  margin-left: 30%;
-`;
-
-const CloseButton = styled.button`
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 1.5rem;
-  margin-right: 3%;
-`;
-
-const Input = styled.input`
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 13px;
-  border: none;
-  margin-bottom: 10px;
-  background: #F2F2F2;
-  display: flex;
-  margin-left: 13%;
-  margin-top: 5rem;
-  
-  
-`;
-
-const InputButton = styled.button`
-  padding: 10px 15px;
-  margin-right: 10px;
-  border: none;
-  color: white;
-  cursor: pointer;
-  margin-top: 5rem;
-  background: #D1DBFF;
-  flex-shrink: 0;
-  color: #002ECF;
-  font-weight: 700;
-  border-radius: 13px;
- 
-`;
+import { PopupBox, ModalTitle, Header, CloseButton, Input, InputButton } from "./AdminModalContainerCSS";
 
 const Box = styled.div`
   display: flex;

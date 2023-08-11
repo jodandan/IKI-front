@@ -1,73 +1,5 @@
 import React, { useState } from "react";
-import { styled } from "styled-components";
-
-const PopupBox = styled.div`
-  background-color: white;
-  border: 1px solid var(--primary-color);
-  border-radius: 15px;  
-  width: 60%;
-  height: 55%;
-  position: fixed;
-  top: 100px;
-  text-align: center;
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 5%;
-  margin-left: 2%;
-`;
-
-const ModalTitle = styled.div`
-  font-weight: bold;
-  font-size: 20px;
-  text-align: center; /* 가운데 정렬 추가 */
-  margin-left: 30%;
-`;
-
-const CloseButton = styled.button`
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 1.5rem;
-  margin-right: 3%;
-`;
-
-const Input = styled.input`
-  
-  width: 20%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 13px;
-  border: none;
-  margin-bottom: 10px;
-  background: #F2F2F2;
-  display: flex;
-  margin-left: 40%;
-  margin-top: 5rem;
-  
-  
-`;
-
-const InputButton = styled.button`
-  padding: 10px 15px;
-  margin-right: 10px;
-  border: none;
-  color: white;
-  cursor: pointer;
-  margin-top: 5rem;
-  background: #D1DBFF;
-  flex-shrink: 0;
-  color: #002ECF;
-  font-weight: 700;
-  border-radius: 13px;
- 
-`;
-
-
-
+import { PopupBox, ModalTitle, CloseButton, Input, InputButton } from "./AdminModalContainerCSS";
 
 export const AddCategoryModal = ({ onClose }) => {
   const [categoryName, setCategoryName] = useState("");
@@ -84,10 +16,7 @@ export const AddCategoryModal = ({ onClose }) => {
 
   return (
     <PopupBox>
-    <Header>
       <ModalTitle>카테고리명을 입력해주세요</ModalTitle>
-      <CloseButton onClick={onClose}>X</CloseButton>
-    </Header>
       <Input
         type="text"
         value={categoryName}
@@ -96,7 +25,7 @@ export const AddCategoryModal = ({ onClose }) => {
       <InputButton primary="true" onClick={handleAddCategory}>
         입력 완료
       </InputButton>
-      
+      <CloseButton onClick={onClose} />
     </PopupBox>
   );
 };
@@ -125,17 +54,15 @@ export const EditCategoryModal = ({
 
   return (
     <PopupBox>
-      <Header>
-        <ModalTitle>수정할 카테고리 명을 입력해주세요</ModalTitle>
-        <CloseButton onClick={onClose}>X</CloseButton>
-      </Header>
+      <ModalTitle>수정할 카테고리 명을 입력해주세요</ModalTitle>
+
       <Input
         type="text"
         value={newCategoryName}
         onChange={handleNewCategoryNameChange}
       />
       <InputButton onClick={handleEditCategory}>입력완료</InputButton>
-      
+      <CloseButton onClick={onClose} />
     </PopupBox>
   );
 };
