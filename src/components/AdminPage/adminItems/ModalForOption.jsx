@@ -1,8 +1,7 @@
 // ModalForOption.js
 
 import React, { useState } from "react";
-import { styled } from "styled-components";
-import { PopupBox, ModalTitle, Header, CloseButton, Input, InputButton, Box, InputTitle, TitlePlusInput, CheckboxLabel } from "./AdminModalContainerCSS";
+import { PopupBox, ModalTitle, CloseButton, Input, InputButton, Box, InputTitle, TitlePlusInput} from "./AdminModalCSS";
 
 export const AddOptionModal = ({ onClose }) => {
   const [optionName, setOptionName] = useState("");
@@ -37,7 +36,7 @@ export const AddOptionModal = ({ onClose }) => {
             />
         </TitlePlusInput>
         <TitlePlusInput>
-            <InputTitle>가격</InputTitle> 
+            <InputTitle>옵션 가격</InputTitle> 
             <Input
               type="number"
               placeholder="옵션 가격"
@@ -76,7 +75,7 @@ export const EditOptionModal = ({ selectedOptionId, selectedOptionData, onClose 
 
   return (
     <PopupBox>
-            <ModalTitle>옵션 수정을 수정해주세요.</ModalTitle>
+            <ModalTitle>옵션 정보를 수정해주세요.</ModalTitle>
         <Box>
         <TitlePlusInput>
         <InputTitle>옵션명</InputTitle>
@@ -88,7 +87,7 @@ export const EditOptionModal = ({ selectedOptionId, selectedOptionData, onClose 
             />
         </TitlePlusInput>
         <TitlePlusInput>
-        <InputTitle>옵션명</InputTitle>
+        <InputTitle>옵션 가격</InputTitle>
             <Input
               type="number"
               name="price"

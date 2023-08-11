@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PopupBox, ModalTitle, CloseButton, Input, InputButton } from "./AdminModalContainerCSS";
+import { PopupBox, ModalTitle, CloseButton, Input, InputButton } from "./AdminModalCSS";
 
 export const AddCategoryModal = ({ onClose }) => {
   const [categoryName, setCategoryName] = useState("");

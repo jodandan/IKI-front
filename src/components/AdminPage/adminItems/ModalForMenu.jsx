@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PopupBox, ModalTitle, Header, CloseButton, Input, InputButton, Box, InputTitle, TitlePlusInput, CheckboxLabel } from "./AdminModalContainerCSS";
+import { PopupBox, ModalTitle, CloseButton, Input, InputButton, Box, InputTitle, TitlePlusInput, CheckboxLabel } from "./AdminModalCSS";
 
 
 export const AddMenuModal = ({ onClose }) => {
