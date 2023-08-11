@@ -21,6 +21,7 @@ import {
   NameAndPrice,
   Name,
   Price,
+  Footer,
 } from "./adminItems/AdminContainerCSS";
 import menuData from "./DummyData/MenusByCategoryId.json";
 import {
@@ -114,9 +115,7 @@ export default function AdminMenu() {
       <PlusButton onClick={handleAdd}>메뉴 추가</PlusButton>
       <div style={{ padding: "8px 0", fontWeight: "bold" }}>카테고리명</div>
       <div style={{ display: "flex", alignItems: "center" }}>
-        <GroupName>
-          {menus.categoryName}(ID: {categoryId})
-        </GroupName>
+        <GroupName>{menus.categoryName}</GroupName>
         <SmallBtn onClick={handleEditCategory}>수정</SmallBtn>
       </div>
       <StyleSheetManager shouldForwardProp={(prop) => prop !== "hide"}>
@@ -140,9 +139,7 @@ export default function AdminMenu() {
             <EachMenu key={item.menusId}>
               <OneRow>
                 <NameAndPrice>
-                  <Name>
-                    {item.menusName}({item.menusId})
-                  </Name>
+                  <Name>{item.menusName}</Name>
                   <Price>{convertPrice(item.menusPrice)}</Price>
                 </NameAndPrice>
                 <Buttons>
@@ -190,6 +187,7 @@ export default function AdminMenu() {
           onClose={handleCloseModal}
         />
       )}
+      <Footer />
     </PageBox>
   );
 }
