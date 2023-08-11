@@ -27,6 +27,8 @@ export const ModalTitle = styled.div`
   font-weight: bold;
   font-size: var(--font-regular);
   text-align: center; /* 가운데 정렬 추가 */
+  word-break: keep-all;
+  line-height: 1.4;
 `;
 
 export const CloseButtonContainer = styled.button`
@@ -52,13 +54,14 @@ export const Input = styled.input`
 padding: 10px;
 border-radius: 13px;
 border: none;
-margin: 1.5rem 0;
+margin: 1rem 0;
 background: var(--third-color);
 display: flex;
 `;
 
 export const InputButton = styled.button`
 padding: 0.5rem 0.8rem;
+margin: 0.5rem;
 border: none;
 cursor: pointer;
 background: var(--secondary-color);
