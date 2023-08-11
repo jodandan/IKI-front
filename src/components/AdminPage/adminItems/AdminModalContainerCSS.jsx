@@ -70,3 +70,25 @@ color: var(--primary-color);
 font-weight: 700;
 border-radius: 13px;
 `;
+
+
+export const Box = styled.div`
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  margin-top: 2rem;
+`;
+
+export const InputTitle = styled.div`
+  font-weight: bold;
+  font-size: var(--font-regular);
+`;
+
+export const TitlePlusInput = styled.div`
+margin-right: 1rem;
+`;
+
+export const CheckboxLabel = styled.label`
+  display: flex;
+  margin-bottom: 1rem;
+  align-self: flex-start;
+`;

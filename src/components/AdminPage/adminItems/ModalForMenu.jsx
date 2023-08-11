@@ -1,31 +1,6 @@
 import React, { useState } from "react";
-import { styled } from "styled-components";
-import { PopupBox, ModalTitle, Header, CloseButton, Input, InputButton } from "./AdminModalContainerCSS";
+import { PopupBox, ModalTitle, Header, CloseButton, Input, InputButton, Box, InputTitle, TitlePlusInput, CheckboxLabel } from "./AdminModalContainerCSS";
 
-const Box = styled.div`
-  display: flex;
-  align-items: center; /* 세로 중앙 정렬 */
-  margin-top: 2rem;
-`;
-
-const InputTitle = styled.div`
-  font-weight: bold;
-  font-size: var(--font-regular);
-`;
-
-const TitlePlusInput = styled.div`
-margin-right: 1rem;
-`;
-
-const CheckboxLabel = styled.label`
-  display: flex;
-  margin-bottom: 1rem;
-  align-self: flex-start;
-`;
-
-const CheckboxInput = styled.input`
-  /* margin-right: 0.5rem; Adjust as needed */
-`;
 
 export const AddMenuModal = ({ onClose }) => {
   const [menuName, setMenuName] = useState("");
@@ -75,7 +50,7 @@ export const AddMenuModal = ({ onClose }) => {
         </TitlePlusInput>
       </Box>
       <CheckboxLabel>
-        <CheckboxInput
+        <input
           type="checkbox"
           checked={isSoldOut}
           onChange={handleSoldOutChange}
@@ -121,10 +96,7 @@ export const EditMenuModal = ({
 
   return (
     <PopupBox>
-      <Header>
         <ModalTitle>메뉴 이름/가격을 입력해주세요</ModalTitle>
-        <CloseButton onClick={onClose}>X</CloseButton>
-      </Header>
       <Box>
         <TitlePlusInput>
           <InputTitle>메뉴명</InputTitle>
@@ -147,16 +119,16 @@ export const EditMenuModal = ({
         </TitlePlusInput>
       </Box>
       <CheckboxLabel>
-        품절
-        <CheckboxInput
+        <input
           type="checkbox"
           name="soldOut"
           checked={menuData.soldOut}
           onChange={handleMenuDataChange}
         />
+        품절
       </CheckboxLabel>
       <InputButton onClick={handleEditMenu}>입력 완료</InputButton>
-
+      <CloseButton onClick={onClose}/>
     </PopupBox>
   );
 };
