@@ -20,7 +20,6 @@ import {
   NameAndPrice,
   Name,
   Price,
-  Footer,
 } from "./adminItems/AdminContainerCSS";
 import {
   EditCategoryModal,
@@ -182,7 +181,6 @@ export default function AdminMenu() {
           onClose={handleCloseModal}
         />
       )}
-      <Footer />
     </PageBox>
   );
 }

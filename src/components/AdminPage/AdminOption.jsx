@@ -26,7 +26,6 @@ import {
   Price,
   Type,
   PilSoo,
-  Footer,
 } from "./adminItems/AdminContainerCSS";
 
 export default function AdminOption() {
@@ -161,7 +160,6 @@ export default function AdminOption() {
           onClose={() => setIsEditOptionCategoryModalOpen(false)}
         />
       )}
-      <Footer />
     </PageBox>
   );
 }

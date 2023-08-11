@@ -122,11 +122,3 @@ export const OptionFields = styled.div`
   grid-template-columns: 2fr 5fr 2.8fr;
   gap: 8px;
 `;
-
-export const Footer = styled.div`
-  width: 100%;
-  background-color: white;
-  height: 36px;
-  position: sticky;
-  bottom: 0;
-`;

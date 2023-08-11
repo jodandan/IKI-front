@@ -9,7 +9,6 @@ import {
   OneRow,
   Name,
   Buttons,
-  Footer,
 } from "./adminItems/AdminContainerCSS";
 import {
   AddCategoryModal,
@@ -116,7 +115,6 @@ export default function AdminCategory() {
           onClose={handleCloseModal}
         />
       )}
-      <Footer />
     </PageBox>
   );
 }
