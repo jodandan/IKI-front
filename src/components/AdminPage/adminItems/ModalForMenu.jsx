@@ -57,7 +57,7 @@ export const AddMenuModal = ({ onClose }) => {
         />품절
       </CheckboxLabel>
       <InputButton onClick={handleAddMenu}>입력 완료</InputButton>
-      <CloseButton onClick={onClose} />
+      <CloseButton onClose={onClose} />
     </PopupBox>
   );
 };
@@ -128,7 +128,7 @@ export const EditMenuModal = ({
         품절
       </CheckboxLabel>
       <InputButton onClick={handleEditMenu}>입력 완료</InputButton>
-      <CloseButton onClick={onClose}/>
+      <CloseButton onClose={onClose}/>
     </PopupBox>
   );
 };
@@ -155,7 +155,7 @@ export const EditCategoryModal = ({ currentCategoryName, onClose, onSave }) => {
         onChange={handleCategoryNameChange}
       />
       <InputButton onClick={handleSave}>저장</InputButton>
-      <CloseButton onClick={onClose} />
+      <CloseButton onClose={onClose} />
     </PopupBox>
   );
 };

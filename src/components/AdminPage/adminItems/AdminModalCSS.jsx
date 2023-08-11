@@ -72,9 +72,9 @@ export const CloseButtonContainer = styled.button`
   top: 0;
   margin: 1rem;
 `;
-export const CloseButton = () => {
+export const CloseButton = ({onClose}) => {
     return (
-        <CloseButtonContainer>
+        <CloseButtonContainer onClick={onClose}>
             <FaXmark />
         </CloseButtonContainer>
     );

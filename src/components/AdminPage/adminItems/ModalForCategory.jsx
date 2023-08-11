@@ -25,7 +25,7 @@ export const AddCategoryModal = ({ onClose }) => {
       <InputButton primary="true" onClick={handleAddCategory}>
         입력 완료
       </InputButton>
-      <CloseButton onClick={onClose} />
+      <CloseButton onClose={onClose} />
     </PopupBox>
   );
 };
@@ -62,7 +62,7 @@ export const EditCategoryModal = ({
         onChange={handleNewCategoryNameChange}
       />
       <InputButton onClick={handleEditCategory}>입력완료</InputButton>
-      <CloseButton onClick={onClose} />
+      <CloseButton onClose={onClose} />
     </PopupBox>
   );
 };

@@ -46,7 +46,7 @@ export const AddOptionModal = ({ onClose }) => {
         </TitlePlusInput>
         </Box>
         <InputButton onClick={handleAddOption}>입력 완료</InputButton>
-        <CloseButton onClick={onClose}/>
+        <CloseButton onClose={onClose}/>
     </PopupBox>
   );
 };
@@ -97,7 +97,7 @@ export const EditOptionModal = ({ selectedOptionId, selectedOptionData, onClose 
         </TitlePlusInput>
         </Box>
         <InputButton onClick={handleEditOption}>입력 완료</InputButton>
-        <CloseButton onClick={onClose}/>
+        <CloseButton onClose={onClose}/>
     </PopupBox>
   );
 };
@@ -132,7 +132,7 @@ export const EditOptionCategoryModal = ({ onClose }) => {
         </TitlePlusInput>
       </Box>
       <InputButton onClick={handleEditCategory}>입력 완료</InputButton>
-      <CloseButton onClick={onClose}/>
+      <CloseButton onClose={onClose}/>
     </PopupBox>
   );
 };
