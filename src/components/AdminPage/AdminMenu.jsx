@@ -11,7 +11,6 @@ import {
   XBtn,
   BackBtn,
 } from "./adminItems/AdminButtonCSS";
-
 import {
   PageBox,
   GroupName,
@@ -23,7 +22,6 @@ import {
   Price,
   Footer,
 } from "./adminItems/AdminContainerCSS";
-import menuData from "./DummyData/MenusByCategoryId.json";
 import {
   EditCategoryModal,
   AddMenuModal,
@@ -33,8 +31,6 @@ import {
 export default function AdminMenu() {
   const { categoryId } = useParams(); //url주소 얻기
   // console.log(`현재 카테고리id:${categoryId}의 메뉴들`);
-
-  const menuDatas = menuData; //categoryId 서버로부터 정보 get
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -175,7 +171,7 @@ export default function AdminMenu() {
       )}
       {isEditCategoryModalOpen && (
         <EditCategoryModal
-          currentCategoryName={menuDatas.responseData.categoryName}
+          currentCategoryName={menus.categoryName}
           onClose={() => setIsEditCategoryModalOpen(false)}
           onSave={handleEditCategoryName}
         />
