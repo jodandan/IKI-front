@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { styled } from "styled-components";
 
 const PopupBox = styled.div`
   background-color: white;
   border: 1px solid var(--primary-color);
-  border-radius: 15px;  
+  border-radius: 15px;
   width: 60%;
   height: 55%;
   position: fixed;
@@ -36,19 +37,16 @@ const CloseButton = styled.button`
 `;
 
 const Input = styled.input`
-  
   width: 20%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 13px;
   border: none;
   margin-bottom: 10px;
-  background: #F2F2F2;
+  background: #f2f2f2;
   display: flex;
   margin-left: 40%;
   margin-top: 5rem;
-  
-  
 `;
 
 const InputButton = styled.button`
@@ -58,36 +56,43 @@ const InputButton = styled.button`
   color: white;
   cursor: pointer;
   margin-top: 5rem;
-  background: #D1DBFF;
+  background: #d1dbff;
   flex-shrink: 0;
-  color: #002ECF;
+  color: #002ecf;
   font-weight: 700;
   border-radius: 13px;
- 
 `;
 
-
-
-
-export const AddCategoryModal = ({ onClose }) => {
+export const AddCategoryModal = ({ onClose, ownerId }) => {
+  const APIURL = process.env.REACT_APP_SERVER_IP;
   const [categoryName, setCategoryName] = useState("");
 
   const handleCategoryNameChange = (e) => {
     setCategoryName(e.target.value);
   };
 
-  const handleAddCategory = () => {
-    console.log(`${categoryName}카테고리가 추가 됨`);
-    //새로운 카테고리를 서버로 save
-    onClose();
+  const handleAddCategory = async () => {
+    try {
+      // await axios.post(`https://iki.digital:8080/api/v1/category/${ownerId}`, {
+      // const response =
+      await axios.post(`${APIURL}/api/v1/category/${ownerId}`, {
+        categorName: categoryName,
+      });
+      // console.log(response);
+      // console.log(`${categoryName} 추가 성공`);
+      onClose();
+    } catch (error) {
+      // console.log(`${APIURL}/api/v1/category/${ownerId}`);
+      console.error("카테고리 추가 실패: ", error);
+    }
   };
 
   return (
     <PopupBox>
-    <Header>
-      <ModalTitle>카테고리명을 입력해주세요</ModalTitle>
-      <CloseButton onClick={onClose}>X</CloseButton>
-    </Header>
+      <Header>
+        <ModalTitle>카테고리명을 입력해주세요</ModalTitle>
+        <CloseButton onClick={onClose}>X</CloseButton>
+      </Header>
       <Input
         type="text"
         value={categoryName}
@@ -96,11 +101,9 @@ export const AddCategoryModal = ({ onClose }) => {
       <InputButton primary="true" onClick={handleAddCategory}>
         입력 완료
       </InputButton>
-      
     </PopupBox>
   );
 };
-
 
 export const EditCategoryModal = ({
   selectedCategoryId,
@@ -135,7 +138,6 @@ export const EditCategoryModal = ({
         onChange={handleNewCategoryNameChange}
       />
       <InputButton onClick={handleEditCategory}>입력완료</InputButton>
-      
     </PopupBox>
   );
 };

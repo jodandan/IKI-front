@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import Header from "../header/Header";
 import { PlusButton, Btn } from "./adminItems/AdminButtonCSS";
 import {
@@ -16,6 +17,7 @@ import {
 } from "./adminItems/ModalForCategory";
 
 export default function AdminCategory() {
+  const ownerId = 2; // FIXME!! 수정 필요
   const allCategotyData = AllCategory; //백으로부터 get하기
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -28,7 +30,7 @@ export default function AdminCategory() {
   const handleAdd = () => {
     // 기존 handleAddCategoryButtonClick
     setIsAddModalOpen(true);
-    console.log(isAddModalOpen);
+    // console.log(isAddModalOpen);
   };
 
   const handleEdit = (category_id, categoryName) => {
@@ -51,7 +53,7 @@ export default function AdminCategory() {
   };
 
   const handleAddCategory = () => {
-    console.log(`${newCategoryName} 카테고리가 추가 됨`);
+    // console.log(`${newCategoryName} 카테고리가 추가 됨`);
     // TODO: 서버로 새 카테고리를 추가하는 로직을 여기에 구현
     const newCategory = {
       categoryId: categories.length + 1,
@@ -61,12 +63,9 @@ export default function AdminCategory() {
     handleCloseModal();
   };
 
-
   return (
     <PageBox>
-      <Header
-          title="카테고리 등록"
-          link="/main" />
+      <Header title="카테고리 등록" link="/main" />
       <PlusButton onClick={handleAdd}>카테고리 추가</PlusButton>
       {allCategotyData.responseData.map(
         (
@@ -101,10 +100,11 @@ export default function AdminCategory() {
       )}
       {isAddModalOpen && (
         <AddCategoryModal
+          ownerId={ownerId}
           onClose={handleCloseModal}
-          newName={newCategoryName}
-          onChangeNewName={handleNewCategoryNameChange}
-          onAddCategory={handleAddCategory}
+          // newName={newCategoryName}
+          // onChangeNewName={handleNewCategoryNameChange}
+          // onAddCategory={handleAddCategory}
         />
       )}
       {isEditModalOpen && (
