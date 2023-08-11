@@ -55,13 +55,11 @@ export default function AdminMenu() {
     }
   };
 
-  // 메뉴 새로 추가됐을 때 get도 새로 해오는 함수
   const fetchUpdatedMenus = async () => {
     const menus = await getMenus();
     setMenus(menus);
   };
 
-  // 마운트 될 때 get 해와줌
   useEffect(() => {
     async function fetchMenus() {
       const menus = await getMenus();
