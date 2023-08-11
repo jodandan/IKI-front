@@ -60,9 +60,9 @@ export default function AdminCategory() {
     setIsAddModalOpen(true);
   };
 
-  const handleEdit = (category_id, categoryName) => {
+  const handleEdit = (categoryId, categoryName) => {
     // 기존 handleEditCategoryButtonClick
-    setSelectedCategoryId(category_id);
+    setSelectedCategoryId(categoryId);
     setSelectedCategoryName(categoryName);
     setIsEditModalOpen(true);
   };

@@ -22,14 +22,18 @@ import {
   Price,
 } from "./adminItems/AdminContainerCSS";
 import menuData from "./DummyData/MenusByCategoryId.json";
-import { EditCategoryModal, AddMenuModal, EditMenuModal } from "./adminItems/ModalForMenu";
+import {
+  EditCategoryModal,
+  AddMenuModal,
+  EditMenuModal,
+} from "./adminItems/ModalForMenu";
 
 export default function AdminMenu() {
-  const { category_id } = useParams(); //url주소 얻기
-  console.log(`현재 카테고리id:${category_id}의 메뉴들`);
-  //서버로부터 category_id의 메뉴들 받기
+  const { categoryId } = useParams(); //url주소 얻기
+  console.log(`현재 카테고리id:${categoryId}의 메뉴들`);
+  //서버로부터 categoryId 메뉴들 받기
 
-  const menuDatas = menuData; //category_id로 서버로부터 정보 get
+  const menuDatas = menuData; //categoryId 서버로부터 정보 get
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -78,12 +82,12 @@ export default function AdminMenu() {
       <Link to="/admin">
         <BackBtn str="카테고리 등록"></BackBtn>
       </Link>
-      {/*{menuDatas.responseData.categoryName} (ID: {category_id})에 대한 모든 메뉴*/}
+      {/*{menuDatas.responseData.categoryName} (ID: {categoryId})에 대한 모든 메뉴*/}
       <PlusButton onClick={handleAdd}>메뉴 추가</PlusButton>
       <div style={{ padding: "8px 0", fontWeight: "bold" }}>카테고리명</div>
       <div style={{ display: "flex", alignItems: "center" }}>
         <GroupName>
-          {menuDatas.responseData.categoryName}(ID: {category_id})
+          {menuDatas.responseData.categoryName}(ID: {categoryId})
         </GroupName>
         <SmallBtn onClick={handleEditCategory}>수정</SmallBtn>
       </div>
@@ -128,7 +132,7 @@ export default function AdminMenu() {
                     수정/품절관리
                   </Btn>
                   <Link
-                    to={`/admin/${category_id}/${item.menusId}`}
+                    to={`/admin/${categoryId}/${item.menusId}`}
                     style={{ textDecoration: "none", color: "black" }}
                   >
                     <Btn>옵션</Btn>
@@ -140,7 +144,9 @@ export default function AdminMenu() {
           )
         )}
       </div>
-      {isAddModalOpen && <AddMenuModal onClose={handleCloseModal} />}
+      {isAddModalOpen && (
+        <AddMenuModal categoryId={categoryId} onClose={handleCloseModal} />
+      )}
       {isEditCategoryModalOpen && (
         <EditCategoryModal
           currentCategoryName={menuDatas.responseData.categoryName}

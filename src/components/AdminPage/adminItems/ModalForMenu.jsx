@@ -1,8 +1,18 @@
 import React, { useState } from "react";
-import { PopupBox, ModalTitle, CloseButton, Input, InputButton, Box, InputTitle, TitlePlusInput, CheckboxLabel } from "./AdminModalCSS";
+import axios from "axios";
+import {
+  PopupBox,
+  ModalTitle,
+  CloseButton,
+  Input,
+  InputButton,
+  Box,
+  InputTitle,
+  TitlePlusInput,
+  CheckboxLabel,
+} from "./AdminModalCSS";
 
-
-export const AddMenuModal = ({ onClose }) => {
+export const AddMenuModal = ({ onClose, categoryId }) => {
   const [menuName, setMenuName] = useState("");
   const [menuPrice, setMenuPrice] = useState("");
   const [isSoldOut, setIsSoldOut] = useState(false);
@@ -19,11 +29,26 @@ export const AddMenuModal = ({ onClose }) => {
     setIsSoldOut(e.target.checked);
   };
 
-  const handleAddMenu = () => {
-    // TODO: 메뉴를 추가하는 기능을 수행하는 코드 작성
-    console.log(`메뉴:${menuName}/가격:${menuPrice} 추가 완료`);
-    // 모달 창 닫기
-    onClose();
+  const handleAddMenu = async () => {
+    try {
+      const response = await axios.post(
+        // await axios.post(
+        `${process.env.REACT_APP_SERVER_IP}/api/v1/menus/${categoryId}`,
+        {
+          menusName: menuName,
+          menusPrice: menuPrice,
+          soldOut: isSoldOut,
+        }
+      );
+      console.log("아뒤:", categoryId);
+      console.log(response);
+      console.log(`${menuName}, ${menuPrice} 추가 성공`);
+      onClose(); // 모달 창 닫음
+      // onAddCategory();
+    } catch (error) {
+      console.log("아뒤:", categoryId);
+      console.error("메뉴 추가 실패: ", error);
+    }
   };
 
   return (
@@ -54,16 +79,14 @@ export const AddMenuModal = ({ onClose }) => {
           type="checkbox"
           checked={isSoldOut}
           onChange={handleSoldOutChange}
-        />품절
+        />
+        품절
       </CheckboxLabel>
       <InputButton onClick={handleAddMenu}>입력 완료</InputButton>
       <CloseButton onClose={onClose} />
     </PopupBox>
   );
 };
-
-
-
 
 export const EditMenuModal = ({
   selectedMenuId,
@@ -96,7 +119,7 @@ export const EditMenuModal = ({
 
   return (
     <PopupBox>
-        <ModalTitle>메뉴 이름/가격을 입력해주세요</ModalTitle>
+      <ModalTitle>메뉴 이름/가격을 입력해주세요</ModalTitle>
       <Box>
         <TitlePlusInput>
           <InputTitle>메뉴명</InputTitle>
@@ -128,7 +151,7 @@ export const EditMenuModal = ({
         품절
       </CheckboxLabel>
       <InputButton onClick={handleEditMenu}>입력 완료</InputButton>
-      <CloseButton onClose={onClose}/>
+      <CloseButton onClose={onClose} />
     </PopupBox>
   );
 };
