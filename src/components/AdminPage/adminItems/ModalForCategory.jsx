@@ -63,7 +63,7 @@ const InputButton = styled.button`
   border-radius: 13px;
 `;
 
-export const AddCategoryModal = ({ onClose, ownerId }) => {
+export const AddCategoryModal = ({ onClose, ownerId, onAddCategory }) => {
   const [categoryName, setCategoryName] = useState("");
 
   const handleCategoryNameChange = (e) => {
@@ -72,7 +72,6 @@ export const AddCategoryModal = ({ onClose, ownerId }) => {
 
   const handleAddCategory = async () => {
     try {
-      // await axios.post(`https://iki.digital:8080/api/v1/category/${ownerId}`, {
       //const response = await axios.post(
       await axios.post(
         `${process.env.REACT_APP_SERVER_IP}/api/v1/category/${ownerId}`,
@@ -83,8 +82,8 @@ export const AddCategoryModal = ({ onClose, ownerId }) => {
       // console.log(response);
       // console.log(`${categoryName} 추가 성공`);
       onClose();
+      onAddCategory();
     } catch (error) {
-      // console.log(`${APIURL}/api/v1/category/${ownerId}`);
       console.error("카테고리 추가 실패: ", error);
     }
   };

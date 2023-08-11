@@ -9,38 +9,50 @@ import {
   OneRow,
   Name,
   Buttons,
+  Footer,
 } from "./adminItems/AdminContainerCSS";
-import AllCategory from "./DummyData/AllCategory.json";
+// import AllCategory from "./DummyData/AllCategory.json";
 import {
   AddCategoryModal,
   EditCategoryModal,
 } from "./adminItems/ModalForCategory";
 
 export default function AdminCategory() {
+  // const allCategotyData = AllCategory; //백으로부터 get하기
   const ownerId = 1; // FIXME!! 수정 필요
-  const allCategotyData = AllCategory; //백으로부터 get하기
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedCategoryId, setSelectedCategoryId] = useState();
   const [selectedCategoryName, setSelectedCategoryName] = useState("");
+  const [categories, setCategories] = useState([]);
 
-  const [newCategoryName, setNewCategoryName] = useState(""); // 새로운 카테고리명 상태 추가
-  const [categories, setCategories] = useState(allCategotyData.responseData);
-
-  useEffect(() => {
-    async function getCategories() {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_SERVER_IP}/api/v1/category/all/${ownerId}`
-        );
-        setCategories(response.data.responseData);
-        // console.log(response);
-      } catch (error) {
-        console.error("카테고리 불러오기 실패", error);
-      }
+  // 실제로 GET 해오는 함수
+  const getCategories = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_IP}/api/v1/category/all/${ownerId}`
+      );
+      return response.data.responseData;
+    } catch (error) {
+      console.error("카테고리 불러오기 실패", error);
+      return [];
     }
-    getCategories();
+  };
+
+  // 카테고리 새로 추가됐을 때 get도 새로 해오는 함수
+  const fetchUpdatedCategories = async () => {
+    const categories = await getCategories();
+    setCategories(categories);
+  };
+
+  // 마운트 될 때 get 해와줌
+  useEffect(() => {
+    async function fetchCategories() {
+      const categories = await getCategories();
+      setCategories(categories);
+    }
+    fetchCategories();
   }, []);
 
   const handleAdd = () => {
@@ -59,24 +71,9 @@ export default function AdminCategory() {
     setIsAddModalOpen(false);
     setIsEditModalOpen(false);
     setSelectedCategoryId(null);
-    setNewCategoryName(""); // 팝업 창이 닫힐 때 새로운 카테고리명 상태 초기화
+    // setNewCategoryName(""); // 팝업 창이 닫힐 때 새로운 카테고리명 상태 초기화
     //창이 닫히면 새로고침하기.
   };
-
-  const handleNewCategoryNameChange = (e) => {
-    setNewCategoryName(e.target.value);
-  };
-
-  // const handleAddCategory = () => {
-  //   // console.log(`${newCategoryName} 카테고리가 추가 됨`);
-  //   // TODO: 서버로 새 카테고리를 추가하는 로직을 여기에 구현
-  //   const newCategory = {
-  //     categoryId: categories.length + 1,
-  //     categoryName: newCategoryName,
-  //   };
-  //   setCategories([...categories, newCategory]);
-  //   handleCloseModal();
-  // };
 
   return (
     <PageBox>
@@ -88,9 +85,7 @@ export default function AdminCategory() {
             카테고리명
           </div>
           <OneRow>
-            <Name>
-              {item.categoryName}(id:{item.categoryId})
-            </Name>
+            <Name>{item.categoryName}</Name>
             <Buttons>
               <Btn
                 onClick={() => handleEdit(item.categoryId, item.categoryName)}
@@ -113,9 +108,7 @@ export default function AdminCategory() {
         <AddCategoryModal
           ownerId={ownerId}
           onClose={handleCloseModal}
-          // newName={newCategoryName}
-          // onChangeNewName={handleNewCategoryNameChange}
-          // onAddCategory={handleAddCategory}
+          onAddCategory={fetchUpdatedCategories}
         />
       )}
       {isEditModalOpen && (
@@ -125,6 +118,7 @@ export default function AdminCategory() {
           onClose={handleCloseModal}
         />
       )}
+      <Footer />
     </PageBox>
   );
 }
