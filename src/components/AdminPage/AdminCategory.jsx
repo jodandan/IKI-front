@@ -11,15 +11,13 @@ import {
   Buttons,
   Footer,
 } from "./adminItems/AdminContainerCSS";
-// import AllCategory from "./DummyData/AllCategory.json";
 import {
   AddCategoryModal,
   EditCategoryModal,
 } from "./adminItems/ModalForCategory";
 
 export default function AdminCategory() {
-  // const allCategotyData = AllCategory; //백으로부터 get하기
-  const ownerId = 1; // FIXME!! 수정 필요
+  const ownerId = 1; // FIXME!! '현재 로그인하고 있는 유정 아이디' 반영 필요
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -33,6 +31,7 @@ export default function AdminCategory() {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_IP}/api/v1/category/all/${ownerId}`
       );
+      // console.log(response);
       return response.data.responseData;
     } catch (error) {
       console.error("카테고리 불러오기 실패", error);
@@ -99,7 +98,6 @@ export default function AdminCategory() {
             to={`/admin/${item.categoryId}`}
             style={{ textDecoration: "none", color: "black" }}
           >
-            {/* 카테고리 삭제 */}
             <Btn>메뉴 조회</Btn>
           </Link>
         </EachCategory> // key prop 추가하여 각 항목에 고유 키 부여
