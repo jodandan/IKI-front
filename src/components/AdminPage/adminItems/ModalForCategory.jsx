@@ -64,7 +64,6 @@ const InputButton = styled.button`
 `;
 
 export const AddCategoryModal = ({ onClose, ownerId }) => {
-  const APIURL = process.env.REACT_APP_SERVER_IP;
   const [categoryName, setCategoryName] = useState("");
 
   const handleCategoryNameChange = (e) => {
@@ -74,10 +73,13 @@ export const AddCategoryModal = ({ onClose, ownerId }) => {
   const handleAddCategory = async () => {
     try {
       // await axios.post(`https://iki.digital:8080/api/v1/category/${ownerId}`, {
-      // const response =
-      await axios.post(`${APIURL}/api/v1/category/${ownerId}`, {
-        categorName: categoryName,
-      });
+      //const response = await axios.post(
+      await axios.post(
+        `${process.env.REACT_APP_SERVER_IP}/api/v1/category/${ownerId}`,
+        {
+          categoryName: categoryName,
+        }
+      );
       // console.log(response);
       // console.log(`${categoryName} 추가 성공`);
       onClose();

@@ -17,7 +17,7 @@ import {
 } from "./adminItems/ModalForCategory";
 
 export default function AdminCategory() {
-  const ownerId = 2; // FIXME!! 수정 필요
+  const ownerId = 1; // FIXME!! 수정 필요
   const allCategotyData = AllCategory; //백으로부터 get하기
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -27,10 +27,25 @@ export default function AdminCategory() {
 
   const [newCategoryName, setNewCategoryName] = useState(""); // 새로운 카테고리명 상태 추가
   const [categories, setCategories] = useState(allCategotyData.responseData);
+
+  useEffect(() => {
+    async function getCategories() {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_SERVER_IP}/api/v1/category/all/${ownerId}`
+        );
+        setCategories(response.data.responseData);
+        // console.log(response);
+      } catch (error) {
+        console.error("카테고리 불러오기 실패", error);
+      }
+    }
+    getCategories();
+  }, []);
+
   const handleAdd = () => {
     // 기존 handleAddCategoryButtonClick
     setIsAddModalOpen(true);
-    // console.log(isAddModalOpen);
   };
 
   const handleEdit = (category_id, categoryName) => {
@@ -52,52 +67,48 @@ export default function AdminCategory() {
     setNewCategoryName(e.target.value);
   };
 
-  const handleAddCategory = () => {
-    // console.log(`${newCategoryName} 카테고리가 추가 됨`);
-    // TODO: 서버로 새 카테고리를 추가하는 로직을 여기에 구현
-    const newCategory = {
-      categoryId: categories.length + 1,
-      categoryName: newCategoryName,
-    };
-    setCategories([...categories, newCategory]);
-    handleCloseModal();
-  };
+  // const handleAddCategory = () => {
+  //   // console.log(`${newCategoryName} 카테고리가 추가 됨`);
+  //   // TODO: 서버로 새 카테고리를 추가하는 로직을 여기에 구현
+  //   const newCategory = {
+  //     categoryId: categories.length + 1,
+  //     categoryName: newCategoryName,
+  //   };
+  //   setCategories([...categories, newCategory]);
+  //   handleCloseModal();
+  // };
 
   return (
     <PageBox>
       <Header title="카테고리 등록" link="/main" />
       <PlusButton onClick={handleAdd}>카테고리 추가</PlusButton>
-      {allCategotyData.responseData.map(
-        (
-          item // 여기서 중괄호가 아닌 괄호로 수정
-        ) => (
-          <EachCategory key={item.categoryId}>
-            <div style={{ fontSize: "0.8rem", fontWeight: "bold" }}>
-              카테고리명
-            </div>
-            <OneRow>
-              <Name>
-                {item.categoryName}(id:{item.categoryId})
-              </Name>
-              <Buttons>
-                <Btn
-                  onClick={() => handleEdit(item.categoryId, item.categoryName)}
-                >
-                  수정하기
-                </Btn>
-                <Btn>삭제하기</Btn>
-              </Buttons>
-            </OneRow>
-            <Link
-              to={`/admin/${item.categoryId}`}
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              {/* 카테고리 삭제 */}
-              <Btn>메뉴 조회</Btn>
-            </Link>
-          </EachCategory> // key prop 추가하여 각 항목에 고유 키 부여
-        )
-      )}
+      {categories.map((item) => (
+        <EachCategory key={item.categoryId}>
+          <div style={{ fontSize: "0.8rem", fontWeight: "bold" }}>
+            카테고리명
+          </div>
+          <OneRow>
+            <Name>
+              {item.categoryName}(id:{item.categoryId})
+            </Name>
+            <Buttons>
+              <Btn
+                onClick={() => handleEdit(item.categoryId, item.categoryName)}
+              >
+                수정하기
+              </Btn>
+              <Btn>삭제하기</Btn>
+            </Buttons>
+          </OneRow>
+          <Link
+            to={`/admin/${item.categoryId}`}
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            {/* 카테고리 삭제 */}
+            <Btn>메뉴 조회</Btn>
+          </Link>
+        </EachCategory> // key prop 추가하여 각 항목에 고유 키 부여
+      ))}
       {isAddModalOpen && (
         <AddCategoryModal
           ownerId={ownerId}
