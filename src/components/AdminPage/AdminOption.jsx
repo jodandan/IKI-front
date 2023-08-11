@@ -125,7 +125,7 @@ export default function AdminOption() {
             <EachOption key={item.menuOptionsId}>
               <OneRow>
                 <PilSoo>
-                  <input type="checkbox" />
+                  <input type="checkbox" checked={item.mandatory} readOnly />
                 </PilSoo>
                 <OptionFields>
                   <Type>{item.menuOptionsCategory}</Type>

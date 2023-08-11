@@ -9,12 +9,18 @@ import {
   Box,
   InputTitle,
   TitlePlusInput,
+  CheckboxLabel,
 } from "./AdminModalCSS";
 
 export const AddOptionModal = ({ onClose, menusId, onAddOption }) => {
+  const [isRequired, setIsRequired] = useState(false);
   const [optionGroup, setOptionGroup] = useState("");
   const [optionName, setOptionName] = useState("");
   const [optionPrice, setOptionPrice] = useState("");
+
+  const handleRequiredChange = (e) => {
+    setIsRequired(e.target.checked);
+  };
 
   const handleOptionGroupChange = (e) => {
     setOptionGroup(e.target.value);
@@ -30,14 +36,14 @@ export const AddOptionModal = ({ onClose, menusId, onAddOption }) => {
 
   const handleAddOption = async () => {
     try {
-      const response = await axios.post(
-        // await axios.post(
+      //const response = await axios.post(
+      await axios.post(
         `${process.env.REACT_APP_SERVER_IP}/api/v1/menuoptions/${menusId}`,
         {
           menuOptionsCategory: optionGroup,
           menuOptionsContents: optionName,
           menuOptionsPrice: optionPrice,
-          mandatory: false,
+          mandatory: isRequired,
         }
       );
       // console.log(response);
@@ -52,6 +58,15 @@ export const AddOptionModal = ({ onClose, menusId, onAddOption }) => {
   return (
     <PopupBox>
       <ModalTitle>옵션명/가격을 입력해주세요.</ModalTitle>
+
+      <CheckboxLabel>
+        <input
+          type="checkbox"
+          checked={isRequired}
+          onChange={handleRequiredChange}
+        />
+        필수
+      </CheckboxLabel>
       <Box>
         <TitlePlusInput>
           <InputTitle>종류</InputTitle>
