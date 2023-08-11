@@ -31,8 +31,8 @@ export const AddMenuModal = ({ onClose, categoryId, onAddMenu }) => {
 
   const handleAddMenu = async () => {
     try {
-      const response = await axios.post(
-        // await axios.post(
+      // const response = await axios.post(
+      await axios.post(
         `${process.env.REACT_APP_SERVER_IP}/api/v1/menus/${categoryId}`,
         {
           menusName: menuName,
@@ -40,9 +40,8 @@ export const AddMenuModal = ({ onClose, categoryId, onAddMenu }) => {
           soldOut: isSoldOut,
         }
       );
-      console.log("아뒤:", categoryId);
-      console.log(response);
-      console.log(`${menuName}, ${menuPrice} 추가 성공`);
+      // console.log(response);
+      // console.log(`${menuName}, ${menuPrice} 추가 성공`);
       onClose(); // 모달 창 닫음
       onAddMenu();
     } catch (error) {

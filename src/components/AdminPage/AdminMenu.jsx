@@ -54,7 +54,7 @@ export default function AdminMenu() {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_IP}/api/v1/category/${categoryId}`
       );
-      console.log(response);
+      // console.log(response);
       return response.data.responseData;
     } catch (error) {
       console.error("메뉴 불러오기 실패", error);

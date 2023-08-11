@@ -19,7 +19,7 @@ function App() {
         <Route path="/admin" element={<AdminPage />}>
           <Route path="" element={<AdminCategoryPage />} />
           <Route path=":categoryId" element={<AdminMenuPage />} />
-          <Route path=":categoryId/:menu_id" element={<AdminOptionPage />} />
+          <Route path=":categoryId/:menusId" element={<AdminOptionPage />} />
         </Route>
       </Routes>
     </div>
