@@ -12,7 +12,7 @@ import {
   CheckboxLabel,
 } from "./AdminModalCSS";
 
-export const AddMenuModal = ({ onClose, categoryId }) => {
+export const AddMenuModal = ({ onClose, categoryId, onAddMenu }) => {
   const [menuName, setMenuName] = useState("");
   const [menuPrice, setMenuPrice] = useState("");
   const [isSoldOut, setIsSoldOut] = useState(false);
@@ -44,7 +44,7 @@ export const AddMenuModal = ({ onClose, categoryId }) => {
       console.log(response);
       console.log(`${menuName}, ${menuPrice} 추가 성공`);
       onClose(); // 모달 창 닫음
-      // onAddCategory();
+      onAddMenu();
     } catch (error) {
       console.log("아뒤:", categoryId);
       console.error("메뉴 추가 실패: ", error);
