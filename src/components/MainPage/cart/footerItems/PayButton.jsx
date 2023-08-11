@@ -41,6 +41,11 @@ export default function PayButton() {
   const [showSmallPopUp, setShowSmallPopUp] = useState(false);
   const [showReceiptPopup, setShowReceiptPopup] = useState(false);
 
+  const PaymentCancel=()=>{
+    setShowTakeoutPopUp(false);
+    setPaymentComplete(false);
+  }
+
   const handlePayButtonClick = () => {
     setPaymentComplete(true);
     setShowTakeoutPopUp(true);
@@ -114,7 +119,7 @@ export default function PayButton() {
       ) : (
         <MainBox>
           {showTakeoutPopUp && ( //포장/매장 여부 선택 팝업
-            <ShowTakeoutPopUp onShowFirstPopUp={openShowFirstPopUp} />
+            <ShowTakeoutPopUp onShowFirstPopUp={openShowFirstPopUp} PaymentCancel={PaymentCancel}/>
           )}
 
           {showFirstPopUp && ( // 카드를 넣어주세요 선택 팝업

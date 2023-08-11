@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { styled } from "styled-components";
 import { useEffect } from "react";
 import { PopUpContent } from "./PopupStyleComponents";
+import axios from "axios"; 
 
 const SmallPopUpContent = styled(PopUpContent)`
   height: 50vh;
@@ -84,9 +85,29 @@ export default function Pointpopup({ onClose, onRegister }) {
     setEnteredNumber((prevNumber) => prevNumber.slice(0, -1));
   };
 
-  const handleRegisterButtonClick = () => {
-    setcompletedPoint(true);
+  const handleRegisterButtonClick = async () => {
+    // 입력된 핸드폰 번호와 주문 ID를 기반으로 요청 데이터 생성
+    const requestData = {
+      customerNumber: enteredNumber,
+      orderId: 1, // 이 부분은 실제로 주문 ID 값을 어떻게 가져올지에 따라 변경해야 합니다.
+    };
 
+    try {
+      // 백엔드 API 호출
+      const response = await axios.post(
+        "https://iki.digital:8080/api/v1/customers", // API 엔드포인트 주소
+        requestData
+      );
+
+      // 응답 데이터 확인 및 포인트 적립 완료 처리
+      if (response.data.httpStatus === 200) {
+        setcompletedPoint(true);
+        console.log("포인트적립 완료", response);
+      }
+    } catch (error) {
+      console.error("Error while saving points:", error);
+      // 오류 처리 로직 추가 (예: 오류 메시지 표시)
+    }
   };
 
   useEffect(() => {
