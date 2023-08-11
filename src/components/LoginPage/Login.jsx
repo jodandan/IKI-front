@@ -39,12 +39,22 @@ export default function Login() {
 
       if (httpStatus === 200) {
         // 로그인 성공
-        console.log('로그인이 성공하였습니다!', response.data);
-      
 
-        // 토큰 가져오기.
+        console.log("로그인 성공:", message);
+        
+        // responseData에서 userId를 확인하고 할당
+        const userId = responseData.ownerId;
+        console.log("유저 아이디는:", userId);
+        localStorage.setItem('userId', userId);
+        // 다른 컴포넌트에서
+        // 로컬 스토리지에서 읽기 
+        // const userId = localStorage.getItem('userId');
 
-
+        const { ownerId, ownerName, shopName } = responseData;
+    
+        // 토큰 등의 처리를 추가할 수 있습니다.
+        // localStorage.setItem("token", token);
+    
         // 로그인 후 이동
         navigate('/select');
       } else {
