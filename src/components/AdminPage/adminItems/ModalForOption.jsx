@@ -40,8 +40,8 @@ export const AddOptionModal = ({ onClose, menusId, onAddOption }) => {
           mandatory: false,
         }
       );
-      console.log(response);
-      console.log(`${optionGroup}, ${optionName}, ${optionPrice} 추가 성공`);
+      // console.log(response);
+      // console.log(`${optionGroup}, ${optionName}, ${optionPrice} 추가 성공`);
       onClose();
       onAddOption();
     } catch (error) {

@@ -47,7 +47,7 @@ export default function AdminOption() {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_IP}/api/v1/menus/${menusId}`
       );
-      console.log(response);
+      // console.log(response);
       return response.data.responseData;
     } catch (error) {
       console.error("옵션 불러오기 실패", error);
@@ -63,7 +63,6 @@ export default function AdminOption() {
   useEffect(() => {
     async function fetchOptions() {
       const options = await getOptions();
-      console.log("옵션", options);
       setOptions(options);
     }
     fetchOptions();

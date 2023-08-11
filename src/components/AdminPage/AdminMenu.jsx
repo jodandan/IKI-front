@@ -29,7 +29,6 @@ import {
 
 export default function AdminMenu() {
   const { categoryId } = useParams(); //url주소 얻기
-  // console.log(`현재 카테고리id:${categoryId}의 메뉴들`);
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);

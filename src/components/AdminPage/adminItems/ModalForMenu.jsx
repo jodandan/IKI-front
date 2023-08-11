@@ -45,7 +45,6 @@ export const AddMenuModal = ({ onClose, categoryId, onAddMenu }) => {
       onClose(); // 모달 창 닫음
       onAddMenu();
     } catch (error) {
-      console.log("아뒤:", categoryId);
       console.error("메뉴 추가 실패: ", error);
     }
   };
