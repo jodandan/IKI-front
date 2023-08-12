@@ -1,17 +1,36 @@
 import React, { useState } from "react";
-import { PopupBox, ModalTitle, CloseButton, Input, InputButton } from "./AdminModalCSS";
+import axios from "axios";
+import {
+  PopupBox,
+  ModalTitle,
+  CloseButton,
+  Input,
+  InputButton,
+} from "./AdminModalCSS";
 
-export const AddCategoryModal = ({ onClose }) => {
+export const AddCategoryModal = ({ onClose, ownerId, onAddCategory }) => {
   const [categoryName, setCategoryName] = useState("");
 
   const handleCategoryNameChange = (e) => {
     setCategoryName(e.target.value);
   };
 
-  const handleAddCategory = () => {
-    console.log(`${categoryName}카테고리가 추가 됨`);
-    //새로운 카테고리를 서버로 save
-    onClose();
+  const handleAddCategory = async () => {
+    try {
+      //const response = await axios.post(
+      await axios.post(
+        `${process.env.REACT_APP_SERVER_IP}/api/v1/category/${ownerId}`,
+        {
+          categoryName: categoryName,
+        }
+      );
+      // console.log(response);
+      // console.log(`${categoryName} 추가 성공`);
+      onClose();
+      onAddCategory();
+    } catch (error) {
+      console.error("카테고리 추가 실패: ", error);
+    }
   };
 
   return (
@@ -29,7 +48,6 @@ export const AddCategoryModal = ({ onClose }) => {
     </PopupBox>
   );
 };
-
 
 export const EditCategoryModal = ({
   selectedCategoryId,
@@ -55,7 +73,6 @@ export const EditCategoryModal = ({
   return (
     <PopupBox>
       <ModalTitle>수정할 카테고리 명을 입력해주세요</ModalTitle>
-
       <Input
         type="text"
         value={newCategoryName}

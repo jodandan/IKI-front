@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Header from "../header/Header";
 import { StyleSheetManager } from "styled-components"; // 다음 warning 제거하려 추가: StyledComponent.ts:139 styled-components: it looks like an unknown prop "hide" is being sent through to the DOM, which will likely trigger a React console error.
 import convertPrice from "../../utils/convertPrice";
@@ -10,7 +11,6 @@ import {
   XBtn,
   BackBtn,
 } from "./adminItems/AdminButtonCSS";
-
 import {
   PageBox,
   GroupName,
@@ -21,15 +21,14 @@ import {
   Name,
   Price,
 } from "./adminItems/AdminContainerCSS";
-import menuData from "./DummyData/MenusByCategoryId.json";
-import { EditCategoryModal, AddMenuModal, EditMenuModal } from "./adminItems/ModalForMenu";
+import {
+  EditCategoryModal,
+  AddMenuModal,
+  EditMenuModal,
+} from "./adminItems/ModalForMenu";
 
 export default function AdminMenu() {
-  const { category_id } = useParams(); //url주소 얻기
-  console.log(`현재 카테고리id:${category_id}의 메뉴들`);
-  //서버로부터 category_id의 메뉴들 받기
-
-  const menuDatas = menuData; //category_id로 서버로부터 정보 get
+  const { categoryId } = useParams(); //url주소 얻기
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -39,9 +38,35 @@ export default function AdminMenu() {
     price: null,
     soldOut: null,
   });
-
   const [isEditCategoryModalOpen, setIsEditCategoryModalOpen] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState("");
+  const [menus, setMenus] = useState([]);
+
+  const getMenus = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_IP}/api/v1/category/${categoryId}`
+      );
+      // console.log(response);
+      return response.data.responseData;
+    } catch (error) {
+      console.error("메뉴 불러오기 실패", error);
+      return [];
+    }
+  };
+
+  const fetchUpdatedMenus = async () => {
+    const menus = await getMenus();
+    setMenus(menus);
+  };
+
+  useEffect(() => {
+    async function fetchMenus() {
+      const menus = await getMenus();
+      setMenus(menus);
+    }
+    fetchMenus();
+  }, []);
 
   const handleEditCategory = () => {
     setIsEditCategoryModalOpen(true);
@@ -78,13 +103,10 @@ export default function AdminMenu() {
       <Link to="/admin">
         <BackBtn str="카테고리 등록"></BackBtn>
       </Link>
-      {/*{menuDatas.responseData.categoryName} (ID: {category_id})에 대한 모든 메뉴*/}
       <PlusButton onClick={handleAdd}>메뉴 추가</PlusButton>
       <div style={{ padding: "8px 0", fontWeight: "bold" }}>카테고리명</div>
       <div style={{ display: "flex", alignItems: "center" }}>
-        <GroupName>
-          {menuDatas.responseData.categoryName}(ID: {category_id})
-        </GroupName>
+        <GroupName>{menus.categoryName}</GroupName>
         <SmallBtn onClick={handleEditCategory}>수정</SmallBtn>
       </div>
       <StyleSheetManager shouldForwardProp={(prop) => prop !== "hide"}>
@@ -103,16 +125,12 @@ export default function AdminMenu() {
         </EachMenu>
       </StyleSheetManager>
       <div>
-        {menuDatas.responseData.menusList.map(
-          (
-            item // 여기서 중괄호가 아닌 괄호로 수정
-          ) => (
+        {menus.menusList &&
+          menus.menusList.map((item) => (
             <EachMenu key={item.menusId}>
               <OneRow>
                 <NameAndPrice>
-                  <Name>
-                    {item.menusName}({item.menusId})
-                  </Name>
+                  <Name>{item.menusName}</Name>
                   <Price>{convertPrice(item.menusPrice)}</Price>
                 </NameAndPrice>
                 <Buttons>
@@ -128,7 +146,7 @@ export default function AdminMenu() {
                     수정/품절관리
                   </Btn>
                   <Link
-                    to={`/admin/${category_id}/${item.menusId}`}
+                    to={`/admin/${categoryId}/${item.menusId}`}
                     style={{ textDecoration: "none", color: "black" }}
                   >
                     <Btn>옵션</Btn>
@@ -136,14 +154,19 @@ export default function AdminMenu() {
                 </Buttons>
                 <XBtn />
               </OneRow>
-            </EachMenu> // key prop 추가하여 각 항목에 고유 키 부여
-          )
-        )}
+            </EachMenu>
+          ))}
       </div>
-      {isAddModalOpen && <AddMenuModal onClose={handleCloseModal} />}
+      {isAddModalOpen && (
+        <AddMenuModal
+          categoryId={categoryId}
+          onClose={handleCloseModal}
+          onAddMenu={fetchUpdatedMenus}
+        />
+      )}
       {isEditCategoryModalOpen && (
         <EditCategoryModal
-          currentCategoryName={menuDatas.responseData.categoryName}
+          currentCategoryName={menus.categoryName}
           onClose={() => setIsEditCategoryModalOpen(false)}
           onSave={handleEditCategoryName}
         />
