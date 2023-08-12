@@ -77,7 +77,8 @@ export function MasonryMenuContainer() {
   // 서버에서부터 데이터 받기
   useEffect(() => {
     // ownerId에 해당하는 데이터를 백엔드로부터 GET 요청으로 받아옵니다.
-    const ownerId = 1; // ownerId 값을 적절히 변경해주세요.
+    const ownerId = localStorage.getItem('userId'); // ownerId(userId)값 localStorage에서 받기
+    console.log(`owrnerId: ${ownerId}`)
 //api/v1/category/all/{ownerId}
     axios.get(`https://iki.digital:8080/api/v1/category/all/${ownerId}`)
       .then(response => {
