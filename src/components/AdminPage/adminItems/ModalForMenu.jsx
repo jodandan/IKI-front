@@ -1,99 +1,11 @@
 import React, { useState } from "react";
-import { styled } from "styled-components";
+import { PopupBox, ModalTitle, CloseButton, Input, InputButton, Box, InputTitle, TitlePlusInput, CheckboxLabel } from "./AdminModalCSS";
 
-const PopupBox = styled.div`
-  background-color: white;
-  border: 1px solid var(--primary-color);
-  border-radius: 15px;  
-  width: 60%;
-  height: 55%;
-  position: fixed;
-  top: 100px;
-  text-align: center;
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 5%;
-  margin-left: 2%;
-`;
-
-const ModalTitle = styled.div`
-  font-weight: bold;
-  font-size: 20px;
-  text-align: center; /* 가운데 정렬 추가 */
-  margin-left: 30%;
-`;
-
-const CloseButton = styled.button`
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 1.5rem;
-  margin-right: 3%;
-`;
-
-const Input = styled.input`
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 13px;
-  border: none;
-  margin-bottom: 10px;
-  background: #F2F2F2;
-  display: flex;
-  margin-left: 13%;
-  margin-top: 5rem;
-  
-  
-`;
-
-const InputButton = styled.button`
-  padding: 10px 15px;
-  margin-right: 10px;
-  border: none;
-  color: white;
-  cursor: pointer;
-  margin-top: 5rem;
-  background: #D1DBFF;
-  flex-shrink: 0;
-  color: #002ECF;
-  font-weight: 700;
-  border-radius: 13px;
- 
-`;
-
-const Box = styled.div`
-  display: flex;
-  align-items: center; /* 세로 중앙 정렬 */
-`;
-
-const InputTitle =  styled.div`
-  font-weight: bold;
-  font-size: 16px;
-  margin-top: 20%;
-`;
-
-const TitlePlusInput = styled.div`
-  margin-left: 14%;
-
-`;
-
-const CheckboxLabel = styled.label`
-  display: flex;
-  align-items: center;
-  margin-left: 18%; /* Adjust as needed */
-`;
-
-const CheckboxInput = styled.input`
-  margin-right: 0.5rem; /* Adjust as needed */
-`;
 
 export const AddMenuModal = ({ onClose }) => {
   const [menuName, setMenuName] = useState("");
   const [menuPrice, setMenuPrice] = useState("");
-  const [isSoldOut, setIsSoldOut] = useState(false); 
+  const [isSoldOut, setIsSoldOut] = useState(false);
 
   const handleMenuNameChange = (e) => {
     setMenuName(e.target.value);
@@ -116,41 +28,36 @@ export const AddMenuModal = ({ onClose }) => {
 
   return (
     <PopupBox>
-    <Header>
       <ModalTitle>메뉴 이름/가격을 입력해주세요</ModalTitle>
-      <CloseButton onClick={onClose}>X</CloseButton>
-    </Header>
-    <Box>
-      <TitlePlusInput>
-        <InputTitle>메뉴명</InputTitle>
-        <Input
-          type="text"
-          placeholder="Menu Name"
-          value={menuName}
-          onChange={handleMenuNameChange}
-        />
-      </TitlePlusInput>
-      <TitlePlusInput>
-        <InputTitle>가격</InputTitle> 
-        <Input
-          type="number"
-          placeholder="Menu Price"
-          value={menuPrice}
-          onChange={handleMenuPriceChange}
-        />
-      </TitlePlusInput>
-
-    </Box>
-      <CheckboxLabel>
-        품절
-          <CheckboxInput
-            type="checkbox"
-            checked={isSoldOut}
-            onChange={handleSoldOutChange}
+      <Box>
+        <TitlePlusInput>
+          <InputTitle>메뉴명</InputTitle>
+          <Input
+            type="text"
+            placeholder="Menu Name"
+            value={menuName}
+            onChange={handleMenuNameChange}
           />
+        </TitlePlusInput>
+        <TitlePlusInput>
+          <InputTitle>가격</InputTitle>
+          <Input
+            type="number"
+            placeholder="Menu Price"
+            value={menuPrice}
+            onChange={handleMenuPriceChange}
+          />
+        </TitlePlusInput>
+      </Box>
+      <CheckboxLabel>
+        <input
+          type="checkbox"
+          checked={isSoldOut}
+          onChange={handleSoldOutChange}
+        />품절
       </CheckboxLabel>
       <InputButton onClick={handleAddMenu}>입력 완료</InputButton>
-      
+      <CloseButton onClose={onClose} />
     </PopupBox>
   );
 };
@@ -189,13 +96,10 @@ export const EditMenuModal = ({
 
   return (
     <PopupBox>
-      <Header>
-       <ModalTitle>메뉴 이름/가격을 입력해주세요</ModalTitle>
-       <CloseButton onClick={onClose}>X</CloseButton>
-      </Header>
+        <ModalTitle>메뉴 이름/가격을 입력해주세요</ModalTitle>
       <Box>
         <TitlePlusInput>
-        <InputTitle>메뉴명</InputTitle>
+          <InputTitle>메뉴명</InputTitle>
           <Input
             type="text"
             name="name"
@@ -203,9 +107,9 @@ export const EditMenuModal = ({
             onChange={handleMenuDataChange}
           />
         </TitlePlusInput>
-        
+
         <TitlePlusInput>
-        <InputTitle>가격</InputTitle> 
+          <InputTitle>가격</InputTitle>
           <Input
             type="number"
             name="price"
@@ -215,33 +119,19 @@ export const EditMenuModal = ({
         </TitlePlusInput>
       </Box>
       <CheckboxLabel>
-        품절
-        <CheckboxInput
+        <input
           type="checkbox"
           name="soldOut"
           checked={menuData.soldOut}
           onChange={handleMenuDataChange}
         />
+        품절
       </CheckboxLabel>
       <InputButton onClick={handleEditMenu}>입력 완료</InputButton>
-
+      <CloseButton onClose={onClose}/>
     </PopupBox>
   );
 };
-
-
-const CategoryInput = styled.input`
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 13px;
-  border: none;
-  margin-bottom: 10px;
-  background: #F2F2F2;
-  display: flex;
-  margin-left:  35%;
-  margin-top: 5rem;
-
-`;
 
 export const EditCategoryModal = ({ currentCategoryName, onClose, onSave }) => {
   const [newCategoryName, setNewCategoryName] = useState(currentCategoryName);
@@ -257,18 +147,15 @@ export const EditCategoryModal = ({ currentCategoryName, onClose, onSave }) => {
 
   return (
     <PopupBox>
-      <Header>
-        <ModalTitle>수정할 카테고리 이름을 적어주세요 </ModalTitle>
-        <CloseButton onClick={onClose}>X</CloseButton>
-      </Header>
-        <CategoryInput
-          type="text"
-          placeholder="새 카테고리 이름"
-          value={newCategoryName}
-          onChange={handleCategoryNameChange}
-        />
-        <InputButton onClick={handleSave}>저장</InputButton>
-      
+      <ModalTitle>수정할 카테고리 이름을 입력해주세요 </ModalTitle>
+      <Input
+        type="text"
+        placeholder="새 카테고리 이름"
+        value={newCategoryName}
+        onChange={handleCategoryNameChange}
+      />
+      <InputButton onClick={handleSave}>저장</InputButton>
+      <CloseButton onClose={onClose} />
     </PopupBox>
   );
 };
