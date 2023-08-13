@@ -144,7 +144,7 @@ export default function AdminOption() {
             ))
           )
         ) : (
-          <div>Loading...</div>
+          <div>로딩중...</div>
         )}
       </div>
       {isAddModalOpen && (
