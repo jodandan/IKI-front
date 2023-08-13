@@ -120,25 +120,32 @@ export default function AdminOption() {
         </EachOption>
       </StyleSheetManager>
       <div>
-        {options.menuOptionsList &&
-          options.menuOptionsList.map((item) => (
-            <EachOption key={item.menuOptionsId}>
-              <OneRow>
-                <PilSoo>
-                  <input type="checkbox" checked={item.mandatory} readOnly />
-                </PilSoo>
-                <OptionFields>
-                  <Type>{item.menuOptionsCategory}</Type>
-                  <Name>{item.menuOptionsContents}</Name>
-                  <Price>{convertPrice(item.menuOptionsPrice)}</Price>
-                </OptionFields>
-                <Btn onClick={() => handleEdit(item.menuOptionsId, item)}>
-                  수정하기
-                </Btn>
-                <XBtn />
-              </OneRow>
-            </EachOption>
-          ))}
+        {options.menuOptionsList ? (
+          options.menuOptionsList.length === 0 ? (
+            <div style={{ paddingTop: "28px" }}>등록된 옵션이 없어요</div>
+          ) : (
+            options.menuOptionsList.map((item) => (
+              <EachOption key={item.menuOptionsId}>
+                <OneRow>
+                  <PilSoo>
+                    <input type="checkbox" checked={item.mandatory} readOnly />
+                  </PilSoo>
+                  <OptionFields>
+                    <Type>{item.menuOptionsCategory}</Type>
+                    <Name>{item.menuOptionsContents}</Name>
+                    <Price>{convertPrice(item.menuOptionsPrice)}</Price>
+                  </OptionFields>
+                  <Btn onClick={() => handleEdit(item.menuOptionsId, item)}>
+                    수정하기
+                  </Btn>
+                  <XBtn />
+                </OneRow>
+              </EachOption>
+            ))
+          )
+        ) : (
+          <div>Loading...</div>
+        )}
       </div>
       {isAddModalOpen && (
         <AddOptionModal
