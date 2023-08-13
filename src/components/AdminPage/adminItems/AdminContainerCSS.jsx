@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 export const Box = styled.div`
   height: 100px;
   width: 100%;
-  background-color: lightblue;
+  // background-color: lightblue;
   margin: 1px;
 `;
 export const PopupBox = styled.div`
@@ -13,7 +13,6 @@ export const PopupBox = styled.div`
   height: 55%;
   position: fixed;
   top: 100px;
-
 `;
 
 /*
@@ -22,7 +21,7 @@ export const PopupBox = styled.div`
 */
 
 export const PageBox = styled.div`
-  padding: 0 20px;
+  padding: 0 20px; // 상 우 하 좌
   overflow: auto;
 `;
 
