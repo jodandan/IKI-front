@@ -142,7 +142,7 @@ export function MasonryMenuContainer() {
         ))}
       </List>
       {modalMenusId && (
-        <MenuModal menusId={modalMenusId} onCloseModal={handleCloseModal} orderUsers={false}/>
+        <MenuModal menusId={modalMenusId} onCloseModal={handleCloseModal}/>
       )}
     </ListBox>
   );

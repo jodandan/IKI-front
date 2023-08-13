@@ -115,18 +115,18 @@ function transformData(data) {
   return sortedData;
 }
 
-export default function MenuModal({ menusId, onCloseModal, orderUsers }) {
+export default function MenuModal({ menusId, onCloseModal}) {
 
   const [menuOptionData, setMenuOptionData] = useState([]);
   const [transformedData, setTransformedData] = useState([]);
+  
+  //서버로부터 옵션 데이터 받기
   useEffect(() => {
     //api/v1/menus/{menusId}
-    axios.get(`https://iki.digital:8080/api/v1/menus/${menusId}`)
+    axios.get(`${process.env.REACT_APP_SERVER_IP}/api/v1/menus/${menusId}`)
       .then(response => {
         // 요청이 성공적으로 완료되었을 때 실행되는 코드
         console.log(response.data); // 서버로부터 받은 데이터 출력
-        // setMenuOptionData(response.data.responseData); // 받은 데이터를 menuData에 저장
-        // setTransformedData(transformData(menuOptionData));
         const menuOptionData = response.data.responseData;
         const transformedData = transformData(menuOptionData);
         setMenuOptionData(menuOptionData);
@@ -162,23 +162,29 @@ export default function MenuModal({ menusId, onCloseModal, orderUsers }) {
       }
     });
   };
-
+  //CORS오류 방지
+  const config = {
+    headers: {
+      "Access-Control-Allow-Origin": "http://localhost:3000",
+      "Access-Control-Allow-Credentials": "true"
+    }
+  };
   //메뉴 옵션 선택 후, 하단 버튼 클릭시 , 서버로 전송 ++ 서버로부터 장바구니 데이터 받기 -> 메뉴판에 표시
   const handleSubmitButton = () => {
 
     //먼저 필수 카테고리를 골랐는지 확인
     if (mandatoryOptionCategories.every((value) => Object.prototype.hasOwnProperty.call(selectedRequiredOptions, value))) {
-
+      const cartId = localStorage.getItem('cartId');
       const cart = {
         menusId: menusId,
-        orderUsers: orderUsers ? orderUsers : null,//최초 장바구니 담기는 null
+        orderUsersId: cartId ? cartId : null,//최초 장바구니 담기는 null
         menuOptionsIdList: [...Object.values(selectedRequiredOptions), selectedOptions].join(",")
       };
       console.log("submit");
       console.log(cart);
 
       //서버로 전송하기
-      axios.post(`${process.env.REACT_APP_SERVER_IP}/api/v1/cart`, cart)
+      axios.post(`${process.env.REACT_APP_SERVER_IP}/api/v1/cart`, cart, config)
         .then(response => {
           if (response.status === 200) {
             const cartId = response.data.responseData.cartId;
