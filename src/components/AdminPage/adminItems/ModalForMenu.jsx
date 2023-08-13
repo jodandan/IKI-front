@@ -86,7 +86,8 @@ export const AddMenuModal = ({ onClose, categoryId, onAddMenu }) => {
   );
 };
 
-export const EditMenuModal = ({ // 수정/품질관리 
+// 수정/품질관리 로직
+export const EditMenuModal = ({ 
   selectedMenuId,
   selectedMenuData,
   onClose,
@@ -206,6 +207,39 @@ export const EditCategoryModal = ({ selectedCategoryId,currentCategoryName, onCl
       />
       <InputButton onClick={handleSave}>저장</InputButton>
       <CloseButton onClose={onClose} />
+    </PopupBox>
+  );
+};
+
+export const DeleteMenuModal = ({ menusId, onClose, onDelete }) => {
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDeleteMenu = async () => {
+    try {
+      setIsDeleting(true);
+      await axios.delete(
+        `${process.env.REACT_APP_SERVER_IP}/api/v1/menus/${menusId}` 
+      );
+
+      onDelete(menusId); 
+      onClose();
+    } catch (error) {
+      console.error("Failed to delete menu: ", error);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  return (
+    <PopupBox>
+      <ModalTitle>메뉴를 삭제하시겠습니까?</ModalTitle>
+      <InputButton
+        onClick={handleDeleteMenu}
+        disabled={isDeleting} // 삭제 작업 중에는 버튼 비활성화
+      >
+        {isDeleting ? "삭제 중..." : "확인"}
+      </InputButton>
+      <CloseButton onClose={onClose} disabled={isDeleting} />
     </PopupBox>
   );
 };

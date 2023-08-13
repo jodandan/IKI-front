@@ -25,6 +25,7 @@ import {
   EditCategoryModal,
   AddMenuModal,
   EditMenuModal,
+  DeleteMenuModal,
 } from "./adminItems/ModalForMenu";
 
 export default function AdminMenu() {
@@ -45,6 +46,8 @@ export default function AdminMenu() {
     menusList: [],
   });
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false); // 메뉴 삭제 확인 모달의 가시성 상태
 
   const getMenus = async () => {
     try {
@@ -59,20 +62,6 @@ export default function AdminMenu() {
     }
   };
 
-    const updateCategoryName = async (newName) => {
-    try {
-      await axios.put(
-        `${process.env.REACT_APP_SERVER_IP}/api/v1/category/${categoryId}`,
-        {
-          newCategoryName: newName,
-        }
-      );
-      console.log(`카테고리 이름이 변경되었습니다: ${newName}`);
-      setNewCategoryName(newName);
-    } catch (error) {
-      console.error("카테고리 이름 변경 실패: ", error);
-    }
-  };
   const fetchUpdatedMenus = async () => {
     const menus = await getMenus();
     setMenus(menus);
@@ -116,6 +105,12 @@ export default function AdminMenu() {
     //새로고침으로 get받아오기
   };
 
+  const handleCloseDeleteConfirmation = (menusId) => {
+    setSelectedMenuId(menusId);
+    setIsDeleteConfirmationOpen(true);
+
+  };
+
   return (
     <PageBox>
       <Header title="메뉴 등록" link="/main" />
@@ -126,7 +121,7 @@ export default function AdminMenu() {
       <div style={{ padding: "8px 0", fontWeight: "bold" }}>카테고리명</div>
       <div style={{ display: "flex", alignItems: "center" }}>
         <GroupName>{menus.categoryName}</GroupName>
-        <SmallBtn onClick={handleEditCategory}>수정</SmallBtn>
+        {/* <SmallBtn onClick={handleEditCategory}>수정</SmallBtn> */}
       </div>
       <StyleSheetManager shouldForwardProp={(prop) => prop !== "hide"}>
         <EachMenu hide="true">
@@ -171,7 +166,7 @@ export default function AdminMenu() {
                     <Btn>옵션</Btn>
                   </Link>
                 </Buttons>
-                <XBtn />
+                <XBtn onClick={() => handleCloseDeleteConfirmation(item.menusId)} />
               </OneRow>
             </EachMenu>
           ))}
@@ -198,6 +193,17 @@ export default function AdminMenu() {
           onEditMenu={fetchUpdatedMenus}
         />
       )}
+      {isDeleteConfirmationOpen && (
+        <DeleteMenuModal
+          menusId={selectedMenuId}
+          onClose={() => setIsDeleteConfirmationOpen(false)} 
+          onDelete={(deletedMenuId) => {
+            fetchUpdatedMenus();
+            console.log(`Menu with ID ${deletedMenuId} has been deleted.`);
+          }}
+        />
+      )}
+
     </PageBox>
   );
 }
