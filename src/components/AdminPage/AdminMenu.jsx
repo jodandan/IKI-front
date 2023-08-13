@@ -139,37 +139,44 @@ export default function AdminMenu() {
         </EachMenu>
       </StyleSheetManager>
       <div>
-        {menus.menusList &&
-          menus.menusList.map((item) => (
-            <EachMenu key={item.menusId}>
-              <OneRow>
-                <NameAndPrice>
-                  <Name>{item.menusName}</Name>
-                  <Price>{convertPrice(item.menusPrice)}</Price>
-                </NameAndPrice>
-                <Buttons>
-                  <Btn
-                    onClick={() =>
-                      handleEdit(item.menusId, {
-                        name: item.menusName,
-                        price: item.menusPrice,
-                        soldOut: item.soldOut,
-                      })
-                    }
-                  >
-                    수정/품절관리
-                  </Btn>
-                  <Link
-                    to={`/admin/${categoryId}/${item.menusId}`}
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
-                    <Btn>옵션</Btn>
-                  </Link>
-                </Buttons>
-                <XBtn onClick={() => handleCloseDeleteConfirmation(item.menusId)} />
-              </OneRow>
-            </EachMenu>
-          ))}
+        {menus.menusList ? (
+          menus.menusList.length === 0 ? (
+            <div style={{ padding: "28px 12px" }}>등록된 메뉴가 없어요</div>
+          ) : (
+            menus.menusList.map((item) => (
+              <EachMenu key={item.menusId}>
+                <OneRow>
+                  <NameAndPrice>
+                    <Name>{item.menusName}</Name>
+                    <Price>{convertPrice(item.menusPrice)}</Price>
+                  </NameAndPrice>
+                  <Buttons>
+                    <Btn
+                      onClick={() =>
+                        handleEdit(item.menusId, {
+                          name: item.menusName,
+                          price: item.menusPrice,
+                          soldOut: item.soldOut,
+                        })
+                      }
+                    >
+                      수정/품절관리
+                    </Btn>
+                    <Link
+                      to={`/admin/${categoryId}/${item.menusId}`}
+                      style={{ textDecoration: "none", color: "black" }}
+                    >
+                      <Btn>옵션</Btn>
+                    </Link>
+                  </Buttons>
+                  <XBtn onClick={() => handleCloseDeleteConfirmation(item.menusId)} />
+                </OneRow>
+              </EachMenu>
+            ))
+          )
+        ) : (
+          <div>로딩중...</div>
+        )}
       </div>
       {isAddModalOpen && (
         <AddMenuModal

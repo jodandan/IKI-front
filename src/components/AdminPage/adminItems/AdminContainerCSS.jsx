@@ -23,6 +23,7 @@ export const PopupBox = styled.div`
 export const PageBox = styled.div`
   padding: 0 20px; // 상 우 하 좌
   overflow: auto;
+  height: 100%;
 `;
 
 export const EachCategory = styled.div`
