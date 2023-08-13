@@ -67,33 +67,30 @@ const SoldOutText=styled.div`
 `;
 
 export function MasonryMenuContainer() {
+  //서버로부터 장바구니 데이터 받기
   const [cartMenu, setCartMenu]=useState([1,4,25,38]);//장바구니에 들어있는 menusId 정보
   const cartId=3;
   //api/v1/cart/{cartId}
   //장바구니 데이터 get
-  useEffect(() => {
-    axios.get(`https://iki.digital:8080/api/v1/cart/${cartId}`)
-      .then(response => {
-        const responseData = response.data.responseData;
-        setCartMenu(responseData.orderMenuResponseDtoList.map(menu => menu.orderMenuId));
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, [cartId]);
+  // useEffect(() => {
+  //   axios.get(`https://iki.digital:8080/api/v1/cart/${cartId}`)
+  //     .then(response => {
+  //       const responseData = response.data.responseData;
+  //       setCartMenu(responseData.orderMenuResponseDtoList.map(menu => menu.orderMenuId));
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // }, [cartId]);
 
   const [modalMenusId, setModalMenusId] = useState(null);
   const [menuData, setMenuData]=useState([]);
   const handleMenuItemClick = (menusId) => {  setModalMenusId(menusId); }
-  // json데이터 출력
-  // console.log(menuDataJson);
 
-  // 서버에서부터 데이터 받기
+  // 서버에서부터 메뉴판 데이터 받기
   useEffect(() => {
-    // ownerId에 해당하는 카테고리데이터를 백엔드로부터 GET 요청으로 받아옵니다.
     const ownerId = localStorage.getItem('userId'); // ownerId(userId)값 localStorage에서 받기
     console.log(`owrnerId: ${ownerId}`)
-//api/v1/category/all/{ownerId}
     axios.get(`https://iki.digital:8080/api/v1/category/all/${ownerId}`)
       .then(response => {
         // 요청이 성공적으로 완료되었을 때 실행되는 코드

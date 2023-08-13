@@ -80,7 +80,6 @@ const Option = styled.li`
 //서버로부터 받은 데이터를 카테고리별, 필수순으로 나열해주는 함수
 function transformData(data) {
   const menuOptionsMap = new Map();
-  console.log("transformData함수")
   console.log(data);
   data.menuOptionsList.forEach((option) => {
     const { menuOptionsCategory, mandatory, menuOptionsContents, menuOptionsPrice, menuOptionsId } = option;
@@ -139,9 +138,6 @@ export default function MenuModal({ menusId, onCloseModal, orderUsers }) {
       });
   }, [menusId]);
 
-  //menusId에 따라 모든 정보를 조회하는 api/v1/menuOptions/all/{menusId} 사용하여 json받기
-  // console.log(MenuDetailData);
-
 
   //선택된 옵션들, 옵션 선택시에 selected만 수정하고, 메뉴 제출시에 menuOptionIdList <= selected된 옵션들
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -167,7 +163,7 @@ export default function MenuModal({ menusId, onCloseModal, orderUsers }) {
     });
   };
 
-  //메뉴 옵션 선택 후, 하단 버튼 클릭시 , 서버로 전송하는 것 추가하기++서버로부터 장바구니 데이터 받기
+  //메뉴 옵션 선택 후, 하단 버튼 클릭시 , 서버로 전송 ++ 서버로부터 장바구니 데이터 받기 -> 메뉴판에 표시
   const handleSubmitButton = () => {
 
     //먼저 필수 카테고리를 골랐는지 확인
@@ -180,6 +176,23 @@ export default function MenuModal({ menusId, onCloseModal, orderUsers }) {
       };
       console.log("submit");
       console.log(cart);
+
+      //서버로 전송하기
+      axios.post(`${process.env.REACT_APP_SERVER_IP}/api/v1/cart`, cart)
+        .then(response => {
+          if (response.status === 200) {
+            const cartId = response.data.responseData.cartId;
+            console.log("cartId:", cartId);
+            //로컬스토리지에 cartId 저장
+            localStorage.setItem('cartId', cartId);
+          } else {
+            console.log("Request failed with status code:", response.status);
+          }
+        })
+        .catch(error => {
+          console.error("Error:", error);
+        });
+
       onCloseModal();
     } else {
       console.log("필수 선택을 골라주세요");
