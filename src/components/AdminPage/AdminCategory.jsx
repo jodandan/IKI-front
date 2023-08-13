@@ -85,34 +85,40 @@ export default function AdminCategory() {
     <PageBox>
       <Header title="카테고리 등록" link="/main" />
       <PlusButton onClick={handleAdd}>카테고리 추가</PlusButton>
-      {isLoading ? (
-        <div>로딩중...</div>
-      ) : (
-        categories.map((item) => (
-          <EachCategory key={item.categoryId}>
-            <div style={{ fontSize: "0.8rem", fontWeight: "bold" }}>
-              카테고리명
-            </div>
-            <OneRow>
-              <Name>{item.categoryName}</Name>
-              <Buttons>
-                <Btn
-                  onClick={() => handleEdit(item.categoryId, item.categoryName)}
-                >
-                  수정하기
-                </Btn>
-                <Btn>삭제하기</Btn>
-              </Buttons>
-            </OneRow>
-            <Link
-              to={`/admin/${item.categoryId}`}
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <Btn>메뉴 조회</Btn>
-            </Link>
-          </EachCategory> // key prop 추가하여 각 항목에 고유 키 부여
-        ))
-      )}
+      <div>
+        {isLoading ? (
+          <div>로딩중...</div>
+        ) : categories.length === 0 ? (
+          <div style={{ padding: "10px" }}>등록된 카테고리가 없어요</div>
+        ) : (
+          categories.map((item) => (
+            <EachCategory key={item.categoryId}>
+              <div style={{ fontSize: "0.8rem", fontWeight: "bold" }}>
+                카테고리명
+              </div>
+              <OneRow>
+                <Name>{item.categoryName}</Name>
+                <Buttons>
+                  <Btn
+                    onClick={() =>
+                      handleEdit(item.categoryId, item.categoryName)
+                    }
+                  >
+                    수정하기
+                  </Btn>
+                  <Btn>삭제하기</Btn>
+                </Buttons>
+              </OneRow>
+              <Link
+                to={`/admin/${item.categoryId}`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <Btn>메뉴 조회</Btn>
+              </Link>
+            </EachCategory>
+          ))
+        )}
+      </div>
       {isAddModalOpen && (
         <AddCategoryModal
           ownerId={ownerId}
