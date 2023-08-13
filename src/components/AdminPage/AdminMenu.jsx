@@ -40,7 +40,11 @@ export default function AdminMenu() {
   });
   const [isEditCategoryModalOpen, setIsEditCategoryModalOpen] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState("");
-  const [menus, setMenus] = useState([]);
+  const [menus, setMenus] = useState({
+    categoryName: "",
+    menusList: [],
+  });
+
 
   const getMenus = async () => {
     try {
@@ -55,11 +59,26 @@ export default function AdminMenu() {
     }
   };
 
+    const updateCategoryName = async (newName) => {
+    try {
+      await axios.put(
+        `${process.env.REACT_APP_SERVER_IP}/api/v1/category/${categoryId}`,
+        {
+          newCategoryName: newName,
+        }
+      );
+      console.log(`카테고리 이름이 변경되었습니다: ${newName}`);
+      setNewCategoryName(newName);
+    } catch (error) {
+      console.error("카테고리 이름 변경 실패: ", error);
+    }
+  };
   const fetchUpdatedMenus = async () => {
     const menus = await getMenus();
     setMenus(menus);
   };
 
+  
   useEffect(() => {
     async function fetchMenus() {
       const menus = await getMenus();
@@ -173,9 +192,10 @@ export default function AdminMenu() {
       )}
       {isEditModalOpen && selectedMenuId && (
         <EditMenuModal
-          menuId={selectedMenuId}
+          selectedMenuId={selectedMenuId}
           selectedMenuData={selectedMenuData}
           onClose={handleCloseModal}
+          onEditMenu={fetchUpdatedMenus}
         />
       )}
     </PageBox>

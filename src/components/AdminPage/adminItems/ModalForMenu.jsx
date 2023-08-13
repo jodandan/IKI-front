@@ -86,12 +86,12 @@ export const AddMenuModal = ({ onClose, categoryId, onAddMenu }) => {
   );
 };
 
-export const EditMenuModal = ({
+export const EditMenuModal = ({ // 수정/품질관리 
   selectedMenuId,
   selectedMenuData,
   onClose,
+  onEditMenu,
 }) => {
-  console.log(selectedMenuData);
   const [menuData, setMenuData] = useState({
     name: selectedMenuData.name,
     price: selectedMenuData.price,
@@ -107,12 +107,26 @@ export const EditMenuModal = ({
     }));
   };
 
-  const handleEditMenu = () => {
-    // TODO: 메뉴를 수정하는 기능을 수행하는 코드 작성
-    console.log(menuData); // 예시: 수정된 메뉴 정보를 콘솔에 출력
+  const handleEditMenu = async () => {
+    try {
+      await axios.put(
+        `${process.env.REACT_APP_SERVER_IP}/api/v1/menus/${selectedMenuId}`,
+        {
+          menusName: menuData.name,
+          menusPrice: menuData.price,
+          soldOut: menuData.soldOut,
+        }
+      );
+      console.log(`${menuData.name}(id=${selectedMenuId})가 수정되었습니다.`);
 
-    // 모달 창 닫기
-    onClose();
+      // 메뉴 수정 후 업데이트 함수 호출
+      onEditMenu();
+
+      // 모달 창 닫기
+      onClose();
+    } catch (error) {
+      console.error("메뉴 수정 실패: ", error);
+    }
   };
 
   return (
@@ -154,16 +168,31 @@ export const EditMenuModal = ({
   );
 };
 
-export const EditCategoryModal = ({ currentCategoryName, onClose, onSave }) => {
+//카테고리 이름 수정 함수
+export const EditCategoryModal = ({ selectedCategoryId,currentCategoryName, onClose, onSave }) => {
   const [newCategoryName, setNewCategoryName] = useState(currentCategoryName);
 
   const handleCategoryNameChange = (e) => {
     setNewCategoryName(e.target.value);
   };
 
-  const handleSave = () => {
-    onSave(newCategoryName);
-    onClose();
+  const handleSave = async () => {
+    try {
+      await axios.put(
+        `${process.env.REACT_APP_SERVER_IP}/api/v1/category/${selectedCategoryId}`, // 수정된 URL
+        {
+          categoryName:newCategoryName, // 요청 본문에 categoryName 추가
+        }
+      );
+
+      // 카테고리 이름 변경 후 작업 완료 후 로직 (예: 메시지 출력 등)
+      console.log(`카테고리 이름이 변경되었습니다: ${newCategoryName}`);
+
+      onSave(newCategoryName);
+      onClose();
+    } catch (error) {
+      console.error("카테고리 이름 변경 실패: ", error);
+    }
   };
 
   return (
