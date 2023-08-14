@@ -9,16 +9,17 @@ import { DUMMY_DATA } from "./cartItems/EachItem";
 const FooterCartBox = styled.div`
   position: sticky;
   bottom: 0;
-  border: solid 2px red;
 `;
 
 export default function FooterCart({ onUpdatePrice }) {
   const [toggle, setToggle] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [cartData, setCartData] = useState([]);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     setToggle(!toggle);
-    getCartData();
+    const fetchedCartData = await getCartData();
+    setCartData(fetchedCartData.orderMenuResponseDtoList);
   };
 
   const handleUpdatePrice = (price) => {
@@ -30,13 +31,13 @@ export default function FooterCart({ onUpdatePrice }) {
     0
   );
 
-  const cartId = 1;
+  const cartId = localStorage.getItem("cartId");
   const getCartData = async () => {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_IP}/api/v1/cart/${cartId}`
       );
-      console.log(response.data.responseData);
+      console.log("CART::", response.data.responseData);
       return response.data.responseData;
     } catch (error) {
       console.error("장바구니 불러오기 실패", error);
@@ -54,6 +55,7 @@ export default function FooterCart({ onUpdatePrice }) {
       <CartBackground toggle={toggle} handleClick={handleClick} />
       <FooterCartBox>
         <Cart
+          cartData={cartData}
           toggle={toggle}
           handleClick={handleClick}
           onUpdatePrice={handleUpdatePrice}

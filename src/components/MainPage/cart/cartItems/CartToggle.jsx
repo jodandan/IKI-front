@@ -18,6 +18,7 @@ const CartToggleBox = styled.div`
 `;
 
 export default function CartToggle({
+  cartData,
   toggle,
   height,
   onUpdatePrice,
@@ -50,6 +51,7 @@ export default function CartToggle({
     >
       {showCartDetail && toggle && (
         <CartDetail
+          cartData={cartData}
           height={height}
           onUpdatePrice={onUpdatePrice}
           totalPrice={totalPrice}

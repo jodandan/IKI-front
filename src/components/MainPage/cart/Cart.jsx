@@ -5,10 +5,10 @@ import { styled } from "styled-components";
 const CartBox = styled.div`
   width: 100%;
   position: relative;
-  border: solid 2px blue;
 `;
 
 export default function Cart({
+  cartData,
   toggle,
   handleClick,
   onUpdatePrice,
@@ -28,6 +28,7 @@ export default function Cart({
         height={cart_detail_height}
       />
       <CartToggle
+        cartData={cartData}
         toggle={toggle}
         height={cart_detail_height}
         onUpdatePrice={handleUpdatePrice}

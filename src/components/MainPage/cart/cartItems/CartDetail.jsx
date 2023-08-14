@@ -3,7 +3,7 @@ import convertPrice from "../../../../utils/convertPrice";
 import ItemAmount from "./ItemAmount";
 import { styled } from "styled-components";
 import { FaXmark } from "react-icons/fa6";
-import { DUMMY_DATA } from "./EachItem";
+// import { DUMMY_DATA } from "./EachItem";
 
 const CartDetailBox = styled.div`
   display: flex;
@@ -14,7 +14,6 @@ const CartDetailBox = styled.div`
 `;
 
 const CartItem = styled.div`
-  // border: solid 1px blue;
   display: grid;
   grid-template-columns: 4fr 3fr 1.5fr 2fr 43px;
 
@@ -41,14 +40,16 @@ const CartItem = styled.div`
   }
 `;
 
-export default function CartDetail({ height, onUpdatePrice }) {
-  const [cartItems, setCartItems] = useState(DUMMY_DATA.orders);
+export default function CartDetail({ height, onUpdatePrice, cartData }) {
+  const [cartItems, setCartItems] = useState(cartData);
   // const [totalPrice, setTotalPrice] = useState(0);
 
   const handleRemove = (itemId) => {
     setCartItems((prevCartItems) =>
       prevCartItems.map((item) =>
-        item.id === itemId ? { ...item, delete: true, amount: 0 } : item
+        item.orderMenuId === itemId
+          ? { ...item, delete: true, amount: 0 }
+          : item
       )
     );
   };
@@ -56,7 +57,9 @@ export default function CartDetail({ height, onUpdatePrice }) {
   const handleAmountChange = (itemId, newAmount) => {
     setCartItems((prevCartItems) =>
       prevCartItems.map((item) =>
-        item.id === itemId ? { ...item, amount: newAmount } : item
+        item.orderMenuId === itemId
+          ? { ...item, orderMenuAmount: newAmount }
+          : item
       )
     );
   };
@@ -92,20 +95,26 @@ export default function CartDetail({ height, onUpdatePrice }) {
       {cartItems.map(
         (order) =>
           !order.delete && (
-            <CartItem key={order.id}>
-              <div>{order.name}</div>
-              {order.option ? <div>{order.option}</div> : <div>-</div>}
+            <CartItem key={order.orderMenuId}>
+              <div>{order.orderMenuName}</div>
+              {order.orderMenuOptions ? (
+                <div>{order.orderMenuOptions}</div>
+              ) : (
+                <div>-</div>
+              )}
               <ItemAmount
-                amount={order.amount}
+                amount={order.orderMenuAmount}
                 onChange={(newAmount) =>
-                  handleAmountChange(order.id, newAmount)
+                  handleAmountChange(order.orderMenuId, newAmount)
                 }
               />
-              <div>{convertPrice(order.amount * order.price)}</div>
+              <div>
+                {convertPrice(order.orderMenuAmount * order.orderMenuPrice)}
+              </div>
               <div>
                 <span className="delete">
                   <FaXmark
-                    onClick={() => handleRemove(order.id)}
+                    onClick={() => handleRemove(order.orderMenuId)}
                     style={{ cursor: "pointer" }}
                   />
                 </span>
