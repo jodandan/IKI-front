@@ -7,6 +7,7 @@ import {
   EditOptionCategoryModal,
   AddOptionModal,
   EditOptionModal,
+  DeleteOptionModal,
 } from "./adminItems/ModalForOption";
 import { StyleSheetManager } from "styled-components"; // 다음 warning 제거하려 추가: StyledComponent.ts:139 styled-components: it looks like an unknown prop "hide" is being sent through to the DOM, which will likely trigger a React console error.
 import {
@@ -35,12 +36,15 @@ export default function AdminOption() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedOptionId, setSelectedOptionId] = useState(null);
   const [selectedOptionData, setSelectedOptionData] = useState({
-    optionName: "",
-    optionPrice: 0,
+    menuOptionsCategory: "", // 예를 들어 빈 문자열로 초기화
+    menuOptionsContents: "", // 예를 들어 빈 문자열로 초기화
+    menuOptionsPrice: 0, // 혹은 다른 초기값으로 설정
+    mandatory: false, // 혹은 다른 초기값으로 설정
   });
   const [isEditOptionCategoryModalOpen, setIsEditOptionCategoryModalOpen] =
     useState(false);
   const [options, setOptions] = useState([]);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const getOptions = async () => {
     try {
@@ -88,6 +92,16 @@ export default function AdminOption() {
     setSelectedOptionId(null);
   };
 
+  const handleDelete = (optionId) => {
+    setSelectedOptionId(optionId);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setSelectedOptionId(null);
+  };
+
   return (
     <PageBox>
       <Header title="옵션 등록" link="/main" />
@@ -103,7 +117,7 @@ export default function AdminOption() {
       <div style={{ padding: "8px 0", fontWeight: "bold" }}>메뉴명</div>
       <div style={{ display: "flex", alignItems: "center" }}>
         <GroupName>{options.menusName}</GroupName>
-        <SmallBtn onClick={handleEditOptionCategory}>수정</SmallBtn>
+        {/* <SmallBtn onClick={handleEditOptionCategory}>수정</SmallBtn> */}
       </div>
       <StyleSheetManager shouldForwardProp={(prop) => prop !== "hide"}>
         <EachOption hide={"true"}>
@@ -138,7 +152,7 @@ export default function AdminOption() {
                   <Btn onClick={() => handleEdit(item.menuOptionsId, item)}>
                     수정하기
                   </Btn>
-                  <XBtn />
+                  <XBtn onClick={() => handleDelete(item.menuOptionsId)}/>
                 </OneRow>
               </EachOption>
             ))
@@ -159,11 +173,14 @@ export default function AdminOption() {
           selectedOptionId={selectedOptionId}
           selectedOptionData={selectedOptionData}
           onClose={handleCloseModal}
+          onEditOption={fetchUpdatedOptions}
         />
       )}
-      {isEditOptionCategoryModalOpen && (
-        <EditOptionCategoryModal
-          onClose={() => setIsEditOptionCategoryModalOpen(false)}
+      {isDeleteModalOpen && selectedOptionId && (
+        <DeleteOptionModal
+          selectedOptionId={selectedOptionId}
+          onClose={handleCloseDeleteModal}
+          onDeleteOption={fetchUpdatedOptions}
         />
       )}
     </PageBox>
