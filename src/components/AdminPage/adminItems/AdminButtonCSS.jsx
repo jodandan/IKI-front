@@ -79,8 +79,8 @@ export const XButton = styled.div`
     `}
 `;
 
-export const XBtn = ({ hide }) => (
-  <XButton hide={hide}>
+export const XBtn = ({ onClick,hide }) => (
+  <XButton hide={hide} onClick={onClick}>
     <FaXmark />
   </XButton>
 );

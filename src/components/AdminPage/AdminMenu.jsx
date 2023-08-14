@@ -25,6 +25,7 @@ import {
   EditCategoryModal,
   AddMenuModal,
   EditMenuModal,
+  DeleteMenuModal,
 } from "./adminItems/ModalForMenu";
 
 export default function AdminMenu() {
@@ -40,7 +41,13 @@ export default function AdminMenu() {
   });
   const [isEditCategoryModalOpen, setIsEditCategoryModalOpen] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState("");
-  const [menus, setMenus] = useState([]);
+  const [menus, setMenus] = useState({
+    categoryName: "",
+    menusList: [],
+  });
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false); // 메뉴 삭제 확인 모달의 가시성 상태
 
   const getMenus = async () => {
     try {
@@ -60,6 +67,7 @@ export default function AdminMenu() {
     setMenus(menus);
   };
 
+  
   useEffect(() => {
     async function fetchMenus() {
       const menus = await getMenus();
@@ -97,6 +105,12 @@ export default function AdminMenu() {
     //새로고침으로 get받아오기
   };
 
+  const handleCloseDeleteConfirmation = (menusId) => {
+    setSelectedMenuId(menusId);
+    setIsDeleteConfirmationOpen(true);
+
+  };
+
   return (
     <PageBox>
       <Header title="메뉴 등록" link="/main" />
@@ -107,7 +121,7 @@ export default function AdminMenu() {
       <div style={{ padding: "8px 0", fontWeight: "bold" }}>카테고리명</div>
       <div style={{ display: "flex", alignItems: "center" }}>
         <GroupName>{menus.categoryName}</GroupName>
-        <SmallBtn onClick={handleEditCategory}>수정</SmallBtn>
+        {/* <SmallBtn onClick={handleEditCategory}>수정</SmallBtn> */}
       </div>
       <StyleSheetManager shouldForwardProp={(prop) => prop !== "hide"}>
         <EachMenu hide="true">
@@ -125,37 +139,44 @@ export default function AdminMenu() {
         </EachMenu>
       </StyleSheetManager>
       <div>
-        {menus.menusList &&
-          menus.menusList.map((item) => (
-            <EachMenu key={item.menusId}>
-              <OneRow>
-                <NameAndPrice>
-                  <Name>{item.menusName}</Name>
-                  <Price>{convertPrice(item.menusPrice)}</Price>
-                </NameAndPrice>
-                <Buttons>
-                  <Btn
-                    onClick={() =>
-                      handleEdit(item.menusId, {
-                        name: item.menusName,
-                        price: item.menusPrice,
-                        soldOut: item.soldOut,
-                      })
-                    }
-                  >
-                    수정/품절관리
-                  </Btn>
-                  <Link
-                    to={`/admin/${categoryId}/${item.menusId}`}
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
-                    <Btn>옵션</Btn>
-                  </Link>
-                </Buttons>
-                <XBtn />
-              </OneRow>
-            </EachMenu>
-          ))}
+        {menus.menusList ? (
+          menus.menusList.length === 0 ? (
+            <div style={{ padding: "28px 12px" }}>등록된 메뉴가 없어요</div>
+          ) : (
+            menus.menusList.map((item) => (
+              <EachMenu key={item.menusId}>
+                <OneRow>
+                  <NameAndPrice>
+                    <Name>{item.menusName}</Name>
+                    <Price>{convertPrice(item.menusPrice)}</Price>
+                  </NameAndPrice>
+                  <Buttons>
+                    <Btn
+                      onClick={() =>
+                        handleEdit(item.menusId, {
+                          name: item.menusName,
+                          price: item.menusPrice,
+                          soldOut: item.soldOut,
+                        })
+                      }
+                    >
+                      수정/품절관리
+                    </Btn>
+                    <Link
+                      to={`/admin/${categoryId}/${item.menusId}`}
+                      style={{ textDecoration: "none", color: "black" }}
+                    >
+                      <Btn>옵션</Btn>
+                    </Link>
+                  </Buttons>
+                  <XBtn onClick={() => handleCloseDeleteConfirmation(item.menusId)} />
+                </OneRow>
+              </EachMenu>
+            ))
+          )
+        ) : (
+          <div>로딩중...</div>
+        )}
       </div>
       {isAddModalOpen && (
         <AddMenuModal
@@ -173,11 +194,23 @@ export default function AdminMenu() {
       )}
       {isEditModalOpen && selectedMenuId && (
         <EditMenuModal
-          menuId={selectedMenuId}
+          selectedMenuId={selectedMenuId}
           selectedMenuData={selectedMenuData}
           onClose={handleCloseModal}
+          onEditMenu={fetchUpdatedMenus}
         />
       )}
+      {isDeleteConfirmationOpen && (
+        <DeleteMenuModal
+          menusId={selectedMenuId}
+          onClose={() => setIsDeleteConfirmationOpen(false)} 
+          onDelete={(deletedMenuId) => {
+            fetchUpdatedMenus();
+            console.log(`Menu with ID ${deletedMenuId} has been deleted.`);
+          }}
+        />
+      )}
+
     </PageBox>
   );
 }

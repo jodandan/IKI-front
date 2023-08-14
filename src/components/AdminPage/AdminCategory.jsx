@@ -13,12 +13,14 @@ import {
 import {
   AddCategoryModal,
   EditCategoryModal,
+  DeleteCategoryModal,
 } from "./adminItems/ModalForCategory";
 
 export default function AdminCategory() {
   const [ownerId, setOwnerId] = useState("");
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedCategoryId, setSelectedCategoryId] = useState();
   const [selectedCategoryName, setSelectedCategoryName] = useState("");
   const [categories, setCategories] = useState([]);
@@ -49,6 +51,23 @@ export default function AdminCategory() {
     setCategories(categories);
   };
 
+  // 카테고리 수정 시 업데이트된 카테고리 정보 반영을 위한 함수
+  const handleEditCategoryUpdate = async () => {
+    try {
+      await fetchUpdatedCategories(); // 수정된 카테고리 정보 다시 불러오기
+    } catch (error) {
+      console.error("카테고리 업데이트 반영 실패", error);
+    }
+  };
+
+  const handleDeleteCategoryUpdate = async () => {
+    try {
+      await fetchUpdatedCategories(); // 수정된 카테고리 정보 다시 불러오기
+    } catch (error) {
+      console.error("카테고리 업데이트 반영 실패", error);
+    }
+  };
+
   // 마운트 될 때 get 해와주는 함수
   useEffect(() => {
     async function fetchCategories() {
@@ -73,6 +92,12 @@ export default function AdminCategory() {
     setIsEditModalOpen(true);
   };
 
+  const handleDelete = (categoryId, categoryName) => {
+    setSelectedCategoryId(categoryId);
+    setSelectedCategoryName(categoryName);
+    setIsDeleteModalOpen(true);
+  };
+
   const handleCloseModal = () => {
     setIsAddModalOpen(false);
     setIsEditModalOpen(false);
@@ -85,34 +110,46 @@ export default function AdminCategory() {
     <PageBox>
       <Header title="카테고리 등록" link="/main" />
       <PlusButton onClick={handleAdd}>카테고리 추가</PlusButton>
-      {isLoading ? (
-        <div>로딩중...</div>
-      ) : (
-        categories.map((item) => (
-          <EachCategory key={item.categoryId}>
-            <div style={{ fontSize: "0.8rem", fontWeight: "bold" }}>
-              카테고리명
-            </div>
-            <OneRow>
-              <Name>{item.categoryName}</Name>
-              <Buttons>
-                <Btn
-                  onClick={() => handleEdit(item.categoryId, item.categoryName)}
-                >
-                  수정하기
-                </Btn>
-                <Btn>삭제하기</Btn>
-              </Buttons>
-            </OneRow>
-            <Link
-              to={`/admin/${item.categoryId}`}
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <Btn>메뉴 조회</Btn>
-            </Link>
-          </EachCategory> // key prop 추가하여 각 항목에 고유 키 부여
-        ))
-      )}
+      <div>
+        {isLoading ? (
+          <div>로딩중...</div>
+        ) : categories.length === 0 ? (
+          <div style={{ padding: "10px" }}>등록된 카테고리가 없어요</div>
+        ) : (
+          categories.map((item) => (
+            <EachCategory key={item.categoryId}>
+              <div style={{ fontSize: "0.8rem", fontWeight: "bold" }}>
+                카테고리명
+              </div>
+              <OneRow>
+                <Name>{item.categoryName}</Name>
+                <Buttons>
+                  <Btn
+                    onClick={() =>
+                      handleEdit(item.categoryId, item.categoryName)
+                    }
+                  >
+                    수정하기
+                  </Btn>
+                  <Btn
+                    onClick={() =>
+                      handleDelete(item.categoryId, item.categoryName)
+                    }
+                  >
+                    삭제하기
+                  </Btn>
+                </Buttons>
+              </OneRow>
+              <Link
+                to={`/admin/${item.categoryId}`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <Btn>메뉴 조회</Btn>
+              </Link>
+            </EachCategory>
+          ))
+        )}
+      </div>
       {isAddModalOpen && (
         <AddCategoryModal
           ownerId={ownerId}
@@ -125,6 +162,16 @@ export default function AdminCategory() {
           selectedCategoryId={selectedCategoryId}
           selectedCategoryName={selectedCategoryName}
           onClose={handleCloseModal}
+          onEditCategory={handleEditCategoryUpdate}
+          /* 추가: 카테고리 수정 후 업데이트 함수 전달 */
+        />
+      )}
+      {isDeleteModalOpen && (
+        <DeleteCategoryModal
+          categoryId={selectedCategoryId}
+          categoryName={selectedCategoryName}
+          onClose={() => setIsDeleteModalOpen(false)}
+          onDeleteCategory={handleDeleteCategoryUpdate}
         />
       )}
     </PageBox>
