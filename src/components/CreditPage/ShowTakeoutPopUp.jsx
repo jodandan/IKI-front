@@ -22,8 +22,8 @@ export default function ShowTakeoutPopUp({ onShowFirstPopUp, PaymentCancel }) {
             결제가 진행됩니다.
           </span>
         </IndentedContainer>
-        <PopUpButton onClick={() => onShowFirstPopUp(true)}>포장하기</PopUpButton>
-        <PopUpButton onClick={() => onShowFirstPopUp(true)}>먹고가기</PopUpButton>
+        <PopUpButton onClick={() => {onShowFirstPopUp(true);localStorage.setItem('cartId', null);}}>포장하기</PopUpButton>
+        <PopUpButton onClick={() => {onShowFirstPopUp(true);localStorage.setItem('cartId', null);}}>먹고가기</PopUpButton>
       </PopUpContent>
       </TransParentBackGournd>
   );
