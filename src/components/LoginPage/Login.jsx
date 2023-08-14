@@ -41,7 +41,7 @@ export default function Login() {
         // 로그인 성공
 
         console.log("로그인 성공:", message);
-        
+        localStorage.setItem('cartId', null);
         // responseData에서 userId를 확인하고 할당
         const userId = responseData.ownerId;
         console.log("유저 아이디는:", userId);
