@@ -5,6 +5,7 @@ import { styled } from "styled-components";
 const CartBox = styled.div`
   width: 100%;
   position: relative;
+  border: solid 2px blue;
 `;
 
 export default function Cart({
