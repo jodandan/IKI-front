@@ -4,7 +4,6 @@ import { styled } from "styled-components";
 import CartBackground from "./cartItems/CartBackground";
 import Cart from "./Cart";
 import Footer from "./Footer";
-import { DUMMY_DATA } from "./cartItems/EachItem";
 
 const FooterCartBox = styled.div`
   position: sticky;
@@ -39,7 +38,7 @@ export default function FooterCart({ onUpdatePrice }) {
     }
 
     const fetchedCartData = await getCartData();
-    setCartData(fetchedCartData.orderMenuResponseDtoList);
+    setCartData(fetchedCartData);
   };
 
   const handleCartUpdate = (updatedCart) => {
@@ -51,10 +50,7 @@ export default function FooterCart({ onUpdatePrice }) {
     setTotalPrice(price);
   };
 
-  const initialTotalPrice = DUMMY_DATA.orders.reduce(
-    (total, order) => total + order.amount * order.price,
-    0
-  );
+  const initialTotalPrice = Number(cartData.totalPrice);
 
   const getCartData = async () => {
     try {
@@ -92,57 +88,3 @@ export default function FooterCart({ onUpdatePrice }) {
     </>
   );
 }
-
-// const data = {
-//   "cartId":26,
-//   "orderMenuResponseDtoList":[
-//     {
-//       "orderMenuId":38,
-//       "orderMenuName":"아메",
-//       "orderMenuPrice":2400,
-//       "orderMenuAmount":1,
-//       "deleted":false
-//     },
-//     {
-//       "orderMenuId":39,
-//       "orderMenuName":"딸기",
-//       "orderMenuPrice":5000,
-//       "orderMenuAmount":2,
-//       "deleted":false
-//     },
-//     {
-//       "orderMenuId":40,
-//       "orderMenuName":"바나나",
-//       "orderMenuPrice":1500,
-//       "orderMenuAmount":1,
-//       "deleted":false
-//     }
-//   ]
-// }
-
-// const data = {
-//   cartId: 26,
-//   orderMenuUpdateRequestDtoList: [
-//     {
-//       orderMenuId: 38,
-//       orderMenuName: "아메",
-//       orderMenuPrice: 2400,
-//       orderMenuAmount: 1,
-//       deleted: false,
-//     },
-//     {
-//       orderMenuId: 39,
-//       orderMenuName: "딸기",
-//       orderMenuPrice: 5000,
-//       orderMenuAmount: 1,
-//       deleted: false,
-//     },
-//     {
-//       orderMenuId: 40,
-//       orderMenuName: "바나나",
-//       orderMenuPrice: 1500,
-//       orderMenuAmount: 1,
-//       deleted: false,
-//     },
-//   ],
-// };

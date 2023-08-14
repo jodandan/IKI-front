@@ -45,7 +45,7 @@ export default function CartDetail({
   height,
   onUpdatePrice,
 }) {
-  const changeCartData = cartData.map((item) => ({
+  const changeCartData = cartData.orderMenuResponseDtoList.map((item) => ({
     ...item,
     deleted: false,
     orderMenuOptions: undefined,
