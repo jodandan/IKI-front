@@ -3,7 +3,6 @@ import convertPrice from "../../../../utils/convertPrice";
 import ItemAmount from "./ItemAmount";
 import { styled } from "styled-components";
 import { FaXmark } from "react-icons/fa6";
-// import { DUMMY_DATA } from "./EachItem";
 
 const CartDetailBox = styled.div`
   display: flex;
@@ -40,15 +39,27 @@ const CartItem = styled.div`
   }
 `;
 
-export default function CartDetail({ height, onUpdatePrice, cartData }) {
-  const [cartItems, setCartItems] = useState(cartData);
+export default function CartDetail({
+  cartData,
+  onUpdateCart,
+  height,
+  onUpdatePrice,
+}) {
+  const changeCartData = cartData.map((item) => ({
+    ...item,
+    deleted: false,
+    orderMenuOptions: undefined,
+  }));
+
+  const [cartItems, setCartItems] = useState(changeCartData);
   // const [totalPrice, setTotalPrice] = useState(0);
+  console.log("CARTITEMS", cartItems);
 
   const handleRemove = (itemId) => {
     setCartItems((prevCartItems) =>
       prevCartItems.map((item) =>
         item.orderMenuId === itemId
-          ? { ...item, delete: true, amount: 0 }
+          ? { ...item, deleted: true, orderMenuAmount: 0 }
           : item
       )
     );
@@ -64,6 +75,10 @@ export default function CartDetail({ height, onUpdatePrice, cartData }) {
     );
   };
 
+  useEffect(() => {
+    onUpdateCart(cartItems);
+  }, [cartItems, onUpdateCart]);
+
   // useEffect(() => {
   //   const sum = cartItems.reduce(
   //     (total, item) => total + item.amount * item.price,
@@ -73,7 +88,7 @@ export default function CartDetail({ height, onUpdatePrice, cartData }) {
   // }, [cartItems, onUpdatePrice]);
 
   const totalPrice = cartItems.reduce(
-    (total, order) => total + order.amount * order.price,
+    (total, order) => total + order.orderMenuAmount * order.orderMenuPrice,
     0
   );
 
@@ -94,7 +109,7 @@ export default function CartDetail({ height, onUpdatePrice, cartData }) {
       </CartItem>
       {cartItems.map(
         (order) =>
-          !order.delete && (
+          !order.deleted && (
             <CartItem key={order.orderMenuId}>
               <div>{order.orderMenuName}</div>
               {order.orderMenuOptions ? (

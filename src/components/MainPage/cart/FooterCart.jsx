@@ -15,11 +15,36 @@ export default function FooterCart({ onUpdatePrice }) {
   const [toggle, setToggle] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartData, setCartData] = useState([]);
+  const [updatedCart, setUpdatedCart] = useState([]);
+  const cartId = localStorage.getItem("cartId");
 
   const handleClick = async () => {
-    setToggle(!toggle);
+    const newToggleValue = !toggle;
+    setToggle(newToggleValue);
+
+    if (newToggleValue === false) {
+      try {
+        const res = await axios.put(
+          `${process.env.REACT_APP_SERVER_IP}/api/v1/cart`,
+          {
+            cartId: Number(cartId),
+            orderMenuUpdateRequestDtoList: updatedCart,
+          }
+        );
+        console.log("UPUP", updatedCart);
+        console.log("카트 업데이트 성공::", res);
+      } catch (error) {
+        console.error("Failed to send updated cart data", error);
+      }
+    }
+
     const fetchedCartData = await getCartData();
     setCartData(fetchedCartData.orderMenuResponseDtoList);
+  };
+
+  const handleCartUpdate = (updatedCart) => {
+    setUpdatedCart(updatedCart);
+    /// setCartData(updatedCart);
   };
 
   const handleUpdatePrice = (price) => {
@@ -31,7 +56,6 @@ export default function FooterCart({ onUpdatePrice }) {
     0
   );
 
-  const cartId = localStorage.getItem("cartId");
   const getCartData = async () => {
     try {
       const response = await axios.get(
@@ -56,6 +80,7 @@ export default function FooterCart({ onUpdatePrice }) {
       <FooterCartBox>
         <Cart
           cartData={cartData}
+          onUpdateCart={handleCartUpdate}
           toggle={toggle}
           handleClick={handleClick}
           onUpdatePrice={handleUpdatePrice}
@@ -67,3 +92,57 @@ export default function FooterCart({ onUpdatePrice }) {
     </>
   );
 }
+
+// const data = {
+//   "cartId":26,
+//   "orderMenuResponseDtoList":[
+//     {
+//       "orderMenuId":38,
+//       "orderMenuName":"아메",
+//       "orderMenuPrice":2400,
+//       "orderMenuAmount":1,
+//       "deleted":false
+//     },
+//     {
+//       "orderMenuId":39,
+//       "orderMenuName":"딸기",
+//       "orderMenuPrice":5000,
+//       "orderMenuAmount":2,
+//       "deleted":false
+//     },
+//     {
+//       "orderMenuId":40,
+//       "orderMenuName":"바나나",
+//       "orderMenuPrice":1500,
+//       "orderMenuAmount":1,
+//       "deleted":false
+//     }
+//   ]
+// }
+
+// const data = {
+//   cartId: 26,
+//   orderMenuUpdateRequestDtoList: [
+//     {
+//       orderMenuId: 38,
+//       orderMenuName: "아메",
+//       orderMenuPrice: 2400,
+//       orderMenuAmount: 1,
+//       deleted: false,
+//     },
+//     {
+//       orderMenuId: 39,
+//       orderMenuName: "딸기",
+//       orderMenuPrice: 5000,
+//       orderMenuAmount: 1,
+//       deleted: false,
+//     },
+//     {
+//       orderMenuId: 40,
+//       orderMenuName: "바나나",
+//       orderMenuPrice: 1500,
+//       orderMenuAmount: 1,
+//       deleted: false,
+//     },
+//   ],
+// };
