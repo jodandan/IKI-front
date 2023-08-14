@@ -178,7 +178,8 @@ export default function MenuModal({ menusId, onCloseModal}) {
       const cart = {
         menusId: menusId,
         orderUsersId: cartId ? cartId : null,//최초 장바구니 담기는 null
-        menuOptionsIdList: [...Object.values(selectedRequiredOptions), selectedOptions].join(",")
+        menusOptions: [...Object.values(selectedRequiredOptions), selectedOptions].join(",")
+        // menusOptions: null //메뉴옵션이 없으면 오류
       };
       console.log("submit");
       console.log(cart);
@@ -188,6 +189,7 @@ export default function MenuModal({ menusId, onCloseModal}) {
         .then(response => {
           if (response.status === 200) {
             const cartId = response.data.responseData.cartId;
+            console.log(response.data);
             console.log("cartId:", cartId);
             //로컬스토리지에 cartId 저장
             localStorage.setItem('cartId', cartId);
