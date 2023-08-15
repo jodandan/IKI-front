@@ -15,25 +15,29 @@ export default function FooterCart({ onUpdatePrice }) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartData, setCartData] = useState([]);
   const [updatedCart, setUpdatedCart] = useState([]);
-  const cartId = localStorage.getItem("cartId");
+  //const tempCartId = localStorage.getItem("cartId");
+  //const [cartId, setCartId] = useState(tempCartId);
 
   const handleClick = async () => {
     const newToggleValue = !toggle;
     setToggle(newToggleValue);
+    const cartId = localStorage.getItem("cartId");
 
     if (newToggleValue === false) {
-      try {
-        const res = await axios.put(
-          `${process.env.REACT_APP_SERVER_IP}/api/v1/cart`,
-          {
-            cartId: Number(cartId),
-            orderMenuUpdateRequestDtoList: updatedCart,
-          }
-        );
-        console.log("UPUP", updatedCart);
-        console.log("카트 업데이트 성공::", res);
-      } catch (error) {
-        console.error("Failed to send updated cart data", error);
+      if (updatedCart.length > 0) {
+        try {
+          const res = await axios.put(
+            `${process.env.REACT_APP_SERVER_IP}/api/v1/cart`,
+            {
+              cartId: Number(cartId),
+              orderMenuUpdateRequestDtoList: updatedCart,
+            }
+          );
+          console.log("UPUP", updatedCart);
+          console.log("카트 업데이트 성공::", res);
+        } catch (error) {
+          console.error("Failed to send updated cart data", error);
+        }
       }
     }
 
@@ -50,9 +54,11 @@ export default function FooterCart({ onUpdatePrice }) {
     setTotalPrice(price);
   };
 
-  const initialTotalPrice = Number(cartData.totalPrice);
+  //const initialTotalPrice = Number(cartData.totalPrice);
+  const initialTotalPrice = 0;
 
   const getCartData = async () => {
+    const cartId = localStorage.getItem("cartId");
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_IP}/api/v1/cart/${cartId}`
