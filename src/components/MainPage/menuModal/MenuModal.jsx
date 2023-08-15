@@ -115,7 +115,7 @@ function transformData(data) {
   return sortedData;
 }
 
-export default function MenuModal({ menusId, onCloseModal}) {
+export default function MenuModal({ menusId, onCloseModal, cartMenu, setCartMenu}) {
 
   const [menuOptionData, setMenuOptionData] = useState([]);
   const [transformedData, setTransformedData] = useState([]);
@@ -193,6 +193,10 @@ export default function MenuModal({ menusId, onCloseModal}) {
             console.log("cartId:", cartId);
             //로컬스토리지에 cartId 저장
             localStorage.setItem('cartId', cartId);
+            //메뉴판 UI에 표시
+            if (!cartMenu.includes(menusId)) {
+              setCartMenu(prevCartMenus => [...prevCartMenus, menusId]);
+            }
           } else {
             console.log("Request failed with status code:", response.status);
           }
