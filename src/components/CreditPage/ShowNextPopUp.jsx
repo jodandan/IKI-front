@@ -10,13 +10,15 @@ const Upper = styled.div`
 
 const ShowNextPopUp = ({ onReceiptButtonClick, onPointButtonClick }) => {
   const orderId = localStorage.getItem('orderId');
+  const totalPrice = localStorage.getItem('totalPrice');
+
 
   return (
     <TransParentBackGournd>
       <PopUpContent>
         <Upper>
           <IndentedContainer>
-            <span>00000원</span>
+            <span>{totalPrice}원</span>
           </IndentedContainer>
           <IndentedContainer>
             <span>결제 완료</span>
