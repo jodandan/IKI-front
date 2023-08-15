@@ -13,6 +13,7 @@ const MainBox = styled.div`
 
 export default function Main() {
   const [cartMenu, setCartMenu] = useState([]);
+
   return (
     <>
       <MainBox>
@@ -21,7 +22,7 @@ export default function Main() {
           subtitle="주문하실 메뉴를 선택해주세요"
           link="/admin" />
         <MasonryMenuContainer cartMenu={cartMenu} setCartMenu={setCartMenu}/>
-        <FooterCart />
+        <FooterCart cartMenu={cartMenu} setCartMenu={setCartMenu}/>
       </MainBox>
     </>
   );

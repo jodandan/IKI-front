@@ -10,7 +10,7 @@ const FooterCartBox = styled.div`
   bottom: 0;
 `;
 
-export default function FooterCart({ onUpdatePrice }) {
+export default function FooterCart({ onUpdatePrice, setCartMenu }) {
   const [toggle, setToggle] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartData, setCartData] = useState([]);
@@ -66,6 +66,8 @@ export default function FooterCart({ onUpdatePrice }) {
       localStorage.setItem('totalPrice', totalPrice); // Store orderId in localStorage
       console.log("CART::", response.data.responseData);
 
+      //삭제한 메뉴를 메뉴판 UI에 적용
+      setCartMenu([...new Set(response.data.responseData.orderMenuResponseDtoList.map(item => item.orderMenuName))]);
       return response.data.responseData;
     } catch (error) {
       console.error("장바구니 불러오기 실패", error);

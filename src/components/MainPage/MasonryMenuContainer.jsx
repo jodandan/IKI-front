@@ -80,7 +80,7 @@ export function MasonryMenuContainer({cartMenu, setCartMenu}) {
     axios.get(`https://iki.digital:8080/api/v1/category/all/${ownerId}`)
       .then(response => {
         // 요청이 성공적으로 완료되었을 때 실행되는 코드
-        console.log(response.data); // 서버로부터 받은 데이터 출력
+        // console.log(response.data); // 서버로부터 받은 데이터 출력
         setMenuData(response.data.responseData); // 받은 데이터를 menuData에 저장
       })
       .catch(error => {
@@ -110,7 +110,7 @@ export function MasonryMenuContainer({cartMenu, setCartMenu}) {
                     onClick={() => {
                       if(!menu.soldOut) {handleMenuItemClick(menu.menusId);};
                     }}
-                    selected={cartMenu.includes(menu.menusId)?true:false}
+                    selected={cartMenu.includes(menu.menusName)?true:false}
                     >
                       {menu.soldOut?
                         <SoldOutStyle>
