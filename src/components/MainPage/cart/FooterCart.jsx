@@ -31,8 +31,8 @@ export default function FooterCart({ onUpdatePrice }) {
               orderMenuUpdateRequestDtoList: updatedCart,
             }
           );
-          console.log("UPUP", updatedCart);
-          console.log("카트 업데이트 성공::", res);
+          // console.log("UPUP", updatedCart);
+          // console.log("카트 업데이트 성공::", res);
         } catch (error) {
           console.error("Failed to send updated cart data", error);
         }
@@ -62,7 +62,7 @@ export default function FooterCart({ onUpdatePrice }) {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_IP}/api/v1/cart/${cartId}`
       );
-      console.log("CART::", response.data.responseData);
+      // console.log("CART::", response.data.responseData);
       return response.data.responseData;
     } catch (error) {
       console.error("장바구니 불러오기 실패", error);
