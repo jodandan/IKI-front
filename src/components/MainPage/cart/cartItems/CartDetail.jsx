@@ -45,15 +45,18 @@ export default function CartDetail({
   height,
   onUpdatePrice,
 }) {
-  const changeCartData = cartData.orderMenuResponseDtoList.map((item) => ({
-    ...item,
-    deleted: false,
-    orderMenuOptions: undefined,
-  }));
+  const changeCartData =
+    cartData && cartData.orderMenuResponseDtoList
+      ? cartData.orderMenuResponseDtoList.map((item) => ({
+          ...item,
+          deleted: false,
+          orderMenuOptions: undefined,
+        }))
+      : [];
 
   const [cartItems, setCartItems] = useState(changeCartData);
   // const [totalPrice, setTotalPrice] = useState(0);
-  console.log("CARTITEMS", cartItems);
+  // console.log("CARTITEMS", cartItems);
 
   const handleRemove = (itemId) => {
     setCartItems((prevCartItems) =>
@@ -107,36 +110,42 @@ export default function CartDetail({
           <span className="delete">삭제</span>
         </div>
       </CartItem>
-      {cartItems.map(
-        (order) =>
-          !order.deleted && (
-            <CartItem key={order.orderMenuId}>
-              <div>{order.orderMenuName}</div>
-              {order.orderMenuOptions ? (
-                <div>{order.orderMenuOptions}</div>
-              ) : (
-                <div>-</div>
-              )}
-              <ItemAmount
-                amount={order.orderMenuAmount}
-                onChange={(newAmount) =>
-                  handleAmountChange(order.orderMenuId, newAmount)
-                }
-              />
-              <div>
-                {convertPrice(order.orderMenuAmount * order.orderMenuPrice)}
-              </div>
-              <div>
-                <span className="delete">
-                  <FaXmark
-                    onClick={() => handleRemove(order.orderMenuId)}
-                    style={{ cursor: "pointer" }}
+      <div>
+        {cartItems && cartItems.length > 0 ? (
+          cartItems.map(
+            (order) =>
+              !order.deleted && (
+                <CartItem key={order.orderMenuId}>
+                  <div>{order.orderMenuName}</div>
+                  {order.orderMenuOptions ? (
+                    <div>{order.orderMenuOptions}</div>
+                  ) : (
+                    <div>-</div>
+                  )}
+                  <ItemAmount
+                    amount={order.orderMenuAmount}
+                    onChange={(newAmount) =>
+                      handleAmountChange(order.orderMenuId, newAmount)
+                    }
                   />
-                </span>
-              </div>
-            </CartItem>
+                  <div>
+                    {convertPrice(order.orderMenuAmount * order.orderMenuPrice)}
+                  </div>
+                  <div>
+                    <span className="delete">
+                      <FaXmark
+                        onClick={() => handleRemove(order.orderMenuId)}
+                        style={{ cursor: "pointer" }}
+                      />
+                    </span>
+                  </div>
+                </CartItem>
+              )
           )
-      )}
+        ) : (
+          <div>장바구니가 비어있어요!</div>
+        )}
+      </div>
     </CartDetailBox>
   );
 }

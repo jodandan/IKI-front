@@ -15,30 +15,33 @@ export default function FooterCart({ onUpdatePrice }) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartData, setCartData] = useState([]);
   const [updatedCart, setUpdatedCart] = useState([]);
-  const cartId = localStorage.getItem("cartId");
 
   const handleClick = async () => {
     const newToggleValue = !toggle;
     setToggle(newToggleValue);
+    const cartId = localStorage.getItem("cartId");
 
     if (newToggleValue === false) {
-      try {
-        const res = await axios.put(
-          `${process.env.REACT_APP_SERVER_IP}/api/v1/cart`,
-          {
-            cartId: Number(cartId),
-            orderMenuUpdateRequestDtoList: updatedCart,
-          }
-        );
-        console.log("UPUP", updatedCart);
-        console.log("카트 업데이트 성공::", res);
-      } catch (error) {
-        console.error("Failed to send updated cart data", error);
+      if (updatedCart.length > 0) {
+        try {
+          const res = await axios.put(
+            `${process.env.REACT_APP_SERVER_IP}/api/v1/cart`,
+            {
+              cartId: Number(cartId),
+              orderMenuUpdateRequestDtoList: updatedCart,
+            }
+          );
+          // console.log("UPUP", updatedCart);
+          // console.log("카트 업데이트 성공::", res);
+        } catch (error) {
+          console.error("Failed to send updated cart data", error);
+        }
       }
     }
-
-    const fetchedCartData = await getCartData();
-    setCartData(fetchedCartData);
+    if (cartId !== "null") {
+      const fetchedCartData = await getCartData();
+      setCartData(fetchedCartData);
+    }
   };
 
   const handleCartUpdate = (updatedCart) => {
@@ -50,9 +53,11 @@ export default function FooterCart({ onUpdatePrice }) {
     setTotalPrice(price);
   };
 
-  const initialTotalPrice = Number(cartData.totalPrice);
+  //const initialTotalPrice = Number(cartData.totalPrice);
+  const initialTotalPrice = 0;
 
   const getCartData = async () => {
+    const cartId = localStorage.getItem("cartId");
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_IP}/api/v1/cart/${cartId}`
@@ -60,6 +65,7 @@ export default function FooterCart({ onUpdatePrice }) {
       const totalPrice = response.data.responseData.totalPrice;
       localStorage.setItem('totalPrice', totalPrice); // Store orderId in localStorage
       console.log("CART::", response.data.responseData);
+
       return response.data.responseData;
     } catch (error) {
       console.error("장바구니 불러오기 실패", error);
