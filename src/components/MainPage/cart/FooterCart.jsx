@@ -62,7 +62,10 @@ export default function FooterCart({ onUpdatePrice }) {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_IP}/api/v1/cart/${cartId}`
       );
-      // console.log("CART::", response.data.responseData);
+      const totalPrice = response.data.responseData.totalPrice;
+      localStorage.setItem('totalPrice', totalPrice); // Store orderId in localStorage
+      console.log("CART::", response.data.responseData);
+
       return response.data.responseData;
     } catch (error) {
       console.error("장바구니 불러오기 실패", error);
