@@ -76,20 +76,29 @@ const NumericKey = styled.button`
 export default function Pointpopup({ onClose, onRegister }) {
   const [enteredNumber, setEnteredNumber] = useState("");
   const [completedPoint, setcompletedPoint] = useState(false);
+  const [orderId, setOrderId] = useState(null); // orderId 상태값 추가
+
+  useEffect(() => {
+    // 이전 컴포넌트에서 주문 ID를 설정하면 해당 값을 orderId 상태에 설정
+    setOrderId(localStorage.getItem('orderId')); // 예시: localStorage에 orderId라는 키로 저장된 값을 가져옴
+  }, []);
 
   const handleNumericKeyClick = (number) => {
     setEnteredNumber((prevNumber) => prevNumber + number);
   };
+  const cartId = localStorage.getItem('cartId');
 
   const handleOneStepClearButtonClick = () => {
     setEnteredNumber((prevNumber) => prevNumber.slice(0, -1));
   };
 
   const handleRegisterButtonClick = async () => {
+
+    const orderId = localStorage.getItem('orderId');
     // 입력된 핸드폰 번호와 주문 ID를 기반으로 요청 데이터 생성
     const requestData = {
       customerNumber: enteredNumber,
-      orderId: 1, // 이 부분은 실제로 주문 ID 값을 어떻게 가져올지에 따라 변경해야 합니다.
+      orderId, // 이 부분은 실제로 주문 ID 값을 어떻게 가져올지에 따라 변경해야 합니다.
     };
 
     try {
