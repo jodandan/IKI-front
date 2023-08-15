@@ -57,6 +57,8 @@ export default function FooterCart({ onUpdatePrice }) {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_IP}/api/v1/cart/${cartId}`
       );
+      const totalPrice = response.data.responseData.totalPrice;
+      localStorage.setItem('totalPrice', totalPrice); // Store orderId in localStorage
       console.log("CART::", response.data.responseData);
       return response.data.responseData;
     } catch (error) {
