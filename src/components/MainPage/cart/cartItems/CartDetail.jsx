@@ -56,7 +56,7 @@ export default function CartDetail({
 
   const [cartItems, setCartItems] = useState(changeCartData);
   // const [totalPrice, setTotalPrice] = useState(0);
-  console.log("CARTITEMS", cartItems);
+  // console.log("CARTITEMS", cartItems);
 
   const handleRemove = (itemId) => {
     setCartItems((prevCartItems) =>

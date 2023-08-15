@@ -15,8 +15,6 @@ export default function FooterCart({ onUpdatePrice }) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartData, setCartData] = useState([]);
   const [updatedCart, setUpdatedCart] = useState([]);
-  //const tempCartId = localStorage.getItem("cartId");
-  //const [cartId, setCartId] = useState(tempCartId);
 
   const handleClick = async () => {
     const newToggleValue = !toggle;
@@ -40,9 +38,10 @@ export default function FooterCart({ onUpdatePrice }) {
         }
       }
     }
-
-    const fetchedCartData = await getCartData();
-    setCartData(fetchedCartData);
+    if (cartId !== "null") {
+      const fetchedCartData = await getCartData();
+      setCartData(fetchedCartData);
+    }
   };
 
   const handleCartUpdate = (updatedCart) => {
