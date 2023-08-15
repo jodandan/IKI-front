@@ -8,12 +8,18 @@ const CartBox = styled.div`
 `;
 
 export default function Cart({
+  cartData,
+  onUpdateCart,
   toggle,
   handleClick,
   onUpdatePrice,
   totalPrice,
 }) {
   const cart_detail_height = 40; //vh
+
+  const handleCartUpdate = (updatedCart) => {
+    onUpdateCart(updatedCart);
+  };
 
   const handleUpdatePrice = (price) => {
     onUpdatePrice(price);
@@ -27,6 +33,8 @@ export default function Cart({
         height={cart_detail_height}
       />
       <CartToggle
+        cartData={cartData}
+        onUpdateCart={handleCartUpdate}
         toggle={toggle}
         height={cart_detail_height}
         onUpdatePrice={handleUpdatePrice}
