@@ -208,7 +208,7 @@ export default function MenuModal({ menusId, onCloseModal }) {
           if (response.status === 200) {
             const cartId = response.data.responseData.cartId;
             console.log(response.data);
-            console.log("cartId:", cartId);
+            // console.log("cartId:", cartId);
             //로컬스토리지에 cartId 저장
             localStorage.setItem("cartId", cartId);
 
