@@ -225,7 +225,7 @@ export default function MenuModal({
               .then((response) => {
                 if (response.status === 200) {
                   const totalPrice = response.data.responseData.totalPrice;
-                  console.log("총가격:", totalPrice);
+                  // console.log("총가격:", totalPrice);
                   setTotalPrice(totalPrice);
                   onUpdatePrice(totalPrice);
                   onCloseModal(); // Move this inside the .then() block
