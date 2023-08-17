@@ -22,24 +22,25 @@ const Item = styled.div`
   break-inside: avoid;
   margin-bottom: 10px;
 `;
-const CategoryTltleStyle=styled.h2`
+const CategoryTltleStyle = styled.h2`
   padding: 10px;
   font-size: var(--font-big);
   font-weight: bold;
-`
-const MenuStyle=styled.li`
+`;
+const MenuStyle = styled.li`
   display: flex;
   justify-content: space-between;
   padding: 4px 10px;
   margin: 4px 0;
   /* 선택된 메뉴 블록의 스타일*/
-  ${({ selected}) =>
-    selected && `
+  ${({ selected }) =>
+    selected &&
+    `
     background-color: var(--secondary-color);
   `}
-`
-const SoldOutStyle=styled.div`
-  display: flex; 
+`;
+const SoldOutStyle = styled.div`
+  display: flex;
   position: relative;
   justify-content: space-between;
   width: 100%;
@@ -53,23 +54,23 @@ const SoldOutLine = styled.div`
   height: 1px;
   background-color: black;
 `;
-const SoldOutText=styled.div`
+const SoldOutText = styled.div`
   position: absolute;
   padding: 4px 6px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-weight: bold;
-  border-radius:5px;
+  border-radius: 5px;
   font-size: var(--font-small);
   color: var(--primary-color);
   background-color: var(--secondary-color);
 `;
 
-export function MasonryMenuContainer() {
+export function MasonryMenuContainer({ onUpdatePrice }) {
   //서버로부터 장바구니 데이터 받기
-  const [cartMenu, setCartMenu]=useState([1,4,25,38]);//장바구니에 들어있는 menusId 정보
-  const cartId=3;
+  const [cartMenu, setCartMenu] = useState([1, 4, 25, 38]); //장바구니에 들어있는 menusId 정보
+  const cartId = 3;
   //api/v1/cart/{cartId}
   //장바구니 데이터 get
   // useEffect(() => {
@@ -84,26 +85,33 @@ export function MasonryMenuContainer() {
   // }, [cartId]);
 
   const [modalMenusId, setModalMenusId] = useState(null);
-  const [menuData, setMenuData]=useState([]);
-  const handleMenuItemClick = (menusId) => {  setModalMenusId(menusId); }
+  const [menuData, setMenuData] = useState([]);
+
+  const handleMenuItemClick = (menusId) => {
+    setModalMenusId(menusId);
+  };
 
   // 서버에서부터 메뉴판 데이터 받기
   useEffect(() => {
-    const ownerId = localStorage.getItem('userId'); // ownerId(userId)값 localStorage에서 받기
-    console.log(`owrnerId: ${ownerId}`)
-    axios.get(`https://iki.digital:8080/api/v1/category/all/${ownerId}`)
-      .then(response => {
+    const ownerId = localStorage.getItem("userId"); // ownerId(userId)값 localStorage에서 받기
+    console.log(`owrnerId: ${ownerId}`);
+    axios
+      .get(`https://iki.digital:8080/api/v1/category/all/${ownerId}`)
+      .then((response) => {
         // 요청이 성공적으로 완료되었을 때 실행되는 코드
         console.log(response.data); // 서버로부터 받은 데이터 출력
         setMenuData(response.data.responseData); // 받은 데이터를 menuData에 저장
       })
-      .catch(error => {
+      .catch((error) => {
         // 요청이 실패했을 때 실행되는 코드
         console.error(error);
       });
   }, []);
 
-  
+  const handlePriceUpdate = (totalPrice) => {
+    onUpdatePrice(totalPrice);
+  };
+
   const handleCloseModal = () => {
     setModalMenusId(null);
   };
@@ -114,35 +122,46 @@ export function MasonryMenuContainer() {
         {/* 데이터 받기 */}
         {menuData.map((category) => (
           <Item key={category.categoryId}>
-            <div style={{padding: "10px 0"}}>
-            <CategoryTltleStyle>{category.categoryName}</CategoryTltleStyle>
-            <ul style={{marginTop: "5px"}}>
-              {category.menusList.map((menu, index) => (
-                  <MenuStyle 
+            <div style={{ padding: "10px 0" }}>
+              <CategoryTltleStyle>{category.categoryName}</CategoryTltleStyle>
+              <ul style={{ marginTop: "5px" }}>
+                {category.menusList.map((menu, index) => (
+                  <MenuStyle
                     key={index}
-                    id="menuStyle" 
+                    id="menuStyle"
                     onClick={() => {
-                      if(!menu.soldOut) {handleMenuItemClick(menu.menusId);};
-                    }}
-                    selected={cartMenu.includes(menu.menusId)?true:false}
-                    >
-                      {menu.soldOut?
-                        <SoldOutStyle>
-                          <SoldOutLine/>
-                          <SoldOutText>품절</SoldOutText>
-                          <div>{menu.menusName}</div><div>{menu.menusPrice}원</div>
-                        </SoldOutStyle>:
-                        <><div>{menu.menusName}</div><div>{menu.menusPrice}원</div></>
+                      if (!menu.soldOut) {
+                        handleMenuItemClick(menu.menusId);
                       }
+                    }}
+                    selected={cartMenu.includes(menu.menusId) ? true : false}
+                  >
+                    {menu.soldOut ? (
+                      <SoldOutStyle>
+                        <SoldOutLine />
+                        <SoldOutText>품절</SoldOutText>
+                        <div>{menu.menusName}</div>
+                        <div>{menu.menusPrice}원</div>
+                      </SoldOutStyle>
+                    ) : (
+                      <>
+                        <div>{menu.menusName}</div>
+                        <div>{menu.menusPrice}원</div>
+                      </>
+                    )}
                   </MenuStyle>
-              ))}
-            </ul>
+                ))}
+              </ul>
             </div>
           </Item>
         ))}
       </List>
       {modalMenusId && (
-        <MenuModal menusId={modalMenusId} onCloseModal={handleCloseModal}/>
+        <MenuModal
+          menusId={modalMenusId}
+          onCloseModal={handleCloseModal}
+          onUpdatePrice={handlePriceUpdate}
+        />
       )}
     </ListBox>
   );

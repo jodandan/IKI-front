@@ -10,11 +10,20 @@ const FooterCartBox = styled.div`
   bottom: 0;
 `;
 
-export default function FooterCart({ onUpdatePrice }) {
+export default function FooterCart({ onUpdatePrice, updatedPrice }) {
   const [toggle, setToggle] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartData, setCartData] = useState([]);
   const [updatedCart, setUpdatedCart] = useState([]);
+  const [recentlyUpdatedPrice, setRecentlyUpdatedPrice] = useState(0);
+
+  useEffect(() => {
+    if (totalPrice > updatedPrice) {
+      setRecentlyUpdatedPrice(totalPrice);
+    } else {
+      setRecentlyUpdatedPrice(updatedPrice);
+    }
+  }, [totalPrice, updatedPrice]);
 
   const handleClick = async () => {
     const newToggleValue = !toggle;
@@ -87,7 +96,9 @@ export default function FooterCart({ onUpdatePrice }) {
           onUpdatePrice={handleUpdatePrice}
           totalPrice={initialTotalPrice}
         />
-        <Footer totalPrice={totalPrice} />
+        {/* <div>장바구니 업데이트시 반영:{totalPrice}</div>
+        <div>메뉴에서 담을시 반영:{updatedPrice}</div> */}
+        <Footer totalPrice={recentlyUpdatedPrice} />
         {/* <div style={{ background: "pink" }}>{totalPrice}</div> */}
       </FooterCartBox>
     </>

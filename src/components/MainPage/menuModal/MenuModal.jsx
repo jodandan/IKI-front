@@ -125,9 +125,10 @@ function transformData(data) {
   return sortedData;
 }
 
-export default function MenuModal({ menusId, onCloseModal }) {
+export default function MenuModal({ menusId, onCloseModal, onUpdatePrice }) {
   const [menuOptionData, setMenuOptionData] = useState([]);
   const [transformedData, setTransformedData] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(null);
 
   //서버로부터 옵션 데이터 받기
   useEffect(() => {
@@ -182,7 +183,6 @@ export default function MenuModal({ menusId, onCloseModal }) {
   };
   //메뉴 옵션 선택 후, 하단 버튼 클릭시 , 서버로 전송 ++ 서버로부터 장바구니 데이터 받기 -> 메뉴판에 표시
   const handleSubmitButton = () => {
-    //먼저 필수 카테고리를 골랐는지 확인
     if (
       mandatoryOptionCategories.every((value) =>
         Object.prototype.hasOwnProperty.call(selectedRequiredOptions, value)
@@ -196,7 +196,6 @@ export default function MenuModal({ menusId, onCloseModal }) {
           ...Object.values(selectedRequiredOptions),
           selectedOptions,
         ].join(","),
-        // menusOptions: null //메뉴옵션이 없으면 오류
       };
       console.log("submit");
       console.log(cart);
@@ -208,20 +207,29 @@ export default function MenuModal({ menusId, onCloseModal }) {
           if (response.status === 200) {
             const cartId = response.data.responseData.cartId;
             console.log(response.data);
-            // console.log("cartId:", cartId);
-            //로컬스토리지에 cartId 저장
             localStorage.setItem("cartId", cartId);
 
             axios
-              .get(`${process.env.REACT_APP_SERVER_IP}/api/v1/cart/${cartId}`)
-              .then((cartResponse) => {
-                console.log(
-                  "CARTT:",
-                  cartResponse.data.responseData.totalPrice
-                );
+              .get(
+                `${process.env.REACT_APP_SERVER_IP}/api/v1/cart/${cartId}`,
+                config
+              )
+              .then((response) => {
+                if (response.status === 200) {
+                  const totalPrice = response.data.responseData.totalPrice;
+                  console.log("총가격:", totalPrice);
+                  setTotalPrice(totalPrice);
+                  onUpdatePrice(totalPrice);
+                  onCloseModal(); // Move this inside the .then() block
+                } else {
+                  console.log(
+                    "Request failed with status code:",
+                    response.status
+                  );
+                }
               })
-              .catch((cartError) => {
-                console.error("Error fetching cart data:", cartError);
+              .catch((error) => {
+                console.error("Error:", error);
               });
           } else {
             console.log("Request failed with status code:", response.status);
@@ -230,12 +238,12 @@ export default function MenuModal({ menusId, onCloseModal }) {
         .catch((error) => {
           console.error("Error:", error);
         });
-
-      onCloseModal();
-    } else {
-      console.log("필수 선택을 골라주세요");
     }
   };
+
+  useEffect(() => {
+    onUpdatePrice(totalPrice);
+  }, [totalPrice, onUpdatePrice]);
 
   return (
     <>

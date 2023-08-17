@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { styled } from "styled-components";
 import Header from "../header/Header";
 import { MasonryMenuContainer } from "./MasonryMenuContainer";
@@ -11,15 +12,26 @@ const MainBox = styled.div`
 `;
 
 export default function Main() {
+  const [updatedPrice, setUpdatedPrice] = useState(0);
+
+  const handlePriceUpdate = (updatedPrice) => {
+    setUpdatedPrice(Number(updatedPrice));
+  };
+
+  // const updateMainPrice = (newPrice) => {
+  //   setUpdatedPrice(newPrice)
+  // }
+
   return (
     <>
       <MainBox>
         <Header
           title="주문하기"
           subtitle="주문하실 메뉴를 선택해주세요"
-          link="/admin" />
-        <MasonryMenuContainer />
-        <FooterCart />
+          link="/admin"
+        />
+        <MasonryMenuContainer onUpdatePrice={handlePriceUpdate} />
+        <FooterCart updatedPrice={updatedPrice} />
       </MainBox>
     </>
   );
