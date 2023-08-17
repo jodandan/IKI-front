@@ -9,12 +9,16 @@ const Upper = styled.div`
 
 
 const ShowNextPopUp = ({ onReceiptButtonClick, onPointButtonClick }) => {
+  const orderId = localStorage.getItem('orderId');
+  const totalPrice = localStorage.getItem('totalPrice');
+
+
   return (
     <TransParentBackGournd>
       <PopUpContent>
         <Upper>
           <IndentedContainer>
-            <span>00000원</span>
+            <span>{totalPrice}원</span>
           </IndentedContainer>
           <IndentedContainer>
             <span>결제 완료</span>
@@ -23,7 +27,7 @@ const ShowNextPopUp = ({ onReceiptButtonClick, onPointButtonClick }) => {
         <PopUpButton onClick={onReceiptButtonClick}>영수증 받기</PopUpButton>
         <PopUpButton onClick={onPointButtonClick}>포인트 적립하기</PopUpButton>
         <IndentedContainer>
-          <span>주문 번호: 00번</span>
+          <span>주문 번호: {orderId}번</span>
         </IndentedContainer>
       </PopUpContent>
     </TransParentBackGournd>

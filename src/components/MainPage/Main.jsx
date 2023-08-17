@@ -12,15 +12,12 @@ const MainBox = styled.div`
 `;
 
 export default function Main() {
+  const [cartMenu, setCartMenu] = useState([]);
   const [updatedPrice, setUpdatedPrice] = useState(0);
 
   const handlePriceUpdate = (updatedPrice) => {
     setUpdatedPrice(Number(updatedPrice));
   };
-
-  // const updateMainPrice = (newPrice) => {
-  //   setUpdatedPrice(newPrice)
-  // }
 
   return (
     <>
@@ -30,8 +27,16 @@ export default function Main() {
           subtitle="주문하실 메뉴를 선택해주세요"
           link="/admin"
         />
-        <MasonryMenuContainer onUpdatePrice={handlePriceUpdate} />
-        <FooterCart updatedPrice={updatedPrice} />
+        <MasonryMenuContainer
+          cartMenu={cartMenu}
+          setCartMenu={setCartMenu}
+          onUpdatePrice={handlePriceUpdate}
+        />
+        <FooterCart
+          cartMenu={cartMenu}
+          setCartMenu={setCartMenu}
+          updatedPrice={updatedPrice}
+        />
       </MainBox>
     </>
   );

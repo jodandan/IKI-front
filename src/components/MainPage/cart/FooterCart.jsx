@@ -10,7 +10,11 @@ const FooterCartBox = styled.div`
   bottom: 0;
 `;
 
-export default function FooterCart({ onUpdatePrice, updatedPrice }) {
+export default function FooterCart({
+  onUpdatePrice,
+  setCartMenu,
+  updatedPrice,
+}) {
   const [toggle, setToggle] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartData, setCartData] = useState([]);
@@ -71,7 +75,18 @@ export default function FooterCart({ onUpdatePrice, updatedPrice }) {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_IP}/api/v1/cart/${cartId}`
       );
+      const totalPrice = response.data.responseData.totalPrice;
+      localStorage.setItem("totalPrice", totalPrice); // Store orderId in localStorage
       // console.log("CART::", response.data.responseData);
+
+      //삭제한 메뉴를 메뉴판 UI에 적용
+      setCartMenu([
+        ...new Set(
+          response.data.responseData.orderMenuResponseDtoList.map(
+            (item) => item.orderMenuName
+          )
+        ),
+      ]);
       return response.data.responseData;
     } catch (error) {
       console.error("장바구니 불러오기 실패", error);

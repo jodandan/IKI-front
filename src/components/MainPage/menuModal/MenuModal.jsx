@@ -125,11 +125,17 @@ function transformData(data) {
   return sortedData;
 }
 
-export default function MenuModal({ menusId, onCloseModal, onUpdatePrice }) {
+export default function MenuModal({
+  menusId,
+  onCloseModal,
+  cartMenu,
+  setCartMenu,
+  onUpdatePrice,
+}) {
   const [menuOptionData, setMenuOptionData] = useState([]);
   const [transformedData, setTransformedData] = useState([]);
+  const [menusName, setMenusName] = useState("");
   const [totalPrice, setTotalPrice] = useState(null);
-
   //서버로부터 옵션 데이터 받기
   useEffect(() => {
     //api/v1/menus/{menusId}
@@ -137,11 +143,13 @@ export default function MenuModal({ menusId, onCloseModal, onUpdatePrice }) {
       .get(`${process.env.REACT_APP_SERVER_IP}/api/v1/menus/${menusId}`)
       .then((response) => {
         // 요청이 성공적으로 완료되었을 때 실행되는 코드
-        console.log(response.data); // 서버로부터 받은 데이터 출력
+        // console.log(response.data); // 서버로부터 받은 데이터 출력
         const menuOptionData = response.data.responseData;
         const transformedData = transformData(menuOptionData);
         setMenuOptionData(menuOptionData);
         setTransformedData(transformedData);
+        //선택된 메뉴의 이름은?
+        setMenusName(menuOptionData.menusName);
       })
       .catch((error) => {
         // 요청이 실패했을 때 실행되는 코드
@@ -231,6 +239,9 @@ export default function MenuModal({ menusId, onCloseModal, onUpdatePrice }) {
               .catch((error) => {
                 console.error("Error:", error);
               });
+            if (!cartMenu.includes(menusName)) {
+              setCartMenu((prevCartMenus) => [...prevCartMenus, menusName]);
+            }
           } else {
             console.log("Request failed with status code:", response.status);
           }

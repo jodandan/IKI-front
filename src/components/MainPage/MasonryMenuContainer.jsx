@@ -67,22 +67,8 @@ const SoldOutText = styled.div`
   background-color: var(--secondary-color);
 `;
 
-export function MasonryMenuContainer({ onUpdatePrice }) {
+export function MasonryMenuContainer({ cartMenu, setCartMenu, onUpdatePrice }) {
   //서버로부터 장바구니 데이터 받기
-  const [cartMenu, setCartMenu] = useState([1, 4, 25, 38]); //장바구니에 들어있는 menusId 정보
-  const cartId = 3;
-  //api/v1/cart/{cartId}
-  //장바구니 데이터 get
-  // useEffect(() => {
-  //   axios.get(`https://iki.digital:8080/api/v1/cart/${cartId}`)
-  //     .then(response => {
-  //       const responseData = response.data.responseData;
-  //       setCartMenu(responseData.orderMenuResponseDtoList.map(menu => menu.orderMenuId));
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  // }, [cartId]);
 
   const [modalMenusId, setModalMenusId] = useState(null);
   const [menuData, setMenuData] = useState([]);
@@ -99,7 +85,7 @@ export function MasonryMenuContainer({ onUpdatePrice }) {
       .get(`https://iki.digital:8080/api/v1/category/all/${ownerId}`)
       .then((response) => {
         // 요청이 성공적으로 완료되었을 때 실행되는 코드
-        console.log(response.data); // 서버로부터 받은 데이터 출력
+        // console.log(response.data); // 서버로부터 받은 데이터 출력
         setMenuData(response.data.responseData); // 받은 데이터를 menuData에 저장
       })
       .catch((error) => {
@@ -134,7 +120,7 @@ export function MasonryMenuContainer({ onUpdatePrice }) {
                         handleMenuItemClick(menu.menusId);
                       }
                     }}
-                    selected={cartMenu.includes(menu.menusId) ? true : false}
+                    selected={cartMenu.includes(menu.menusName) ? true : false}
                   >
                     {menu.soldOut ? (
                       <SoldOutStyle>
@@ -160,6 +146,8 @@ export function MasonryMenuContainer({ onUpdatePrice }) {
         <MenuModal
           menusId={modalMenusId}
           onCloseModal={handleCloseModal}
+          cartMenu={cartMenu}
+          setCartMenu={setCartMenu}
           onUpdatePrice={handlePriceUpdate}
         />
       )}
