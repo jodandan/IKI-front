@@ -11,6 +11,8 @@ const ItemAmountBox = styled.div`
   .amount {
     padding: 0 5px;
   }
+
+  white-space: nowrap;
 `;
 
 export default function ItemAmount({ amount, onChange }) {
