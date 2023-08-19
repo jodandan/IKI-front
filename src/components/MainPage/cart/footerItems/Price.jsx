@@ -8,12 +8,16 @@ const PriceBox = styled.div`
 `;
 
 export default function Price({ price }) {
-  return (
-    <PriceBox>
-      <span style={{ padding: "1px 5px", borderBottom: "solid 2px black" }}>
-        {convertPrice(price)}
-      </span>
-      <span style={{ padding: "1px 3px" }}>원</span>
-    </PriceBox>
-  );
+  if (typeof price === "number") {
+    return (
+      <PriceBox>
+        <span style={{ padding: "1px 5px", borderBottom: "solid 2px black" }}>
+          {convertPrice(price)}
+        </span>
+        <span style={{ padding: "1px 3px" }}>원</span>
+      </PriceBox>
+    );
+  } else {
+    return <div>{price}</div>;
+  }
 }

@@ -135,7 +135,7 @@ export default function MenuModal({
   const [menuOptionData, setMenuOptionData] = useState([]);
   const [transformedData, setTransformedData] = useState([]);
   const [menusName, setMenusName] = useState("");
-  const [totalPrice, setTotalPrice] = useState(null);
+  const [totalPrice, setTotalPrice] = useState("메뉴를 선택해주세요");
   //서버로부터 옵션 데이터 받기
   useEffect(() => {
     //api/v1/menus/{menusId}

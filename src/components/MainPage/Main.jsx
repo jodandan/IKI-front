@@ -16,7 +16,7 @@ export default function Main() {
   const [updatedPrice, setUpdatedPrice] = useState(0);
 
   const handlePriceUpdate = (updatedPrice) => {
-    setUpdatedPrice(Number(updatedPrice));
+    setUpdatedPrice(updatedPrice);
   };
 
   return (
