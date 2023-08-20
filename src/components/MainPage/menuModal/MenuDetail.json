@@ -1,0 +1,97 @@
+{
+  "menusId": 1,
+  "menusCategory": "커피",
+  "menusName": "아메리카노",
+  "menusPrice": 3000,
+  "soldOut": true,
+  "menuOptionsList": [
+    {
+      "menuOptionsId": 1,
+      "menusName": "아메리카노",
+      "menuOptionsCategory": "온도",
+      "menuOptionsContents": "차갑게",
+      "menuOptionsPrice": 0,
+      "mandatory": true
+    },
+    {
+      "menuOptionsId": 2,
+      "menusName": "아메리카노",
+      "menuOptionsCategory": "펄",
+      "menuOptionsContents": "화이트펄 추가",
+      "menuOptionsPrice": 1000,
+      "mandatory": false
+    },
+    {
+      "menuOptionsId": 3,
+      "menusName": "아메리카노",
+      "menuOptionsCategory": "샷",
+      "menuOptionsContents": "샷추가",
+      "menuOptionsPrice": 500,
+      "mandatory": false
+    },
+    {
+      "menuOptionsId": 4,
+      "menusName": "아메리카노",
+      "menuOptionsCategory": "펄",
+      "menuOptionsContents": "타피오카 펄 추가",
+      "menuOptionsPrice": 800,
+      "mandatory": false
+    },
+    {
+      "menuOptionsId": 5,
+      "menusName": "아메리카노",
+      "menuOptionsCategory": "온도",
+      "menuOptionsContents": "따뜻하게",
+      "menuOptionsPrice": 0,
+      "mandatory": true
+    },
+    {
+      "menuOptionsId": 6,
+      "menusName": "아메리카노",
+      "menuOptionsCategory": "샷",
+      "menuOptionsContents": "더블 샷 추가",
+      "menuOptionsPrice": 700,
+      "mandatory": false
+    },
+    {
+      "menuOptionsId": 7,
+      "menusName": "아메리카노",
+      "menuOptionsCategory": "기타 추가",
+      "menuOptionsContents": "바닐라 시럽 추가",
+      "menuOptionsPrice": 600,
+      "mandatory": false
+    },
+    {
+      "menuOptionsId": 8,
+      "menusName": "아메리카노",
+      "menuOptionsCategory": "기타 추가",
+      "menuOptionsContents": "휘핑크림 추가",
+      "menuOptionsPrice": 500,
+      "mandatory": false
+    },
+    {
+      "menuOptionsId": 9,
+      "menusName": "아메리카노",
+      "menuOptionsCategory": "사이즈",
+      "menuOptionsContents": "작게",
+      "menuOptionsPrice": -1000,
+      "mandatory": true
+    },
+    {
+      "menuOptionsId": 10,
+      "menusName": "아메리카노",
+      "menuOptionsCategory": "사이즈",
+      "menuOptionsContents": "보통",
+      "menuOptionsPrice": 0,
+      "mandatory": true
+    },
+    {
+      "menuOptionsId": 11,
+      "menusName": "아메리카노",
+      "menuOptionsCategory": "사이즈",
+      "menuOptionsContents": "크게",
+      "menuOptionsPrice": 1000,
+      "mandatory": true
+    }
+  ]
+}
