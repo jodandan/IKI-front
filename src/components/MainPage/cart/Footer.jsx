@@ -20,7 +20,7 @@ export default function Footer({ totalPrice }) {
   return (
     <FooterBox>
       <Price price={totalPrice} />
-      <PayButton />
+      {typeof price === "number" && <PayButton />}
     </FooterBox>
   );
 }

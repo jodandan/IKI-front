@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import CartIndex from "./cartItems/CartIndex";
 import CartToggle from "./cartItems/CartToggle";
 import { styled } from "styled-components";
