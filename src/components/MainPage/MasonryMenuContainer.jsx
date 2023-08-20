@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-// import menuDataJson from "./MenuItemData.json";
 import { useEffect, useState } from "react";
 import MenuModal from "./menuModal/MenuModal";
 import axios from "axios";

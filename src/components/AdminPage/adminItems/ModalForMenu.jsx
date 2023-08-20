@@ -87,7 +87,7 @@ export const AddMenuModal = ({ onClose, categoryId, onAddMenu }) => {
 };
 
 // 수정/품질관리 로직
-export const EditMenuModal = ({ 
+export const EditMenuModal = ({
   selectedMenuId,
   selectedMenuData,
   onClose,
@@ -118,7 +118,7 @@ export const EditMenuModal = ({
           soldOut: menuData.soldOut,
         }
       );
-      console.log(`${menuData.name}(id=${selectedMenuId})가 수정되었습니다.`);
+      // console.log(`${menuData.name}(id=${selectedMenuId})가 수정되었습니다.`);
 
       // 메뉴 수정 후 업데이트 함수 호출
       onEditMenu();
@@ -170,7 +170,12 @@ export const EditMenuModal = ({
 };
 
 //카테고리 이름 수정 함수
-export const EditCategoryModal = ({ selectedCategoryId,currentCategoryName, onClose, onSave }) => {
+export const EditCategoryModal = ({
+  selectedCategoryId,
+  currentCategoryName,
+  onClose,
+  onSave,
+}) => {
   const [newCategoryName, setNewCategoryName] = useState(currentCategoryName);
 
   const handleCategoryNameChange = (e) => {
@@ -182,12 +187,12 @@ export const EditCategoryModal = ({ selectedCategoryId,currentCategoryName, onCl
       await axios.put(
         `${process.env.REACT_APP_SERVER_IP}/api/v1/category/${selectedCategoryId}`, // 수정된 URL
         {
-          categoryName:newCategoryName, // 요청 본문에 categoryName 추가
+          categoryName: newCategoryName, // 요청 본문에 categoryName 추가
         }
       );
 
       // 카테고리 이름 변경 후 작업 완료 후 로직 (예: 메시지 출력 등)
-      console.log(`카테고리 이름이 변경되었습니다: ${newCategoryName}`);
+      // console.log(`카테고리 이름이 변경되었습니다: ${newCategoryName}`);
 
       onSave(newCategoryName);
       onClose();
@@ -218,10 +223,10 @@ export const DeleteMenuModal = ({ menusId, onClose, onDelete }) => {
     try {
       setIsDeleting(true);
       await axios.delete(
-        `${process.env.REACT_APP_SERVER_IP}/api/v1/menus/${menusId}` 
+        `${process.env.REACT_APP_SERVER_IP}/api/v1/menus/${menusId}`
       );
 
-      onDelete(menusId); 
+      onDelete(menusId);
       onClose();
     } catch (error) {
       console.error("Failed to delete menu: ", error);
