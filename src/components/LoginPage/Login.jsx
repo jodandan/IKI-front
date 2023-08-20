@@ -2,9 +2,8 @@ import { Link, useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { useState } from "react";
-import Select from "./Select";
 
-import { LoginBox, Logos, SubmitBtn, FormInput, FormLabel, Trash} from './loginItems/loginItemCSS';
+import { LoginBox, Logos, SubmitBtn, FormInput, Trash} from './loginItems/loginItemCSS';
 
 const SignUpForm = styled.form`
   display: flex;
@@ -50,7 +49,6 @@ export default function Login() {
         // 로컬 스토리지에서 읽기 
         // const userId = localStorage.getItem('userId');
 
-        const { ownerId, ownerName, shopName } = responseData;
     
         // 토큰 등의 처리를 추가할 수 있습니다.
         // localStorage.setItem("token", token);
@@ -72,7 +70,6 @@ export default function Login() {
       <LoginBox>
         <SignUpForm onSubmit={handleLogin}>
           <Logos/>
-            {/* <FormLabel htmlFor="nickname" /> */}
             <FormInput
               type="text"
               name="nickname"
@@ -81,7 +78,6 @@ export default function Login() {
               required
               placeholder="아이디"
             />
-            {/* <FormLabel htmlFor="password" /> */}
             <FormInput
               type="password"
               name="password"

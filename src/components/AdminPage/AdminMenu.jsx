@@ -6,7 +6,6 @@ import { StyleSheetManager } from "styled-components"; // 다음 warning 제거�
 import convertPrice from "../../utils/convertPrice";
 import {
   PlusButton,
-  SmallBtn,
   Btn,
   XBtn,
   BackBtn,
@@ -46,7 +45,6 @@ export default function AdminMenu() {
     menusList: [],
   });
 
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false); // 메뉴 삭제 확인 모달의 가시성 상태
 
   const getMenus = async () => {
