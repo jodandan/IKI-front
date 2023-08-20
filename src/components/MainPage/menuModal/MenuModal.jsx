@@ -1,7 +1,6 @@
 import { styled } from "styled-components";
 import { useState, useEffect } from "react";
 import axios from "axios";
-// import MenuDetailData from "./MenuDetail.json"//더미데이터(서버로 받은 데이터)
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -84,7 +83,7 @@ const Option = styled.li`
 //서버로부터 받은 데이터를 카테고리별, 필수순으로 나열해주는 함수
 function transformData(data) {
   const menuOptionsMap = new Map();
-  console.log(data);
+  // console.log(data);
   data.menuOptionsList.forEach((option) => {
     const {
       menuOptionsCategory,
@@ -205,8 +204,8 @@ export default function MenuModal({
           selectedOptions,
         ].join(","),
       };
-      console.log("submit");
-      console.log(cart);
+      // console.log("submit");
+      // console.log(cart);
 
       //서버로 전송하기
       axios
@@ -214,7 +213,7 @@ export default function MenuModal({
         .then((response) => {
           if (response.status === 200) {
             const cartId = response.data.responseData.cartId;
-            console.log(response.data);
+            // console.log(response.data);
             localStorage.setItem("cartId", cartId);
 
             axios

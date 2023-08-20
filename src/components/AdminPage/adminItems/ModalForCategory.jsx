@@ -72,9 +72,9 @@ export const EditCategoryModal = ({
       );
 
       // 수정 성공 시 모달 창 닫고 업데이트 반영
-      console.log(
-        `${selectedCategoryName}(id=${selectedCategoryId})를 ${newCategoryName}으로 업데이트 되었습니다.`
-      );
+      // console.log(
+      //   `${selectedCategoryName}(id=${selectedCategoryId})를 ${newCategoryName}으로 업데이트 되었습니다.`
+      // );
       onClose();
       onEditCategory();
     } catch (error) {
@@ -95,13 +95,18 @@ export const EditCategoryModal = ({
   );
 };
 
-export const DeleteCategoryModal = ({ categoryId, categoryName, onClose, onDeleteCategory }) => {
+export const DeleteCategoryModal = ({
+  categoryId,
+  categoryName,
+  onClose,
+  onDeleteCategory,
+}) => {
   const handleDeleteCategory = async () => {
     try {
       await axios.delete(
         `${process.env.REACT_APP_SERVER_IP}/api/v1/category/${categoryId}`
       );
-      console.log(`${categoryName}(id=${categoryId})가 삭제되었습니다.`);
+      // console.log(`${categoryName}(id=${categoryId})가 삭제되었습니다.`);
       onClose();
       onDeleteCategory();
     } catch (error) {
@@ -117,5 +122,3 @@ export const DeleteCategoryModal = ({ categoryId, categoryName, onClose, onDelet
     </PopupBox>
   );
 };
-
-

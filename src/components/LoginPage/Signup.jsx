@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import styled from "styled-components";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import { LoginBox, Logos, FormInput, FormLabel, SubmitBtn, Trash } from './loginItems/loginItemCSS';
+import {
+  LoginBox,
+  Logos,
+  FormInput,
+  FormLabel,
+  SubmitBtn,
+  Trash,
+} from "./loginItems/loginItemCSS";
 
 const SignUpForm = styled.div`
   display: flex;
@@ -40,36 +47,37 @@ const ErrorMessage = styled.p`
   color: red;
 `;
 
-
 const SignUp = () => {
-  const [ownerName, setOwnerName] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [shopName, setShopName] = useState('');
+  const [ownerName, setOwnerName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [shopName, setShopName] = useState("");
 
   const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-  
+
     // 비밀번호 일치 체크
     // if (password !== confirmPassword) {
     //   alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
     //   return;
     // }
-  
+
     try {
-      const response = await axios.post('https://iki.digital:8080/api/v1/owner', {
-        ownerName,
-        password,
-        shopName,
-      });
-  
-      console.log('회원가입이 성공하였습니다!', response.data);
-      navigate('/'); // 로그인 페이지로 리다이렉트
-  
+      const response = await axios.post(
+        "https://iki.digital:8080/api/v1/owner",
+        {
+          ownerName,
+          password,
+          shopName,
+        }
+      );
+
+      // console.log('회원가입이 성공하였습니다!', response.data);
+      navigate("/"); // 로그인 페이지로 리다이렉트
     } catch (error) {
-      console.error('회원가입에 실패하였습니다!', error);
+      console.error("회원가입에 실패하였습니다!", error);
     }
   };
 
@@ -85,9 +93,8 @@ const SignUp = () => {
           value={ownerName}
           onChange={(e) => setOwnerName(e.target.value)}
           required
-          placeholder='아이디'
+          placeholder="아이디"
         />
-
 
         {/* <FormLabel htmlFor="password">비밀번호</FormLabel> */}
         <FormInput
@@ -96,7 +103,7 @@ const SignUp = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          placeholder='비밀번호'
+          placeholder="비밀번호"
         />
         {/* <FormLabel htmlFor="confirmPassword">비밀번호 확인</FormLabel> */}
         {/* <FormInput
@@ -115,7 +122,7 @@ const SignUp = () => {
           value={shopName}
           onChange={(e) => setShopName(e.target.value)}
           required
-          placeholder='상호명'
+          placeholder="상호명"
         />
 
         <>
