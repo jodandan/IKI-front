@@ -80,7 +80,7 @@ export function MasonryMenuContainer({ cartMenu, setCartMenu, onUpdatePrice }) {
   // 서버에서부터 메뉴판 데이터 받기
   useEffect(() => {
     const ownerId = localStorage.getItem("userId"); // ownerId(userId)값 localStorage에서 받기
-    console.log(`owrnerId: ${ownerId}`);
+    // console.log(`owrnerId: ${ownerId}`);
     axios
       .get(`https://iki.digital:8080/api/v1/category/all/${ownerId}`)
       .then((response) => {
