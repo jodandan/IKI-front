@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { styled } from "styled-components";
 import { useEffect } from "react";
 import { PopUpContent } from "./PopupStyleComponents";
-import axios from "axios"; 
+import axios from "axios";
 
 const SmallPopUpContent = styled(PopUpContent)`
   height: 50vh;
@@ -32,7 +32,6 @@ const Input = styled.input`
   border-bottom-width: 1;
 `;
 
-
 const RegisterButton = styled.button`
   position: absolute;
   transform: translateX(110%);
@@ -45,7 +44,7 @@ const RegisterButton = styled.button`
   background: var(--primary-color);
   color: white;
   font-weight: bold;
-  &:hover{
+  &:hover {
     background-color: white;
     color: var(--primary-color);
     outline: 2px solid var(--primary-color);
@@ -59,15 +58,15 @@ const NumericKeypad = styled.div`
   margin-top: 1rem;
 `;
 const NumericKey = styled.button`
-  border:0;
+  border: 0;
   width: 5rem;
   height: 5rem;
   padding: 1rem;
   border-radius: 5px;
   background: var(--secondary-color);
   font-size: 1.3rem;
-  
-  &:hover{
+
+  &:hover {
     color: var(--primary-color);
     outline: 2px solid var(--primary-color);
   }
@@ -80,21 +79,20 @@ export default function Pointpopup({ onClose, onRegister }) {
 
   useEffect(() => {
     // 이전 컴포넌트에서 주문 ID를 설정하면 해당 값을 orderId 상태에 설정
-    setOrderId(localStorage.getItem('orderId')); // 예시: localStorage에 orderId라는 키로 저장된 값을 가져옴
+    setOrderId(localStorage.getItem("orderId")); // 예시: localStorage에 orderId라는 키로 저장된 값을 가져옴
   }, []);
 
   const handleNumericKeyClick = (number) => {
     setEnteredNumber((prevNumber) => prevNumber + number);
   };
-  const cartId = localStorage.getItem('cartId');
+  const cartId = localStorage.getItem("cartId");
 
   const handleOneStepClearButtonClick = () => {
     setEnteredNumber((prevNumber) => prevNumber.slice(0, -1));
   };
 
   const handleRegisterButtonClick = async () => {
-
-    const orderId = localStorage.getItem('orderId');
+    const orderId = localStorage.getItem("orderId");
     // 입력된 핸드폰 번호와 주문 ID를 기반으로 요청 데이터 생성
     const requestData = {
       customerNumber: enteredNumber,
@@ -111,7 +109,7 @@ export default function Pointpopup({ onClose, onRegister }) {
       // 응답 데이터 확인 및 포인트 적립 완료 처리
       if (response.data.httpStatus === 200) {
         setcompletedPoint(true);
-        console.log("포인트적립 완료", response);
+        // console.log("포인트적립 완료", response);
       }
     } catch (error) {
       console.error("Error while saving points:", error);
@@ -134,8 +132,11 @@ export default function Pointpopup({ onClose, onRegister }) {
   return (
     <SmallPopUpContent>
       <SmallPopUpHeader>
-        포인트 적립하기<br />
-        <p style={{ fontSize: "1rem", paddingTop: "15px" }}>휴대폰 전화번호를 입력해 주세요</p>
+        포인트 적립하기
+        <br />
+        <p style={{ fontSize: "1rem", paddingTop: "15px" }}>
+          휴대폰 전화번호를 입력해 주세요
+        </p>
       </SmallPopUpHeader>
       <InputContainer>
         <Input type="text" value={enteredNumber} readOnly />
@@ -153,27 +154,34 @@ export default function Pointpopup({ onClose, onRegister }) {
         <NumericKey onClick={() => handleNumericKeyClick("7")}>7</NumericKey>
         <NumericKey onClick={() => handleNumericKeyClick("8")}>8</NumericKey>
         <NumericKey onClick={() => handleNumericKeyClick("9")}>9</NumericKey>
-        <NumericKey 
+        <NumericKey
           onClick={() => handleNumericKeyClick("010")}
-          style={{backgroundColor:"rgba(0, 46, 207, 0.65)", color: "white"}}
-          >010
+          style={{ backgroundColor: "rgba(0, 46, 207, 0.65)", color: "white" }}
+        >
+          010
         </NumericKey>
         <NumericKey onClick={() => handleNumericKeyClick("0")}>0</NumericKey>
-        <NumericKey 
+        <NumericKey
           onClick={handleOneStepClearButtonClick}
-          style={{fontSize:"1rem"}}> 지우기</NumericKey>
+          style={{ fontSize: "1rem" }}
+        >
+          {" "}
+          지우기
+        </NumericKey>
       </NumericKeypad>
       {completedPoint && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          backgroundColor: "rgba(0, 46, 207, 0.65)",
-          zIndex: 9999,
-          color: 'white',
-        }}>
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 46, 207, 0.65)",
+            zIndex: 9999,
+            color: "white",
+          }}
+        >
           <PopUpContent>
             <span>포인트 적립 완료</span>
           </PopUpContent>
