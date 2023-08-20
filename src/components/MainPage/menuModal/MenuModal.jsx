@@ -1,7 +1,6 @@
 import { styled } from "styled-components";
 import { useState, useEffect } from "react";
 import axios from "axios";
-// import MenuDetailData from "./MenuDetail.json"//더미데이터(서버로 받은 데이터)
 
 const ModalBackground = styled.div`
   position: fixed;
