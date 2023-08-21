@@ -267,7 +267,7 @@ export default function OldCategory({
           메뉴추가
         </MenuPlus>
       </div>
-      <button onClick={() => console.log(getMenuData())}>GetMenuData</button>
+      <button onClick>GetMenuData</button>
     </CategoryBox>
   );
 }

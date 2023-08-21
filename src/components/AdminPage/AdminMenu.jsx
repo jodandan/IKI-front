@@ -4,12 +4,14 @@ import axios from "axios";
 import Header from "../header/Header";
 import { StyleSheetManager } from "styled-components"; // 다음 warning 제거하려 추가: StyledComponent.ts:139 styled-components: it looks like an unknown prop "hide" is being sent through to the DOM, which will likely trigger a React console error.
 import convertPrice from "../../utils/convertPrice";
+
 import {
   PlusButton,
   Btn,
   XBtn,
   BackBtn,
 } from "./adminItems/AdminButtonCSS";
+
 import {
   PageBox,
   GroupName,
@@ -45,7 +47,9 @@ export default function AdminMenu() {
     menusList: [],
   });
 
+
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false); // 메뉴 삭제 확인 모달의 가시성 상태
+
 
   const getMenus = async () => {
     try {
@@ -65,7 +69,6 @@ export default function AdminMenu() {
     setMenus(menus);
   };
 
-  
   useEffect(() => {
     async function fetchMenus() {
       const menus = await getMenus();
@@ -80,7 +83,7 @@ export default function AdminMenu() {
 
   const handleEditCategoryName = (newName) => {
     // TODO: 백엔드에서 카테고리 이름 업데이트
-    console.log(`카테고리 이름 업데이트됨: ${newName}`);
+    // console.log(`카테고리 이름 업데이트됨: ${newName}`);
     // 선택 사항으로 UI를 업데이트하여 변경 사항을 반영할 수 있습니다.
     setNewCategoryName(newName);
   };
@@ -106,7 +109,6 @@ export default function AdminMenu() {
   const handleCloseDeleteConfirmation = (menusId) => {
     setSelectedMenuId(menusId);
     setIsDeleteConfirmationOpen(true);
-
   };
 
   return (
@@ -167,7 +169,9 @@ export default function AdminMenu() {
                       <Btn>옵션</Btn>
                     </Link>
                   </Buttons>
-                  <XBtn onClick={() => handleCloseDeleteConfirmation(item.menusId)} />
+                  <XBtn
+                    onClick={() => handleCloseDeleteConfirmation(item.menusId)}
+                  />
                 </OneRow>
               </EachMenu>
             ))
@@ -201,14 +205,13 @@ export default function AdminMenu() {
       {isDeleteConfirmationOpen && (
         <DeleteMenuModal
           menusId={selectedMenuId}
-          onClose={() => setIsDeleteConfirmationOpen(false)} 
+          onClose={() => setIsDeleteConfirmationOpen(false)}
           onDelete={(deletedMenuId) => {
             fetchUpdatedMenus();
-            console.log(`Menu with ID ${deletedMenuId} has been deleted.`);
+            // console.log(`Menu with ID ${deletedMenuId} has been deleted.`);
           }}
         />
       )}
-
     </PageBox>
   );
 }

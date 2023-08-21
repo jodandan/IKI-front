@@ -59,16 +59,7 @@ export const AddOptionModal = ({ onClose, menusId, onAddOption }) => {
   return (
     <PopupBox>
       <ModalTitle>옵션명/가격을 입력해주세요.</ModalTitle>
-
-      <CheckboxLabel>
-        <input
-          type="checkbox"
-          checked={isRequired}
-          onChange={handleRequiredChange}
-        />
-        필수
-      </CheckboxLabel>
-      <Box>
+      <Box style={{flexWrap:"wrap", }}>
         <TitlePlusInput>
           <InputTitle>종류</InputTitle>
           <Input
@@ -97,6 +88,14 @@ export const AddOptionModal = ({ onClose, menusId, onAddOption }) => {
           />
         </TitlePlusInput>
       </Box>
+      <CheckboxLabel>
+        <input
+          type="checkbox"
+          checked={isRequired}
+          onChange={handleRequiredChange}
+        />
+        필수
+      </CheckboxLabel>
       <InputButton onClick={handleAddOption}>입력 완료</InputButton>
       <CloseButton onClose={onClose} />
     </PopupBox>
@@ -110,10 +109,18 @@ export const EditOptionModal = ({
   onClose,
   onEditOption,
 }) => {
-  const [inputIsRequired, setInputIsRequired] = useState(selectedOptionData.mandatory);
-  const [inputOptionGroup, setInputOptionGroup] = useState(selectedOptionData.menuOptionsCategory);
-  const [inputOptionName, setInputOptionName] = useState(selectedOptionData.menuOptionsContents);
-  const [inputOptionPrice, setInputOptionPrice] = useState(selectedOptionData.menuOptionsPrice);
+  const [inputIsRequired, setInputIsRequired] = useState(
+    selectedOptionData.mandatory
+  );
+  const [inputOptionGroup, setInputOptionGroup] = useState(
+    selectedOptionData.menuOptionsCategory
+  );
+  const [inputOptionName, setInputOptionName] = useState(
+    selectedOptionData.menuOptionsContents
+  );
+  const [inputOptionPrice, setInputOptionPrice] = useState(
+    selectedOptionData.menuOptionsPrice
+  );
 
   const handleRequiredChange = (e) => {
     setInputIsRequired(e.target.checked);
@@ -145,7 +152,7 @@ export const EditOptionModal = ({
         updatedOptionData
       );
 
-      console.log("옵션 수정됨:", response.data);
+      // console.log("옵션 수정됨:", response.data);
       // 모달 창 닫기
       onClose();
       onEditOption();
@@ -157,15 +164,8 @@ export const EditOptionModal = ({
   return (
     <PopupBox>
       <ModalTitle>옵션 정보를 수정해주세요.</ModalTitle>
-      <CheckboxLabel>
-        <input
-          type="checkbox"
-          checked={inputIsRequired}
-          onChange={handleRequiredChange}
-        />
-        필수
-      </CheckboxLabel>
-      <Box>
+      
+      <Box style={{flexWrap:"wrap"}}>
         <TitlePlusInput>
           <InputTitle>종류</InputTitle>
           <Input
@@ -194,6 +194,14 @@ export const EditOptionModal = ({
           />
         </TitlePlusInput>
       </Box>
+      <CheckboxLabel>
+        <input
+          type="checkbox"
+          checked={inputIsRequired}
+          onChange={handleRequiredChange}
+        />
+        필수
+      </CheckboxLabel>
       <InputButton onClick={handleEditOption}>입력 완료</InputButton>
       <CloseButton onClose={onClose} />
     </PopupBox>
@@ -201,14 +209,18 @@ export const EditOptionModal = ({
 };
 
 // 옵션 삭제 로직=================================================================
-export const DeleteOptionModal = ({ onClose, onDeleteOption, selectedOptionId }) => {
+export const DeleteOptionModal = ({
+  onClose,
+  onDeleteOption,
+  selectedOptionId,
+}) => {
   const handleDeleteOption = async () => {
     try {
       const response = await axios.delete(
         `${process.env.REACT_APP_SERVER_IP}/api/v1/menuoptions/${selectedOptionId}`
       );
 
-      console.log("옵션 삭제됨:", response.data);
+      // console.log("옵션 삭제됨:", response.data);
       // 모달 창 닫기
       onClose();
       onDeleteOption();
