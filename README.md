@@ -1,70 +1,36 @@
-# Getting Started with Create React App
+# 익키 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+익숙한 키오스크의 앞글자를 따서 익키라는 이름을 사용하게 되었습니다.
+기존의 키오스크 화면은 불필요한 화면전환이 많다고 생각되어 꼭 필요한 화면인 메뉴판만 넣어서 개발하게 되었습니다.
 
-## Available Scripts
+# 로그인 UI 
 
-In the project directory, you can run:
+![image](https://github.com/jodandan/IKI-front/assets/113495894/06a81f6d-52e4-408d-b5bf-3a72ae3b3c58)
+![image](https://github.com/jodandan/IKI-front/assets/113495894/6f2a0626-9e2e-428d-9ab8-db77de23cd89)
+![image](https://github.com/jodandan/IKI-front/assets/113495894/7bbd769f-8499-49a1-abef-1920682bf204)
+<br>
+# 메인화면 UI 
 
-### `npm start`
+![image](https://github.com/jodandan/IKI-front/assets/113495894/224ed6aa-b33d-4cd9-9289-ab6a5536389b)
+![image](https://github.com/jodandan/IKI-front/assets/113495894/fbc25ce7-41b7-40e4-a313-a4348728c3a6)
+![image](https://github.com/jodandan/IKI-front/assets/113495894/bebd9e13-ea50-490f-ad72-e7de898169d0)
+![image](https://github.com/jodandan/IKI-front/assets/113495894/d22741d8-e9b0-486d-95db-9af01fe4f708)
+![image](https://github.com/jodandan/IKI-front/assets/113495894/aa603a2a-497b-488d-99c7-9d4a6dd7df05)
+![image](https://github.com/jodandan/IKI-front/assets/113495894/368e7e5d-f7b1-48a1-a340-0bfc41c6502e)
+<br>
+# 관리자화면 UI 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![image](https://github.com/jodandan/IKI-front/assets/113495894/13f62e07-c2be-4c9b-987e-4de8f17fd26c)
+![image](https://github.com/jodandan/IKI-front/assets/113495894/202cb815-55bf-4c83-89e2-f26d6deeee5b)
+![image](https://github.com/jodandan/IKI-front/assets/113495894/b4463b03-7942-4899-ae7a-572342670d79)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# 본인이 맡은 업무
 
-### `npm test`
+로그인페이지 기능 구현, API 연동 <br> 
+결제진행 모든 페이지 기능 구현, API 연동,<br> 
+관리자페이지 Update, Delete 기능 API 연동, <br> 
+등 문서화, 코드 리팩토링 진행
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# 👇 Notion 링크 
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+https://www.notion.so/IKI-0b804dba91dc47d4aa32ebca97b9450d
