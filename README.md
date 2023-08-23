@@ -1,4 +1,4 @@
-<div align="center">
+
 
 # 익키 
 ![image](https://github.com/jodandan/IKI-front/assets/113495894/5b5365b0-4d06-4f3d-af9e-e18c60e749d8)
@@ -25,28 +25,32 @@
 
 개발 기간 : 2023/07/07~ 2023/08/31
 
-______________________________________________________________________________________________________________
+
+<br>
 
 # 페이지 별 기능
 
 
+
  ## 목차 
-  - [로그인UI](#로그인UI)
+ - [로그인UI](#로그인UI)
+ - [메인화면 UI](#메인화면UI)
+ - [관리자화면 UI](#관리자화면UI)
 
-
-##
-로그인 UI 
-
-![image](https://github.com/jodandan/IKI-front/assets/113495894/06a81f6d-52e4-408d-b5bf-3a72ae3b3c58)
-![image](https://github.com/jodandan/IKI-front/assets/113495894/6f2a0626-9e2e-428d-9ab8-db77de23cd89)
-![image](https://github.com/jodandan/IKI-front/assets/113495894/7bbd769f-8499-49a1-abef-1920682bf204)<br>
+## 로그인 UI 
 
 **로그인&회원가입 페이지** <br>
 
 아이디, 비밀번호를 입력해 로그인을 하고,  <br>
 아이디, 비밀번호, 상호명을 입력 받아 회원가입을 진행합니다.<br>
 이후 진입페이지 에서는 주문 페이지와 관리자 페이지를 선택해 이동할 수 있습니다. <br>
-진입 후 로고를 여러번 눌러 페이지 간 이동이 가능합니다.
+진입 후 로고를 여러번 눌러 페이지 간 이동이 가능합니다.<br>
+
+![image](https://github.com/jodandan/IKI-front/assets/113495894/06a81f6d-52e4-408d-b5bf-3a72ae3b3c58)
+![image](https://github.com/jodandan/IKI-front/assets/113495894/6f2a0626-9e2e-428d-9ab8-db77de23cd89)
+![image](https://github.com/jodandan/IKI-front/assets/113495894/7bbd769f-8499-49a1-abef-1920682bf204)<br>
+
+
 
 
 
@@ -140,4 +144,4 @@ ________________________________________________________________________________
 
 https://www.notion.so/IKI-0b804dba91dc47d4aa32ebca97b9450d
 
-</div>
+
