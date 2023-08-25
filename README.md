@@ -117,8 +117,9 @@ https://github.com/IKI-UMC/back-end
 등록된 카테고리명은 리스트 형식으로 표시되며 수정하기 버튼을 통해 이름을 입력하고 수정할 수 있습니다.<br>
 화면 상단 카테고리 추가를 선택하면 리스트에 새 카테고리가 추가됩니다. <br>
 메뉴 조회를 통해 메뉴 관리 메이지로 이동할 수 있습니다.<br>
-
+상단에 있는 추가버튼에 연결되어 있는 팝업창을 이용하여, 카테고리를 추가 할 수 있습니다.<br>
 ![image](https://github.com/jodandan/IKI-front/assets/113495894/13f62e07-c2be-4c9b-987e-4de8f17fd26c)
+![image](https://github.com/jodandan/IKI-front/assets/113495894/f76b5424-db7b-459d-9eb8-7ad1022b4db9)
 
 <br>
 
@@ -127,10 +128,10 @@ https://github.com/IKI-UMC/back-end
 등록된 메뉴명과 가격이 리스트로 표시됩니다. <br>
 메뉴 추가를 통해 새 메뉴를 등록할 수 있습니다. <br>
 수정/품절관리 팝업창으로 이름과 가격을 입력할 수 있고, 품절 여부 체크 또한 가능합니다.<br>
-
 <br>
 
 ![image](https://github.com/jodandan/IKI-front/assets/113495894/202cb815-55bf-4c83-89e2-f26d6deeee5b)
+![image](https://github.com/jodandan/IKI-front/assets/113495894/1568cfbd-a8a4-41b7-89f3-959765c91039)
 
 <br>
 
@@ -142,6 +143,7 @@ https://github.com/IKI-UMC/back-end
 필수 카테고리에 체크하면 필수 옵션으로 등록됩니다.<br>
 
 ![image](https://github.com/jodandan/IKI-front/assets/113495894/b4463b03-7942-4899-ae7a-572342670d79)
+![image](https://github.com/jodandan/IKI-front/assets/113495894/6c38fb99-7103-48ee-ad28-6e6aef808afa)
 
 <br>
 
