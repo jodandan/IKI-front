@@ -1,10 +1,22 @@
 
 
-# 익키 
+# 프로젝트 소개
 ![image](https://github.com/jodandan/IKI-front/assets/113495894/5b5365b0-4d06-4f3d-af9e-e18c60e749d8)
 <br>
 익숙한 키오스크의 앞글자를 따서 익키라는 이름을 사용하게 되었습니다. <br>
 기존의 키오스크 화면은 불필요한 화면전환이 많다고 생각되어 꼭 필요한 화면인 메뉴판만 넣어서 개발하게 되었습니다.
+<br>
+
+# 👇 같이 연계한 백엔드 레포
+https://github.com/IKI-UMC/back-end
+
+<br>
+
+# 개발 환경 및 사용 기술 
+프론트 엔드 : React, Styled-Component <br>
+백엔드 :                            <br> 
+협업 툴 : Discord, Figma , Notion  <br>
+<br>
 
 # 프로젝트 목적
 *만 55세 이상 고령층의 디지털 기술 이용 수준은 43.1점(100점 만점)으로 서울 시민 전체 평균 대비 32.7% 낮았으며, 75세 이상은 13.8%만이 키오스크를 사용한 경험이 있는 것으로 나타났다. (*[기사 발췌](https://www.hankyung.com/society/article/2022051694181))*<br>
