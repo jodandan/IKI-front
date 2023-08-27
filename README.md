@@ -7,6 +7,12 @@
 기존의 키오스크 화면은 불필요한 화면전환이 많다고 생각되어 꼭 필요한 화면인 메뉴판만 넣어서 개발하게 되었습니다.
 <br>
 
+# 배포 도메인 주소 
+
+iki.digital
+
+<br>
+
 # 👇 같이 연계한 백엔드 레포
 https://github.com/IKI-UMC/back-end
 
@@ -14,7 +20,7 @@ https://github.com/IKI-UMC/back-end
 
 # 개발 환경 및 사용 기술 
 프론트 엔드 : React, Styled-Component <br>
-백엔드 :                            <br> 
+백엔드 :    Java, SpringBoot,  MySQL, AMAZONEC2                       <br> 
 협업 툴 : Discord, Figma , Notion  <br>
 <br>
 
