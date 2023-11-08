@@ -162,6 +162,6 @@ https://github.com/IKI-UMC/back-end
 
 # 👇 Notion 링크 
 
-https://www.notion.so/IKI-0b804dba91dc47d4aa32ebca97b9450d
+[https://www.notion.so/IKI-0b804dba91dc47d4aa32ebca97b9450d](https://www.notion.so/makeus-challenge/efab7d0e700f4dbbad72b7b581abbf9f)https://www.notion.so/makeus-challenge/efab7d0e700f4dbbad72b7b581abbf9f
 
 
